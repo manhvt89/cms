@@ -8,7 +8,7 @@ class AdminBaseController extends Controller
 {
     protected $session;
 
-    protected $helpers = ['local','form'];
+    protected $helpers = ['local','form','transform'];
 
     public $data = [];
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, 

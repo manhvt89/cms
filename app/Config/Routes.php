@@ -224,7 +224,7 @@ $routes->group('admin', [
     $routes->get('menugroup/delete/(:num)', 'MenuGroup::delete/$1');
     $routes->post('menu-menugroup/update/(:num)', 'Admin\MenuGroup::update/$1');
 
-    //pagesearch
+    //team
     $routes->get('team', 'Team::index');
     $routes->get('team/edit/(:num)', 'Team::edit/$1');
     $routes->post('team/edit/(:num)', 'Team::edit/$1');
@@ -232,6 +232,51 @@ $routes->group('admin', [
     $routes->get('team/add', 'Team::add');
     $routes->post('team/add', 'Team::add');
     $routes->get('team/delete/(:num)', 'Team::delete/$1');
+
+    //client
+    $routes->get('client', 'Client::index');
+    $routes->get('client/edit/(:num)', 'Client::edit/$1');
+    $routes->post('client/edit/(:num)', 'Client::edit/$1');
+
+    $routes->get('client/add', 'Client::add');
+    $routes->post('client/add', 'Client::add');
+    $routes->get('client/delete/(:num)', 'Client::delete/$1');
+
+    //service
+    $routes->get('service', 'Service::index');
+    $routes->get('service/edit/(:num)', 'Service::edit/$1');
+    $routes->post('service/edit/(:num)', 'Service::edit/$1');
+
+    $routes->get('service/add', 'Service::add');
+    $routes->post('service/add', 'Service::add');
+    $routes->get('service/delete/(:num)', 'Service::delete/$1');
+
+    //testimonial
+    $routes->get('testimonial', 'Testimonial::index');
+    $routes->get('testimonial/edit/(:num)', 'Testimonial::edit/$1');
+    $routes->post('testimonial/edit/(:num)', 'Testimonial::edit/$1');
+
+    $routes->get('testimonial/add', 'Testimonial::add');
+    $routes->post('testimonial/add', 'Testimonial::add');
+    $routes->get('testimonial/delete/(:num)', 'Testimonial::delete/$1');
+
+    //pricing
+    $routes->get('pricing', 'Pricing::index');
+    $routes->get('pricing/edit/(:num)', 'Pricing::edit/$1');
+    $routes->post('pricing/edit/(:num)', 'Pricing::edit/$1');
+
+    $routes->get('pricing/add', 'Pricing::add');
+    $routes->post('pricing/add', 'Pricing::add');
+    $routes->get('pricing/delete/(:num)', 'Pricing::delete/$1');
+
+    //whychoose
+    $routes->get('whychoose', 'WhyChoose::index');
+    $routes->get('whychoose/edit/(:num)', 'WhyChoose::edit/$1');
+    $routes->post('whychoose/edit/(:num)', 'WhyChoose::edit/$1');
+
+    $routes->get('whychoose/add', 'WhyChoose::add');
+    $routes->post('whychoose/add', 'WhyChoose::add');
+    $routes->get('whychoose/delete/(:num)', 'WhyChoose::delete/$1');
 });
 
 $routes->get('admin/login', 'Admin\Login::index');

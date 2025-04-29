@@ -113,6 +113,10 @@
                 <a href="<?= base_url('admin/settings') ?>"><i class="fa fa-cogs"></i> <span>Settings</span></a>
             </li>
 
+            <li class="<?= ($segment == 'whychoose') ? 'active' : '' ?>">
+                <a href="<?= base_url('admin/whychoose') ?>"><i class="fa fa-cogs"></i> <span>Why Choose</span></a>
+            </li></li>
+
             <li>
                 <a href="<?= base_url('admin/logout') ?>"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
             </li>
