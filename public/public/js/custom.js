@@ -71,6 +71,7 @@
     }
 
 	if ($('.blog-carousel').length) {
+		console.log('start đoing..');
 		$('.blog-carousel').owlCarousel({
 			loop: true,
 			margin: 30,
@@ -97,6 +98,49 @@
 					items: 3
 				}
 			}
+		});
+	
+		// Hàm để điều chỉnh chiều cao các slide
+		function setEqualHeight() {
+			var maxHeight = 0;
+			var bmaxHeight = 0;
+			
+			// Reset chiều cao trước
+			$('.owl-carousel .blog-item').css('height', 'auto');
+			$('.owl-carousel .blog-item blog-text').css('height', 'auto');
+
+			$('.owl-carousel .blog-item').each(function () {
+				
+				var thisHeight = $(this).outerHeight();
+				if (thisHeight > maxHeight) {
+					maxHeight = thisHeight;
+				}
+				
+			});
+
+			$('.owl-carousel .blog-item').height(maxHeight);
+
+			$('.owl-carousel .blog-item  .blog-text').each(function () {
+				var bthisHeight = $(this).outerHeight();
+				if (bthisHeight > bmaxHeight) {
+					bmaxHeight = bthisHeight;
+				}
+				
+			});
+
+			$('.owl-carousel .blog-item  .blog-text').height(bmaxHeight);
+
+		}
+	
+		// Gọi hàm khi carousel được khởi tạo và khi cửa sổ thay đổi kích thước
+		$('.blog-carousel').on('initialized.owl.carousel resized.owl.carousel', function () {
+			console.log('start đoing..')
+			setEqualHeight();
+		});
+	
+		// Gọi lại khi nội dung thay đổi hoặc hình ảnh được tải
+		$(window).on('load resize', function () {
+			setEqualHeight();
 		});
 	}
 

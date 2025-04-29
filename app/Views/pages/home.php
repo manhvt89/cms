@@ -8,7 +8,7 @@
         <!--Slider Start-->
         <?=slider($home_sliders)?>
         <!--Slider End-->
-
+        
         <!--About Start-->
 <?php if($page_home_lang_independent['home_welcome_status'] == 'Show'): ?>
 <div class="about-area pt_60 pb_90">
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="col-lg-6 mt_30">
-                <div class="about-tab" style="background-image: url(<?php echo base_url(); ?>public/uploads/<?php echo $page_home_lang_independent['home_welcome_video_bg']; ?>)">
+                <div class="about-tab" style="background-image: url(<?php echo base_url($page_home_lang_independent['home_welcome_video_bg']); ?>)">
                     <div class="video-section">
                         <a class="video-button" href="#" data-toggle="modal" data-target="#myModal"><span></span></a>
                     </div>
@@ -542,8 +542,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="headline hl-white">
-                    <h2><?php echo $page_home['home_testimonial_title']; ?></h2>
-                    <h3><?php echo $page_home['home_testimonial_subtitle']; ?></h3>
+                    <h2><?=$page_home['home_testimonial_title']; ?></h2>
+                    <h3><?=$page_home['home_testimonial_subtitle']; ?></h3>
                 </div>
             </div>
         </div>

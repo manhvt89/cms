@@ -87,7 +87,7 @@ class WhyChoose extends AdminBaseController
 			return redirect()->to(base_url($this->index_url));
 
 		} else {
-			$data['pricing_table'] = $this->_Model->getData($id);
+			$data['why_choose'] = $this->_Model->getData($id);
            
 			return view($this->edit_url,$data);
 			

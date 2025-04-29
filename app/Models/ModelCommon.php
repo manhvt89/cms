@@ -158,6 +158,7 @@ class ModelCommon extends Model
                     ->select('*')
                     ->join('tbl_category t2', 't1.category_id = t2.category_id')
                     ->where('t1.lang_id', $langId)
+                    ->where('t1.deleted_at IS NULL') // Lọc bản ghi chưa bị xóa mềm
                     ->orderBy('t1.news_id', 'DESC')
                     ->get()
                     ->getResultArray();

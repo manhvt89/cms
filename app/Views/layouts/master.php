@@ -10,7 +10,7 @@
     <title><?=$meta_title ?? "" ?></title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= base_url('uploads/'.$setting['favicon']) ?>">
+    <link rel="icon" type="image/png" href="<?= base_url($setting['favicon']) ?>">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/animate.min.css">
@@ -31,6 +31,19 @@
 
     <!-- Dynamic Color Styles -->
     <style>
+        .owl-carousel .owl-item {
+        display: flex;
+        height: 100%;
+        }
+
+        .owl-carousel .blog-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        }
+
+
         .header-area,
         .footer-item h3:before,
         .footer-item h3:after {
@@ -107,5 +120,51 @@
     <?php if($all_setting['tawk_live_chat_status'] == 'On'): ?>
     <?= $all_setting['tawk_live_chat_code'] ?>
     <?php endif; ?>
+    <script>
+        function setEqualHeight() {
+                var maxHeight = 0;
+                var bmaxHeight = 0;
+                
+                // Reset chiều cao trước
+                $('.blog-carousel .blog-item').css('height', 'auto');
+                $('.blog-carousel .blog-item blog-text').css('height', 'auto');
+
+                $('.blog-carousel .blog-item').each(function () {
+                    
+                    var thisHeight = $(this).outerHeight();
+                    if (thisHeight > maxHeight) {
+                        maxHeight = thisHeight;
+                    }
+                    
+                });
+
+                $('.blog-carousel .blog-item').height(maxHeight);
+
+                $('.blog-carousel .blog-item  .blog-text').each(function () {
+                    var bthisHeight = $(this).outerHeight();
+                    if (bthisHeight > bmaxHeight) {
+                        bmaxHeight = bthisHeight;
+                    }
+                    
+                });
+
+                $('.blog-carousel .blog-item  .blog-text').height(bmaxHeight);
+
+            }
+
+            // Đảm bảo gọi sau khi carousel hoàn tất render
+            $(document).ready(function () {
+                var $carousel = $('.blog-carousel');
+
+                $carousel.on('initialized.owl.carousel resized.owl.carousel refreshed.owl.carousel', function () {
+                    setEqualHeight();
+                });
+
+                // Nếu carousel đã được init trước khi bạn gán sự kiện
+                if ($carousel.hasClass('owl-loaded')) {
+                    setTimeout(setEqualHeight, 300);
+                }
+            });
+</script>
 </body>
 </html>

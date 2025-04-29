@@ -5446,3 +5446,32 @@ span.input-group-btn {
 	color: #0e76a8!important;
 	background: #fff;
 }
+
+.blog-carousel .owl-item .item {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-carousel .owl-stage {
+    display: flex;
+    align-items: stretch;
+}
+
+.blog-carousel .owl-item {
+    float: none !important;
+    width: calc(100% / 3 - 20px) !important; /* Chia 1/3, trừ margin */
+}
+
+@media (max-width: 991px) {
+    .blog-carousel .owl-item {
+        width: calc(100% / 2 - 20px) !important; /* Cho màn hình 768px */
+    }
+}
+
+@media (max-width: 767px) {
+    .blog-carousel .owl-item {
+        width: 100% !important; /* Cho màn hình nhỏ */
+    }
+}

@@ -7,12 +7,11 @@ use CodeIgniter\Model;
 class WhyChooseModel extends Model
 {
     protected $db;
-    protected $table = 'tbl_service';
+    protected $table = 'tbl_why_choose';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'name','photo','description',
-        'short_description','lang_id',
-        'meta_title','meta_keyword','meta_description'
+        'name','icon','content',
+        'photo','lang_id'
     ];
 
     protected $useAutoIncrement = true;
@@ -61,7 +60,7 @@ class WhyChooseModel extends Model
     }
 
     public function show() {
-        return $this->db->table('tbl_service t1')
+        return $this->db->table("{$this->table} t1")
                     ->join('tbl_lang t2','t1.lang_id = t2.lang_id')
                     ->orderBy('id','ASC')
                     ->get()

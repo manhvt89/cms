@@ -135,7 +135,7 @@ abstract class BaseController extends Controller
         $data['portfolio_footer']       = $portfolio_footer;
         $footer_setting_lang_independent = $commonModel->all_footer_setting_lang_independent();
         $data['footer_setting_lang_independent'] = $footer_setting_lang_independent;
-        $data['all_news']  = $commonModel->all_news();
+        $data['all_news']  = $commonModel->all_news($langId);
         $data['footer_setting'] = $commonModel->all_footer_setting($langId);
         $data['social'] = $commonModel->all_social();
 

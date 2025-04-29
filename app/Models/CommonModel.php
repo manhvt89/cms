@@ -38,9 +38,12 @@ class CommonModel extends Model
         return $this->db->table('tbl_social')->get()->getResultArray();
     }
 
-    public function all_news()
+    public function all_news($lang_id)
     {
-        return $this->db->table('tbl_news')->get()->getResultArray();
+        return $this->db->table('tbl_news')
+                        ->where('lang_id',$lang_id)
+                        ->where('deleted_at IS NULL')
+                        ->orderBy('news_id','DESC')->get()->getResultArray();
     }
 
     public function get_page_faq()
