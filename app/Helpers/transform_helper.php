@@ -54,3 +54,33 @@ if (!function_exists('transform_client_list')) {
         return $result;
     }
 }
+
+if (!function_exists('transform_the_news')) {
+    function transform_the_news(array $news): array
+    {
+        $defaultPhoto = '/uploads/default-client.png'; // Ảnh mặc định nếu không có ảnh
+        $result = [];
+
+        $news['news_date'] = format_news_date($news['news_date']);
+
+        // STT
+        
+        // Ảnh
+        $photoPath = !empty($news['photo']) ? $news['photo'] : $defaultPhoto;
+        $news['photo'] = '<img src="' . base_url($photoPath) . '" alt="' . esc($news['news_title']) . '" title="' . esc($news['news_title']) . '">';
+        
+        $_sSlugCat = slugify($news["category_name"]);
+
+        // URL
+        $news['cat'] = "";
+        
+        // Full HTML nút Delete
+        $catUrl = base_url("category/{$_sSlugCat}-{$news['category_id']}");
+        $button = <<<HTML
+                    <a href="{$catUrl}" class="btn btn-danger btn-xs">{$news["category_name"]}</a>
+                    HTML;
+        $news['cat'] = $button;
+
+        return $news;
+    }
+}

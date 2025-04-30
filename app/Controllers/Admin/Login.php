@@ -59,8 +59,10 @@ class Login extends BaseController
                 'status'    => $user['status'],
                 'logged_in' => true,
             ]);
-
-            return redirect()->to(base_url('admin/dashboard'));
+             // Lấy URL đã lưu và xóa nó sau khi sử dụng
+             $redirect = session()->get('redirect_url') ?? '/dashboard';
+             return redirect()->to($redirect);
+            //return redirect()->to(base_url('admin/dashboard'));
         }
 
         return view('admin/login', $data);

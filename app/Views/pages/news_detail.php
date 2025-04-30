@@ -6,7 +6,7 @@
     <div class="bg"></div>
     <div class="bannder-table">
         <div class="banner-text">
-            <h1><?php echo $news_detail['news_title']; ?></h1>
+            <h1><?=$news_detail['news_title']; ?></h1>
         </div>
     </div>
 </div>
@@ -17,27 +17,12 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="single-blog">
-                    <img src="<?php echo base_url(str_replace('','',$news_detail['photo'])); ?>" alt="News Photo">
-                    <h3><?php echo $news_detail['news_title']; ?></h3>
+                    <?=$news_detail['photo']?>
+                    <h3><?=$news_detail['news_title']; ?></h3>
                     <ul>
-                        <li><i class="fa fa-edit"></i><a href="<?php echo base_url(); ?>category/<?php echo $news_detail['category_id']; ?>"><?php echo $news_detail['category_name']; ?></a></li>
+                        <li><i class="fa fa-edit"></i><?=$news_detail["cat"]?></li>
                         <li><i class="fa fa-calendar-o"></i>
-                            <?php 
-                            $dt = explode('-',$news_detail['news_date']);
-                            if($dt[1] == '01') {$month = 'January';}
-                            if($dt[1] == '02') {$month = 'February';}
-                            if($dt[1] == '03') {$month = 'March';}
-                            if($dt[1] == '04') {$month = 'April';}
-                            if($dt[1] == '05') {$month = 'May';}
-                            if($dt[1] == '06') {$month = 'June';}
-                            if($dt[1] == '07') {$month = 'July';}
-                            if($dt[1] == '08') {$month = 'August';}
-                            if($dt[1] == '09') {$month = 'September';}
-                            if($dt[1] == '10') {$month = 'October';}
-                            if($dt[1] == '11') {$month = 'November';}
-                            if($dt[1] == '12') {$month = 'December';}
-                            echo $month . ' ' . $dt[2] . ', ' . $dt[0];
-                            ?>
+                            <?= $news_detail['news_date']?>
                         </li>
                     </ul>
                     <?php echo $news_detail['news_content']; ?>

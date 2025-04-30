@@ -13,6 +13,7 @@ class News extends BaseController
     protected $sidebar_items = [];
     public function __construct()
     {
+        helper('transform');
         $this->common    = new CommonModel();
         
         $this->news   = new NewsModel();
@@ -98,13 +99,13 @@ class News extends BaseController
             $data = array_merge([],$this->data);
             $news_detail = $modelNews->news_detail_with_category($id);
             $meta_title = $news_detail['mt'] !="" ? $news_detail['mt'] : $news_detail['news_title'];
-            $meta_description = $news_detail['md'] == ""? $news_detail['md'] : $news_detail['news_content_short'];
+            $meta_description = $news_detail['md'] != ""? $news_detail['md'] : $news_detail['news_content_short'];
             $data['meta_title'] = $meta_title;
             $data['meta_description'] = $meta_description;
             $data['meta_keywords'] = $news_detail['mk'];
             //var_dump($news_detail);die();
 
-            $data['news_detail'] = $news_detail;
+            $data['news_detail'] = transform_the_news($news_detail);
             $data['comment'] = $modelCommon->all_comment();
             //$data['all_news'] = $modelCommon->all_news();
             $all_categories = $modelCommon->all_categories();
