@@ -128,6 +128,14 @@
 								<textarea class="form-control" name="meta_description" style="height:100px;"><?=old('meta_description')?></textarea>
 							</div>
 						</div>
+						<div class="form-group"></div>
+						<div id="seo_score_box">SEO Score: <span id="seo_score">0</span></div>
+						<div id="readability_score_box">Readability: <span id="readability_score">0</span></div>
+						<div id="seo_suggestions"></div>
+
+						<input type="hidden" name="seo_score" id="input_seo_score" />
+						<input type="hidden" name="readability_score" id="input_readability_score" />
+						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Language </label>
 							<div class="col-sm-2">
@@ -154,5 +162,75 @@
 	</div>
 
 </section>
+
+<script>
+    function analyzeSEO(content, keyword, title, description) {
+        const keywordCount = content.toLowerCase().split(keyword.toLowerCase()).length - 1;
+        const keywordDensity = (keywordCount / content.split(" ").length) * 100;
+
+        let score = 0;
+        if (title.toLowerCase().includes(keyword.toLowerCase())) score += 10;
+        if (description.toLowerCase().includes(keyword.toLowerCase())) score += 10;
+        if (keywordDensity >= 1 && keywordDensity <= 3) score += 10;
+        if (keywordCount >= 2) score += 10;
+
+        return {
+            score,
+            keywordCount,
+            keywordDensity: keywordDensity.toFixed(2)
+        };
+    }
+
+    function analyzeReadability(content) {
+        const words = content.trim().split(/\s+/).length;
+        const sentences = content.split(/[.!?]/).filter(Boolean).length;
+        const avgWordsPerSentence = words / (sentences || 1);
+        const flesch = 206.835 - 1.015 * avgWordsPerSentence - 84.6 * (syllables(content) / words);
+
+        return {
+            flesch: flesch.toFixed(2),
+            sentences,
+            words
+        };
+    }
+
+    function syllables(text) {
+        return text.toLowerCase().split(/[^aeiouy]+/).filter(s => s.length > 0).length;
+    }
+
+    function suggestImprovements(seo, readability) {
+        const suggestions = [];
+        if (seo.score < 30) suggestions.push("⚠️ SEO chưa tối ưu. Cần thêm từ khóa vào tiêu đề, mô tả, nội dung.");
+        if (readability.flesch < 60) suggestions.push("⚠️ Văn bản khó đọc. Cần viết ngắn gọn và rõ ràng hơn.");
+        if (seo.keywordDensity > 4) suggestions.push("⚠️ Mật độ từ khóa quá cao.");
+        return suggestions;
+    }
+
+    function updateScore() {
+        const content = document.getElementById('content').value;
+        const keyword = document.getElementById('focus_keyword').value;
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+
+        const seo = analyzeSEO(content, keyword, title, description);
+        const readability = analyzeReadability(content);
+        const suggestions = suggestImprovements(seo, readability);
+
+        document.getElementById('seo_score').innerText = seo.score;
+        document.getElementById('readability_score').innerText = readability.flesch;
+        document.getElementById('input_seo_score').value = seo.score;
+        document.getElementById('input_readability_score').value = readability.flesch;
+
+        const suggestionBox = document.getElementById('seo_suggestions');
+        suggestionBox.innerHTML = suggestions.map(s => `<p>${s}</p>`).join("");
+    }
+
+    ['content', 'title', 'description', 'focus_keyword'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateScore);
+    });
+
+    window.addEventListener('DOMContentLoaded', updateScore);
+</script>
+
 
 <?= $this->endSection() ?>

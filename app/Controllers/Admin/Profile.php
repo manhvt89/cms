@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
+use App\Controllers\Admin\AdminBaseController;
 use App\Models\Admin\ModelCommon;
 use App\Models\Admin\ModelProfile;
 
-class Profile extends BaseController
+class Profile extends AdminBaseController
 {
     protected $modelCommon;
     protected $modelProfile;
@@ -22,6 +22,7 @@ class Profile extends BaseController
 
     public function index()
     {
+        $data = $this->data;
         $data['setting'] = $this->modelCommon->get_setting_data();
 
         return view('admin/profile',$data);

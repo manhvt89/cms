@@ -28,10 +28,7 @@ class FooterSetting extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
-
-		
+		$data = $this->data;
 		$data['footer_setting'] = $this->_Model->show();
 		$data['footer_setting_lang_independent'] = $this->_Model->show_lang_independent();
 		$data['setting'] = $this->commonModel->get_setting_data();
@@ -41,7 +38,7 @@ class FooterSetting extends AdminBaseController
 
 	public function edit($id)
 	{
-		
+		$data = $this->data;
     	// If there is no event in this id, then redirect
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {

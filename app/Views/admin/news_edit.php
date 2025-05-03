@@ -48,7 +48,7 @@
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">News Content <span>*</span></label>
 							<div class="col-sm-9">
-								<textarea class="form-control editor" name="news_content"><?php echo $news['news_content']; ?></textarea>
+								<textarea class="form-control editor" name="news_content" id="news_content"><?php echo $news['news_content']; ?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -126,20 +126,49 @@
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Meta Title </label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="meta_title" value="<?php echo $news['meta_title']; ?>">
+								<input type="text" class="form-control" name="meta_title" id="meta_title" value="<?php echo $news['meta_title']; ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Meta Keywords </label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="meta_keyword" value="<?php echo $news['meta_keyword']; ?>">
+								<input type="text" class="form-control" name="meta_keyword" id="meta_keyword" value="<?php echo $news['meta_keyword']; ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Meta Description </label>
 							<div class="col-sm-9">
-								<textarea class="form-control" name="meta_description" style="height:200px;"><?php echo $news['meta_description']; ?></textarea>
+								<textarea class="form-control" name="meta_description" id="meta_description" style="height:200px;"><?php echo $news['meta_description']; ?></textarea>
 							</div>
+						</div>
+						<div class="form-group"></div>
+						<div style="margin: 10px 0;">
+  <label>SEO Score:</label>
+  <span id="seo_score" style="padding: 4px 10px; border-radius: 4px; color: #fff;">0</span>
+</div>
+
+<div style="margin: 10px 0;">
+  <label>Readability:</label>
+  <span id="readability_score" style="padding: 4px 10px; border-radius: 4px; color: #fff;">0</span>
+</div>
+
+<!-- Nút mở modal -->
+<button type="button" onclick="showPreview()" style="margin: 10px 0;">🔍 Xem đánh giá chi tiết</button>
+
+<!-- Modal -->
+<div id="seo_modal" style="display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #ccc; padding: 20px; z-index: 9999; width: 60%; box-shadow: 0 0 20px rgba(0,0,0,0.2); border-radius: 10px;">
+  <h3>🧠 Đánh giá SEO & Readability</h3>
+  <div id="modal_content"></div>
+  <button onclick="closePreview()">Đóng</button>
+</div>
+
+<!-- Lớp phủ nền -->
+<div id="seo_modal_overlay" style="display: none; position: fixed; top: 0; left: 0; width:100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9998;" onclick="closePreview()"></div>
+
+						<div id="seo_suggestions"></div>
+
+						<input type="hidden" name="seo_score" id="input_seo_score" />
+						<input type="hidden" name="readability_score" id="input_readability_score" />
 						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Language </label>
@@ -167,5 +196,106 @@
 	</div>
 
 </section>
+<script>
+function analyzeSEO(content, keyword, title, description) {
+        const keywordCount = content.toLowerCase().split(keyword.toLowerCase()).length - 1;
+        const keywordDensity = (keywordCount / content.split(" ").length) * 100;
 
+        let score = 0;
+        if (title.toLowerCase().includes(keyword.toLowerCase())) score += 10;
+        if (description.toLowerCase().includes(keyword.toLowerCase())) score += 10;
+        if (keywordDensity >= 1 && keywordDensity <= 3) score += 10;
+        if (keywordCount >= 2) score += 10;
+
+        return {
+            score,
+            keywordCount,
+            keywordDensity: keywordDensity.toFixed(2)
+        };
+    }
+
+    function analyzeReadability(content) {
+        const words = content.trim().split(/\s+/).length;
+        const sentences = content.split(/[.!?]/).filter(Boolean).length;
+        const avgWordsPerSentence = words / (sentences || 1);
+        const flesch = 206.835 - 1.015 * avgWordsPerSentence - 84.6 * (syllables(content) / words);
+
+        return {
+            flesch: flesch.toFixed(2),
+            sentences,
+            words
+        };
+    }
+
+    function syllables(text) {
+        return text.toLowerCase().split(/[^aeiouy]+/).filter(s => s.length > 0).length;
+    }
+
+    function suggestImprovements(seo, readability) {
+        const suggestions = [];
+        if (seo.score < 30) suggestions.push("⚠️ SEO chưa tối ưu. Cần thêm từ khóa vào tiêu đề, mô tả, nội dung.");
+        if (readability.flesch < 60) suggestions.push("⚠️ Văn bản khó đọc. Cần viết ngắn gọn và rõ ràng hơn.");
+        if (seo.keywordDensity > 4) suggestions.push("⚠️ Mật độ từ khóa quá cao.");
+        return suggestions;
+    }
+
+    function updateScore() {
+		const content = document.getElementById('news_content').value;
+		const keyword = document.getElementById('meta_keyword').value;
+		const title = document.getElementById('meta_title').value;
+		const description = document.getElementById('meta_description').value;
+
+		const seo = analyzeSEO(content, keyword, title, description);
+		const readability = analyzeReadability(content);
+		const suggestions = suggestImprovements(seo, readability);
+
+		const seoElem = document.getElementById('seo_score');
+		const readElem = document.getElementById('readability_score');
+
+		seoElem.innerText = seo.score;
+		readElem.innerText = readability.flesch;
+
+		// Màu cho điểm SEO
+		seoElem.style.backgroundColor = seo.score >= 40 ? (seo.score >= 70 ? '#28a745' : '#ffc107') : '#dc3545';
+		// Màu cho Readability
+		readElem.style.backgroundColor = readability.flesch >= 60 ? '#28a745' : (readability.flesch >= 40 ? '#ffc107' : '#dc3545');
+
+		// Ẩn suggestion chi tiết (nếu cần)
+		const suggestionBox = document.getElementById('seo_suggestions');
+		suggestionBox.innerHTML = suggestions.map(s => `<p>${s}</p>`).join("");
+
+		// Gán giá trị cho form
+		document.getElementById('input_seo_score').value = seo.score;
+		document.getElementById('input_readability_score').value = readability.flesch;
+
+		// Gán thông tin vào modal
+		document.getElementById('modal_content').innerHTML = `
+			<p><strong>Từ khoá chính:</strong> ${keyword}</p>
+			<p><strong>Mật độ từ khoá:</strong> ${seo.keywordDensity}% (${seo.keywordCount} lần)</p>
+			<p><strong>Số câu:</strong> ${readability.sentences}</p>
+			<p><strong>Số từ:</strong> ${readability.words}</p>
+			<p><strong>Chỉ số Flesch:</strong> ${readability.flesch}</p>
+			<h4>🔧 Gợi ý cải thiện:</h4>
+			${suggestions.map(s => `<li>${s}</li>`).join('')}
+		`;
+	}
+
+
+    ['news_content', 'meta_title', 'meta_description', 'meta_keyword'].forEach(id => {
+		console.log(document.getElementById(id));
+        document.getElementById(id).addEventListener('input', updateScore);
+    });
+
+    window.addEventListener('DOMContentLoaded', updateScore);
+
+	function showPreview() {
+		document.getElementById('seo_modal').style.display = 'block';
+		document.getElementById('seo_modal_overlay').style.display = 'block';
+	}
+
+	function closePreview() {
+		document.getElementById('seo_modal').style.display = 'none';
+		document.getElementById('seo_modal_overlay').style.display = 'none';
+	}
+	</script>
 <?= $this->endSection() ?>

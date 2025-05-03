@@ -28,8 +28,7 @@ class PageHome extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$_items = $this->_Model->show();
 		$data['page_home'] = $_items;
@@ -43,13 +42,10 @@ class PageHome extends AdminBaseController
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));     	
     	}
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
-		
-		$error = '';
+	
 		$success = '';
-
-		
-
 		if($this->request->getPost('form1')) 
 		{
 			if(PROJECT_MODE == 0) {
@@ -315,5 +311,4 @@ class PageHome extends AdminBaseController
 			15)) return $redirect;
 	}
 	
-
 }

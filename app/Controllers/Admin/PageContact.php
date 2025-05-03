@@ -16,7 +16,6 @@ class PageContact extends AdminBaseController
 	protected $add_url;
 	protected $edit_url;
 
-	protected $data = [];
     public function __construct()
     {
         $this->_Model = new PageContactModel();
@@ -35,8 +34,6 @@ class PageContact extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
 		$_items = $this->_Model->show();
 		$data = $this->data;
 		$data['page'] = $_items;
@@ -135,6 +132,7 @@ class PageContact extends AdminBaseController
 
 	public function detail($id)
     {
+		$data = $this->data;
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));

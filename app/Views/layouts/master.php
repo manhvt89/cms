@@ -31,12 +31,12 @@
 
     <!-- Dynamic Color Styles -->
     <style>
-        .owl-carousel .owl-item {
+        .owl-carousel.blog-carousel .owl-item {
         display: flex;
         height: 100%;
         }
 
-        .owl-carousel .blog-item {
+        .owl-carousel.blog-carousel .blog-item {
         display: flex;
         flex-direction: column;
         justify-content: space-between;

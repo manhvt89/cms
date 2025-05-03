@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
+use App\Controllers\Admin\AdminBaseController;
 use App\Models\Admin\NewsModel;
 use App\Models\Admin\CategoryModel;
 use App\Models\CommonModel;
@@ -12,7 +12,7 @@ use App\Models\Admin\ModelCommon;
 use App\Models\Admin\ModelCategory;
 use App\Models\Admin\ModelNews;
 
-class News extends BaseController
+class News extends AdminBaseController
 {
     protected $newsModel;
     protected $categoryModel;
@@ -28,6 +28,7 @@ class News extends BaseController
 
     public function index(): string
     {
+        $data = $this->data;
         $data['news'] = $this->newsModel->show();
         $data['setting'] = $this->commonModel->get_setting_data();
         return view('admin/news', $data);
@@ -36,6 +37,7 @@ class News extends BaseController
 
     public function add()
     {
+        $data = $this->data;
         $data['setting'] = $this->commonModel->get_setting_data();
         $data['all_lang'] = $this->commonModel->all_lang();
         $data['all_category'] = $this->newsModel->get_category();
@@ -76,7 +78,9 @@ class News extends BaseController
                 'meta_title' => $meta_title,
                 'meta_keyword' => $meta_keyword,
                 'meta_description' => $meta_description,
-                'lang_id' => $this->request->getPost('lang_id')
+                'lang_id' => $this->request->getPost('lang_id'),
+                'seo_score'   => $this->request->getPost('seo_score'),
+                'readability_score' => $this->request->getPost('readability_score'),
             ]);
             if($rs > 0)
             {
@@ -94,6 +98,7 @@ class News extends BaseController
 
     public function edit($id)
     {
+        $data = $this->data;
         $_aNews = $this->newsModel->getData($id);
         if(!$_aNews)
         {
@@ -156,6 +161,8 @@ class News extends BaseController
                 'lang_id'            => $this->request->getPost('lang_id'),
                 'photo'              => $this->request->getPost('featured-photo'),
                 'banner' => $this->request->getPost('banner-photo'),
+                'seo_score'   => $this->request->getPost('seo_score'),
+                'readability_score' => $this->request->getPost('readability_score'),
             ];
 
             $this->newsModel->_update($id, $form_data);

@@ -50,7 +50,7 @@ class Service extends AdminBaseController
     		return redirect()->to(base_url($this->index_url));
         	
     	}
-
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['all_lang'] = $this->commonModel->all_lang();
 		$error = '';
@@ -117,6 +117,7 @@ class Service extends AdminBaseController
 	
 	public function add()
 	{
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['all_lang'] = $this->commonModel->all_lang();
 		$error = '';

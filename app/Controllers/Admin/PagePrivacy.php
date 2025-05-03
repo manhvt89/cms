@@ -16,7 +16,6 @@ class PagePrivacy extends AdminBaseController
 	protected $add_url;
 	protected $edit_url;
 
-	protected $data = [];
     public function __construct()
     {
         $this->_Model = new PagePrivacyModel();
@@ -35,13 +34,12 @@ class PagePrivacy extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
+
 		$_items = $this->_Model->show();
 		$data = $this->data;
 		$data['page'] = $_items;
 		$data['title'] = "View Privacy Page";
-		//var_dump($_items);die();
+
         return view($this->index_url, $data); //admin/slider
 	}
 
@@ -139,10 +137,9 @@ class PagePrivacy extends AdminBaseController
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));
     	}
-       	
+		$data = $this->data;
        	$data['setting'] = $this->commonModel->get_setting_data();
 
-       	$error = '';
 		$success = '';
 
 		if(isset($_POST['form1'])) 

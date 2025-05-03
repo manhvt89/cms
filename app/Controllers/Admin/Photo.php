@@ -28,9 +28,8 @@ class Photo extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
-
+	
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['photo'] = $this->photoModel->show();
         return view($this->index_url, $data); //admin/photo
@@ -38,6 +37,7 @@ class Photo extends AdminBaseController
 
 	public function add()
 	{
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['all_lang'] = $this->commonModel->all_lang();
 
@@ -85,6 +85,7 @@ class Photo extends AdminBaseController
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));     	
     	}
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['all_lang'] = $this->commonModel->all_lang();
 		$error = '';

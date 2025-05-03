@@ -37,7 +37,7 @@ class MenuGroup extends AdminBaseController
 
     public function index()
 	{
-		
+		$data = $this->data;
 		$data['menuGroups'] = $this->menuGroupModel->findAll();
 		return view($this->index_url, $data); //admin/menu
 		
@@ -45,6 +45,7 @@ class MenuGroup extends AdminBaseController
 
 	public function create()
     {
+		$data = $this->data;
         return view($this->add_url);
     }
 
@@ -72,6 +73,7 @@ class MenuGroup extends AdminBaseController
 
     public function edit($id)
     {
+		$data = $this->data;
         $data['group'] = $this->menuGroupModel->find($id);
         return view($this->edit_url, $data);
     }

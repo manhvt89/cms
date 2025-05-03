@@ -41,6 +41,7 @@
                                <textarea class="form-control h_100" name="md"><?php echo $page['md']; ?></textarea>
                             </div>
                         </div>
+                        <div id="seo_analysis_results"></div>
                         <div class="form-group">
                             <label for="" class="col-sm-2 control-label">Language </label>
                             <div class="col-sm-2">

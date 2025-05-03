@@ -45,6 +45,7 @@
 				"<i class='fa fa-angle-right'></i>"
 			]
 		});
+		
 	}
 
 	if ($('.testimonial-carousel').length) {
@@ -71,7 +72,6 @@
     }
 
 	if ($('.blog-carousel').length) {
-		console.log('start đoing..');
 		$('.blog-carousel').owlCarousel({
 			loop: true,
 			margin: 30,
@@ -134,7 +134,6 @@
 	
 		// Gọi hàm khi carousel được khởi tạo và khi cửa sổ thay đổi kích thước
 		$('.blog-carousel').on('initialized.owl.carousel resized.owl.carousel', function () {
-			console.log('start đoing..')
 			setEqualHeight();
 		});
 	

@@ -277,6 +277,40 @@ $routes->group('admin', [
     $routes->get('whychoose/add', 'WhyChoose::add');
     $routes->post('whychoose/add', 'WhyChoose::add');
     $routes->get('whychoose/delete/(:num)', 'WhyChoose::delete/$1');
+
+    //shop/dashboard
+    $routes->get('shop/dashboard', 'ShopDashboard::index');
+
+    //shop/add/category
+    $routes->get('shop/add/category', 'ShopCategory::add');
+    $routes->post('shop/add/category', 'ShopCategory::add');
+
+    $routes->get('shop/manage/category', 'ShopCategory::index');
+    $routes->get('shop/edit/category/(:num)', 'ShopCategory::edit/$1');
+    $routes->post('shop/edit/category/(:num)', 'ShopCategory::edit/$1');
+
+    $routes->get('shop/delete/category/(:num)', 'ShopCategory::delete/$1');
+
+    //shop/manage/brand
+    $routes->get('shop/add/brand', 'ShopBrand::add');
+    $routes->post('shop/add/brand', 'ShopBrand::add');
+
+    $routes->get('shop/manage/brand', 'ShopBrand::index');
+    $routes->get('shop/edit/brand/(:num)', 'ShopBrand::edit/$1');
+    $routes->post('shop/edit/brand/(:num)', 'ShopBrand::edit/$1');
+
+    $routes->get('shop/delete/brand/(:num)', 'ShopBrand::delete/$1');
+
+    //shop/manage/product
+    $routes->get('shop/add/product', 'ShopProduct::add');
+    $routes->post('shop/add/product', 'ShopProduct::add');
+
+    $routes->get('shop/manage/product', 'ShopProduct::index');
+    $routes->get('shop/edit/product/(:num)', 'ShopProduct::edit/$1');
+    $routes->post('shop/edit/product/(:num)', 'ShopProduct::edit/$1');
+
+    $routes->get('shop/delete/product/(:num)', 'ShopProduct::delete/$1');
+
 });
 
 $routes->get('admin/login', 'Admin\Login::index');

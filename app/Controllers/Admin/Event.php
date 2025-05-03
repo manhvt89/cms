@@ -23,9 +23,7 @@ class Event extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
-
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['event'] = $this->eventModel->show();
         return view('admin/event', $data);
@@ -33,6 +31,7 @@ class Event extends AdminBaseController
 
 	public function add()
 	{
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['all_lang'] = $this->commonModel->all_lang();
 
@@ -108,7 +107,7 @@ class Event extends AdminBaseController
 
 	public function edit($id)
 	{
-		
+		$data = $this->data;
     	// If there is no event in this id, then redirect
     	$tot = $this->eventModel->event_check($id);
     	if(!$tot) {

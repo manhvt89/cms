@@ -28,8 +28,7 @@ class Lang extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$_items = $this->_Model->show();
 		$data['lang'] = $_items;
@@ -38,6 +37,7 @@ class Lang extends AdminBaseController
 
 	public function add()
 	{
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		
 		$next_id = $this->_Model->get_auto_increment_id();
@@ -425,6 +425,7 @@ class Lang extends AdminBaseController
 
 	public function edit($id)
 	{
+		$data = $this->data;
     	// If there is no event in this id, then redirect
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
@@ -495,8 +496,6 @@ class Lang extends AdminBaseController
 		}
 
 	}
-
-
 	public function delete($id) 
 	{
     	$tot = $this->_Model->item_check($id);
@@ -570,6 +569,7 @@ class Lang extends AdminBaseController
 
 	public function detail($id)
     {
+		$data = $this->data;
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));
@@ -629,8 +629,7 @@ class Lang extends AdminBaseController
 		
     }
 
-
-    function change($short_name)
+    public function change($short_name)
     {
 
 		if(PROJECT_MODE == 0) {
@@ -651,7 +650,7 @@ class Lang extends AdminBaseController
     		$_SESSION['admin_sess_lang'] = 'EN';
     	}
 
-    	redirect($this->agent->referrer());
+    	redirect()->to($this->agent->referrer());
     }
 
 

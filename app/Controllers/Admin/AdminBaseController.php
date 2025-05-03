@@ -25,7 +25,7 @@ class AdminBaseController extends Controller
         if (!$this->session->get('logged_in')) {
             return redirect()->to(base_url('admin/login'))->send();
         }
-
+        $this->data['shop_is_active'] = function_exists('shop_is_active');
         // Có thể load model, helper tại đây nếu dùng chung
     }
 

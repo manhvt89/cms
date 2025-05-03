@@ -28,8 +28,7 @@ class PageAbout extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$_items = $this->_Model->show();
 		$data['page_about'] = $_items;
@@ -38,6 +37,7 @@ class PageAbout extends AdminBaseController
 
 	public function edit($id)
 	{
+		$data = $this->data;
     	// If there is no event in this id, then redirect
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
@@ -121,6 +121,7 @@ class PageAbout extends AdminBaseController
 
 	public function detail($id)
     {
+		$data = $this->data;
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));
@@ -181,7 +182,7 @@ class PageAbout extends AdminBaseController
     }
 
 
-    function change($short_name)
+    public function change($short_name)
     {
 
 		if(PROJECT_MODE == 0) {

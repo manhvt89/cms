@@ -16,7 +16,6 @@ class PageTeam extends AdminBaseController
 	protected $add_url;
 	protected $edit_url;
 
-	protected $data = [];
     public function __construct()
     {
         $this->_Model = new PageTeamModel();
@@ -35,8 +34,6 @@ class PageTeam extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
 		$_items = $this->_Model->show();
 		$data = $this->data;
 		$data['page'] = $_items;
@@ -130,7 +127,7 @@ class PageTeam extends AdminBaseController
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));
     	}
-       	
+		$data = $this->data;
        	$data['setting'] = $this->commonModel->get_setting_data();
 
        	$error = '';

@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
+use App\Controllers\Admin\AdminBaseController;
 use App\Models\Admin\ModelCommon;
 use App\Models\Admin\ModelCategory;
 
-class Category extends BaseController
+class Category extends AdminBaseController
 {
     protected $modelCommon;
     protected $modelCategory;
@@ -21,14 +21,15 @@ class Category extends BaseController
     }
 
     public function index()
-    {
+    {   
+        $data = $this->data;
         $data['setting'] = $this->modelCommon->get_setting_data();
 		$data['category'] = $this->modelCategory->show();
-
 		return view('admin/category',$data);
     }
     public function add()
 	{
+        $data = $this->data;
 		$data['setting'] = $this->modelCommon->get_setting_data();
 		$data['all_lang'] = $this->modelCommon->all_lang();
 
@@ -108,6 +109,7 @@ class Category extends BaseController
 
 	public function edit($id)
 	{
+        $data = $this->data;
 		$_aCategory = $this->modelCategory->get_category($id);
         if(empty($_aCategory))
         {

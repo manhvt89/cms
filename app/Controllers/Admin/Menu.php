@@ -37,6 +37,7 @@ class Menu extends AdminBaseController
 
     public function index($groupId)
 	{
+		$data = $this->data;
 		$data['group'] = $this->menuGroupModel->find($groupId);
         $data['items'] = $this->menuModel->where('group_id', $groupId)
                                          ->orderBy('sort_order', 'ASC')
@@ -53,6 +54,7 @@ class Menu extends AdminBaseController
 
 	public function create($groupId)
     {
+		$data = $this->data;
         $data['group'] = $this->menuGroupModel->find($groupId);
         $data['parents'] = $this->menuModel->where('group_id', $groupId)
                                            ->where('parent_id', 0)
@@ -89,6 +91,7 @@ class Menu extends AdminBaseController
 
     public function edit($id)
     {
+		$data = $this->data;
         $menu = $this->menuModel->find($id);
         $data['item'] = $menu;
         $data['group'] = $this->menuGroupModel->find($menu['group_id']);
@@ -110,7 +113,7 @@ class Menu extends AdminBaseController
             'active' => $this->request->getPost('active') ?? 1,
         ]);
 
-        return redirect()->to('/admin/menu/'.$menu['menu_group_id']);
+        return redirect()->to(base_url("/admin/menu/{$menu['menu_group_id']}"));
     }
 	
     public function delete($id)
@@ -124,6 +127,7 @@ class Menu extends AdminBaseController
 	
 	public function add()
 	{
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$data['all_lang'] = $this->commonModel->all_lang();
 

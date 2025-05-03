@@ -22,8 +22,7 @@ class Setting extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
+		$data = $this->data;
 
 		$data['setting'] = $this->commonModel->get_setting_data();
 
@@ -33,7 +32,7 @@ class Setting extends AdminBaseController
 	{
 		$error = '';
 		$success = '';
-
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 
 		if($this->request->getPost('form_logo')) {

@@ -36,9 +36,21 @@ if (!function_exists('flash_message')) {
 
         if ($session->getFlashdata('error')) {
             $error = esc($session->getFlashdata('error'));
+            $msg = "";
+            if(is_array($error))
+            {
+                
+                foreach($error as $sr)
+                {
+                    $msg = "{$msg}<p>{$sr}</p>";
+                }
+
+            } else {
+                $msg = $error;
+            }
             return <<<HTML
                 <div class="callout callout-danger">
-                    <p>{$error}</p>
+                    <p>{$msg}</p>
                 </div>
                 HTML;
         }
@@ -355,3 +367,9 @@ if (!function_exists('footer_recent_portfolio')) {
 }
 
 
+if (!function_exists('shop_is_active')) {
+    function shop_is_active()
+    {
+        return true;
+    }
+}

@@ -28,8 +28,7 @@ class PageFAQ extends AdminBaseController
 
     public function index()
 	{
-		$error = '';
-		$success = '';
+		$data = $this->data;
 		$data['setting'] = $this->commonModel->get_setting_data();
 		$_items = $this->_Model->show();
 		$data['page_faq'] = $_items;
@@ -47,7 +46,7 @@ class PageFAQ extends AdminBaseController
     	}
 		$data['setting'] = $this->commonModel->get_setting_data();
 		
-		$error = '';
+		$data = $this->data;
 		$success = '';
 
 		if($this->request->getPost('form1') ==1) 
@@ -118,6 +117,7 @@ class PageFAQ extends AdminBaseController
 
 	public function detail($id)
     {
+		$data = $this->data;
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));

@@ -19,8 +19,8 @@ class Dashboard extends AdminBaseController
 
     public function index()
     {
+        $data = $this->data;
         $data['setting'] = $this->commonModel->get_setting_data();
-
         $data['total_category'] = $this->dashboardModel->show_total_category();
         $data['total_news'] = $this->dashboardModel->show_total_news();
         $data['total_team_member'] = $this->dashboardModel->show_total_team_member();

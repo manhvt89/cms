@@ -16,7 +16,6 @@ class PageEvent extends AdminBaseController
 	protected $add_url;
 	protected $edit_url;
 
-	protected $data = [];
     public function __construct()
     {
         $this->_Model = new PageEventModel();
@@ -126,6 +125,7 @@ class PageEvent extends AdminBaseController
 
 	public function detail($id)
     {
+		$data = $this->data;
     	$tot = $this->_Model->item_check($id);
     	if(!$tot) {
     		return redirect()->to(base_url($this->index_url));
