@@ -60,7 +60,7 @@ class Login extends BaseController
                 'logged_in' => true,
             ]);
              // Lấy URL đã lưu và xóa nó sau khi sử dụng
-             $redirect = session()->get('redirect_url') ?? '/dashboard';
+             $redirect = session()->get('redirect_url') ?? base_url('admin/dashboard');
              return redirect()->to($redirect);
             //return redirect()->to(base_url('admin/dashboard'));
         }

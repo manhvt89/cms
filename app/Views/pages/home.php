@@ -378,7 +378,7 @@
                                 </div>
 
                                 <div class="form-button col-12">
-                                    <button type="submit" class="btn btn2" name="form_quick_contact"><?php echo 'SUBMIT'; ?></button>
+                                    <button value="1" type="submit" class="btn btn2" name="form_quick_contact"><?php echo 'SUBMIT'; ?></button>
                                 </div>
                             </div>
                         <?= form_close(); ?>

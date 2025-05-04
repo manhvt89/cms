@@ -183,3 +183,53 @@ if (!function_exists('transform_shop_brand')) {
         return $result;
     }
 }
+
+if (!function_exists('transform_shop_product')) {
+    function transform_shop_product(array $items): array
+    {
+        $defaultPhoto = '/uploads/default-client.png'; // Ảnh mặc định nếu không có ảnh
+        $result = [];
+        $index = 1;
+        foreach ($items as $i => $row) {
+            $item = [];
+
+            // STT
+            $item['no'] = $index;
+            $index++;
+
+            // Ảnh
+            $photoPath = !empty($row['product_image']) ? $row['product_image'] : $defaultPhoto;
+            $item['product_image'] = '<img src="' . base_url($photoPath) . '" alt="' . esc($row['product_title']) . '" title="' . esc($row['product_title']) . '" width="100px" >';
+
+            // Tên
+        
+            $item['product_title'] = esc($row['product_title']);
+
+            // Description
+            $item['product_short_description'] = $row['product_short_description'];
+            $item['product_long_description'] = $row['product_long_description'];
+
+            //publication_status
+            $item["publication_status"] = $row["publication_status"] == 1 ? "<span class=\"label label-success\">Published</span>" : "<span class=\"label label-danger\" style=\"background:red\">Unpublished</span>";
+            
+            //slug
+            $item['product_slug'] = esc($row['product_slug']);
+            $item['product_keyword'] = esc($row['product_keyword']);
+            // Action
+            // Full HTML nút Edit
+            $editUrl = base_url("admin/shop/edit/product/{$row['product_id']}");
+            $item['edit_button'] = "<a href=\"{$editUrl}\" class=\"btn btn-primary btn-xs\">Edit</a>";
+
+            // Full HTML nút Delete
+            $deleteUrl = base_url("admin/shop/delete/product/{$row['product_id']}");
+            $button = <<<HTML
+                        <a href="{$deleteUrl}" class="btn btn-danger btn-xs" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Delete</a>
+                        HTML;
+            $item['delete_button'] = $button;
+
+            $result[] = $item;
+        }
+
+        return $result;
+    }
+}

@@ -51,4 +51,125 @@ class Home extends BaseController
         return $this->render('pages/home',$data);
 
     }
+
+	public function send_email()
+	{
+		$commonModel = new ModelCommon();
+		$email = \Config\Services::email();
+		$emailConfig = config('Email');
+		//var_dump($emailConfig); die();
+		$email->initialize($emailConfig);
+
+
+		$data['setting'] = $commonModel->all_setting();
+
+		$error = '';
+
+		if($this->request->getPost('form_quick_contact')) {
+
+			if(PROJECT_MODE == 0) {
+				session()->setFlashdata('error',PROJECT_NOTIFICATION);
+				redirect()->to($_SERVER['HTTP_REFERER']);
+			}
+
+			$valid = 1;
+
+			$first_name = $this->request->getPost('first_name');
+			$last_name = $this->request->getPost('last_name');
+			$phone = $this->request->getPost('phone');
+			$_semail = $this->request->getPost('email');
+			$subject = $this->request->getPost('subject');
+			$message = $this->request->getPost('message');
+
+			if(empty($first_name))
+		    {
+		        $valid = 0;
+		        $error .= 'Lỗi Tên để trống'.'<br>';
+		    }
+
+		    if(empty($last_name))
+		    {
+		        $valid = 0;
+		        $error .= 'Họ để trống'.'<br>';
+		    }
+
+		    if(empty($phone))
+		    {
+		        $valid = 0;
+		        $error .= 'Điện thoại để trống'.'<br>';
+		    }
+
+		    if(empty($_semail))
+		    {
+		        $valid = 0;
+		        $error .= 'Email để trống'.'<br>';
+		    }
+		    else
+		    {
+		    	// Email validation check
+		        if(!filter_var($_semail, FILTER_VALIDATE_EMAIL))
+		        {
+		            $valid = 0;
+		            $error .= 'Định dạng email không đúng'.'<br>';
+		        }
+		    }
+
+		    if(empty($subject))
+		    {
+		        $valid = 0;
+		        $error .= 'Tiêu đề trống'.'<br>';
+		    }
+
+		    if(empty($message))
+		    {
+		        $valid = 0;
+		        $error .= 'Nội dung trống'.'<br>';
+		    }
+
+		    if($valid == 1)
+		    {
+				$msg = '
+				<html><head><title>Email Sending</title></head><body>
+            		<h3>Sender Information</h3>
+					<b>First Name: </b> '.$first_name.'<br><br>
+					<b>Last Name: </b> '.$last_name.'<br><br>
+					<b>Phone: </b> '.$phone.'<br><br>
+					<b>Email: </b> '.$_semail.'<br><br>
+					<b>Subject: </b> '.$subject.'<br><br>
+					<b>Message: </b> '.$message.'</body></html>';
+
+				
+				$email->setFrom('manhvt89@gmail.com', 'Manh Vu Thanh');
+				$email->setTo($_semail);
+				$email->setSubject($subject);
+				$email->setMessage($msg);
+		
+				if ($email->send()) {
+					//echo 'Email sent successfully!';
+					$success = 'Thank you for sending the email. We will contact you shortly.';
+        			session()->setFlashdata('success',$success);
+					return redirect()->to(base_url('/home'));
+				} else {
+					//echo 'Failed to send email';
+					//print_r($email->printDebugger(['headers']));
+					session()->setFlashdata('error',$error);
+				}
+
+				
+
+		        
+
+		    } 
+		    else
+		    {
+        		session()->setFlashdata('error',$error);
+		    }
+
+			return redirect()->to(base_url());
+            
+        } else {
+            
+            return redirect()->to(base_url());
+        }
+	}
 }

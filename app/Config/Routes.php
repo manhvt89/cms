@@ -7,6 +7,11 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/home', 'Home::index');
+
+//home/send_email
+$routes->post('home/send_email', 'Home::send_email');
+$routes->get('home/send_email', 'Home::send_email');
+
 $routes->get('test', 'Test::index');
 $routes->get('about', 'About::index');
 $routes->get('contact', 'Contact::index');
@@ -304,7 +309,7 @@ $routes->group('admin', [
     //shop/manage/product
     $routes->get('shop/add/product', 'ShopProduct::add');
     $routes->post('shop/add/product', 'ShopProduct::add');
-
+    
     $routes->get('shop/manage/product', 'ShopProduct::index');
     $routes->get('shop/edit/product/(:num)', 'ShopProduct::edit/$1');
     $routes->post('shop/edit/product/(:num)', 'ShopProduct::edit/$1');

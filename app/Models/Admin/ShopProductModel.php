@@ -4,18 +4,27 @@ namespace App\Models\Admin;
 
 use CodeIgniter\Model;
 
-class ShopBrandModel extends Model
+class ShopProductModel extends Model
 {
     protected $db;
-    protected $table = 'tbl_brand';
-    protected $primaryKey = 'brand_id';
+    protected $table = 'tbl_product';
+    protected $primaryKey = 'product_id';
     protected $allowedFields = [
-        'brand_name'            
-       ,'brand_logo'     
-       ,'brand_slug'           
-       ,'brand_description'  
-       ,'brand_keyword'         
-       ,'publication_status'        
+        'product_title'            
+       ,'product_long_description'     
+       ,'product_image'
+       ,'product_slug'
+       ,'product_keyword'           
+       ,'product_short_description'  
+       ,'product_price'         
+       ,'product_quantity' 
+       ,'product_feature'
+       ,'product_category'
+       ,'product_brand'
+       ,'product_author'
+       ,'product_view'
+       ,'published_date'
+       ,'publication_status' 
     ];
 
     protected $useAutoIncrement = true;
@@ -95,10 +104,10 @@ class ShopBrandModel extends Model
         return $this->getData($id);
     }
 
-    public function check_product($id)
+    public function check_order($id)
     {
-        return $this->db->table('tbl_product')
-                ->where('product_brand',$id)
+        return $this->db->table('tbl_order_details')
+                ->where('product_id',$id)
                 ->countAllResults();
     }
 }

@@ -143,9 +143,9 @@ class ShopBrand extends AdminBaseController
 
 	public function delete($id) 
 	{
-    	$_rCategory = $this->shopCategoryModel->getData($id);
+    	$_rCategory = $this->_Model->getData($id);
     	if(empty($_rCategory)) {
-    		return redirect()->to(base_url().'admin/shop/manage/category');
+    		return redirect()->to(base_url('admin/shop/manage/brand'));
     	}
 
 		if(PROJECT_MODE == 0) {
@@ -154,25 +154,25 @@ class ShopBrand extends AdminBaseController
 		}
 
     	// Check if there is any news in this category. If found, category can not be deleted.
-    	$status = $this->shopCategoryModel->check_product($id);
+    	$status = $this->_Model->check_product($id);
     	if($status) 
     	{
-    		$error = 'Category can not be deleted because there is news under this';
+    		$error = 'Brand can not be deleted because there is news under this';
     		$this->session->setFlashdata('error',$error);
-    		return redirect()->to(base_url().'admin/shop/manage/category');
+    		return redirect()->to(base_url('admin/shop/manage/category'));
     	}
     	else
     	{
 			
-	        if($this->shopCategoryModel->_delete($id))
+	        if($this->_Model->_delete($id))
             {
-                $success = 'Category is deleted successfully';
+                $success = 'Brand is deleted successfully';
                 $this->session->setFlashdata('success',$success);
             } else {
-                $error = 'Category can not be deleted because there is news under this';
+                $error = 'Brand can not be deleted because there is news under this';
     		    $this->session->setFlashdata('error',$error);
             }
-	        return redirect()->to(base_url().'admin/shop/manage/category');
+	        return redirect()->to(base_url('admin/shop/manage/brand'));
     	}    	
     }
     

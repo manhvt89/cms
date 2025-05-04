@@ -6,8 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
+    public $fromEmail   = 'manhvt89@gmail.com';
+    public $fromName    = 'Vu Thanh Manh';
     public string $recipients = '';
 
     /**
@@ -18,7 +18,7 @@ class Email extends BaseConfig
     /**
      * The mail sending protocol: mail, sendmail, smtp
      */
-    public string $protocol = 'mail';
+    public $protocol    = 'smtp';
 
     /**
      * The server path to Sendmail.
@@ -28,22 +28,22 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = '';
+    public $SMTPHost    = 'smtp.gmail.com';
 
     /**
      * SMTP Username
      */
-    public string $SMTPUser = '';
+    public $SMTPUser    = 'manhvt89@gmail.com';
 
     /**
      * SMTP Password
      */
-    public string $SMTPPass = '';
+    public $SMTPPass    = '';
 
     /**
      * SMTP Port
      */
-    public int $SMTPPort = 25;
+    public $SMTPPort    = 25;
 
     /**
      * SMTP Timeout (in seconds)
@@ -62,7 +62,7 @@ class Email extends BaseConfig
      *             to the server. 'ssl' means implicit SSL. Connection on port
      *             465 should set this to ''.
      */
-    public string $SMTPCrypto = 'tls';
+    public $SMTPCrypto  = 'tsl';
 
     /**
      * Enable word-wrap
@@ -77,12 +77,12 @@ class Email extends BaseConfig
     /**
      * Type of mail, either 'text' or 'html'
      */
-    public string $mailType = 'text';
+    public $mailType    = 'html';
 
     /**
      * Character set (utf-8, iso-8859-1, etc.)
      */
-    public string $charset = 'UTF-8';
+    public $charset     = 'utf-8';
 
     /**
      * Whether to validate the email address
@@ -118,4 +118,28 @@ class Email extends BaseConfig
      * Enable notify message from server
      */
     public bool $DSN = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+        /*
+        $this->protocol = env('app.email.protocol');
+        $this->SMTPHost = env('smtp.gmail.com');
+        $this->SMTPPort = env('app.email.SMTPPort');
+        $this->SMTPCrypto = env('app.email.SMTPCrypto');
+        $this->SMTPUser   = env('app.email.SMTPUser');
+        $this->SMTPPass   = env('app.email.SMTPPass');
+        $this->fromEmail  = env('app.email.fromEmail');
+        $this->fromName   = env('app.email.fromName');
+        */
+        $this->protocol = 'smtp';
+        $this->SMTPHost = 'smtp.gmail.com';
+        $this->SMTPPort = 587;
+        $this->SMTPCrypto = 'tls';
+        $this->SMTPUser   = 'manhvt89@gmail.com';
+        $this->SMTPPass   = 'mwliuiescmgqsyfo';
+        $this->fromEmail  = 'manhvt89@gmail.com';
+        $this->fromName   = 'my App';
+
+    }
 }

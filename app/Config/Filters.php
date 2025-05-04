@@ -78,7 +78,7 @@ class Filters extends BaseFilters
         'after' => [
             // 'honeypot',
             // 'secureheaders',
-            'pagecache' => ['except' => ['admin/*', 'api/*','search*']],
+            'pagecache' => ['except' => ['admin/*', 'api/*','search*','home/*']],
         ],
     ];
 
