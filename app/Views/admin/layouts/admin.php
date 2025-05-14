@@ -476,38 +476,71 @@
 	</script>
 
 	<script type="text/javascript">
-		function openMediaPopup(name) {
+		function openMediaPopup(name, mode = 'single') {
 			const win = window.open('<?= base_url('/admin/media/popup') ?>', 'FileManager', 'width=900,height=600');
-			window.setImageFromPopup = function (url) {
-				console.log('Full URL:', url);
+			if(mode == 'single')
+			{
+				window.setImageFromPopup = function (url) {
+					console.log('Full URL:', url);
 
-				// Chuyển về relative URL
-				const baseUrl = '<?= base_url() ?>'; // Ví dụ: https://cmsdev.com/
-				const relativeUrl = url.replace(baseUrl, '/'); // Bỏ domain => còn lại /uploads/images/xxx.png
+					// Chuyển về relative URL
+					const baseUrl = '<?= base_url() ?>'; // Ví dụ: https://cmsdev.com/
+					const relativeUrl = url.replace(baseUrl, '/'); // Bỏ domain => còn lại /uploads/images/xxx.png
 
-				console.log('Relative URL:', relativeUrl);
+					console.log('Relative URL:', relativeUrl);
 
-				document.getElementById(name).value = relativeUrl;
+					document.getElementById(name).value = relativeUrl;
 
-				// Hiển thị ảnh
-				document.getElementById(name + '-preview').src = baseUrl + relativeUrl;
+					// Hiển thị ảnh
+					document.getElementById(name + '-preview').src = baseUrl + relativeUrl;
 
-				// 🔁 Cập nhật lại CSRF token
+					// 🔁 Cập nhật lại CSRF token
+					let newToken = localStorage.getItem("latest_csrf_token");
+					localStorage.removeItem("latest_csrf_token");
+					console.log('ƯL');
+					console.log(newToken);
+					if (newToken) {
+						console.log('IFINTO');
+						let csrfInput = document.querySelector('input[name="csrf_test_name"]');
+						if (csrfInput) {
+							console.log('GETINTO');
+							csrfInput.value = newToken;
+						}
+					}
+
+					win.close();
+				};
+			} else {
+				window.setImagesFromPopup = function (urls) {
+				console.log('Selected URLs:', urls);
+
+				const baseUrl = '<?= base_url() ?>';
+				const relativeUrls = urls.map(url => url.replace(baseUrl, '/'));
+
+				document.getElementById(name).value = relativeUrls.join(',');
+
+				const previewContainer = document.getElementById(name + '-preview');
+				if (previewContainer) {
+					previewContainer.innerHTML = ''; // Clear old
+					relativeUrls.forEach(rel => {
+						const img = document.createElement('img');
+						img.src = baseUrl + rel;
+						img.style.height = '100px';
+						img.style.marginRight = '5px';
+						previewContainer.appendChild(img);
+					});
+				}
+
 				let newToken = localStorage.getItem("latest_csrf_token");
 				localStorage.removeItem("latest_csrf_token");
-				console.log('ƯL');
-				console.log(newToken);
 				if (newToken) {
-					console.log('IFINTO');
 					let csrfInput = document.querySelector('input[name="csrf_test_name"]');
-					if (csrfInput) {
-						console.log('GETINTO');
-						csrfInput.value = newToken;
-					}
+					if (csrfInput) csrfInput.value = newToken;
 				}
 
 				win.close();
 			};
+			}
 		}
 
 		function removeFeaturedPhoto(name) {

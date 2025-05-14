@@ -77,7 +77,7 @@ class ShopProduct extends AdminBaseController
             $validation->setRules($rules);
 
             if (! $validation->run($data)) {
-                return redirect()->to(base_url("{$this->edit_url}/{$id}"))
+                return redirect()->to(base_url("{$this->add_url}"))
                                 ->withInput()->with('errors', $validation->getErrors());
             }
             /*

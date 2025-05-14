@@ -24,7 +24,8 @@ class ShopProductModel extends Model
        ,'product_author'
        ,'product_view'
        ,'published_date'
-       ,'publication_status' 
+       ,'publication_status',
+       'product_uuid'
     ];
 
     protected $useAutoIncrement = true;
@@ -49,7 +50,7 @@ class ShopProductModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['addUUID'];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -57,6 +58,7 @@ class ShopProductModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
     public function __construct()
     {
         parent::__construct();
@@ -65,6 +67,17 @@ class ShopProductModel extends Model
 
     // ✅ Hàm: get_auto_increment_id
     
+    
+
+    protected function addUUID(array $data)
+    {
+        $db = \Config\Database::connect();
+        $uuid = $db->query("SELECT UUID() AS uuid")->getRow()->uuid;
+
+        $data['data']['product_uuid'] = $uuid;
+
+        return $data;
+    }
 
     function get_auto_increment_id()
     {
