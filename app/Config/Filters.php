@@ -71,7 +71,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf',
+            'csrf'=> ['except' => ['admin/media/upload']],
             // 'invalidchars',
             //'auth' => ['except' => ['admin/login*', 'admin/logout']],
         ],
@@ -106,5 +106,7 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        //'csrf' => ['before' => ['admin/media/upload']],
+    ];
 }

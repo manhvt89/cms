@@ -37,7 +37,7 @@ class Media extends Controller
             $file->move(ROOTPATH . 'public/uploads/images/', $name);
             return $this->response->setJSON([
                 'success' => true,
-                'url' => base_url('uploads/images/' . $name),
+                'url' => base_url("uploads/images/{$name}"),
                 'csrf_hash' => csrf_hash()
             ]);
         }

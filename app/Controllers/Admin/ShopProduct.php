@@ -40,7 +40,7 @@ class ShopProduct extends AdminBaseController
         // ít nên không phân trang
         $data = $this->data;
         $data['title'] =  "Danh sách sản phẩm";
-        $data['category'] = transform_shop_product($this->_Model->findAll());
+        $data['category'] = transform_shop_product($this->_Model->show());
 		return view("{$this->theme}/list",$data);
     }
     public function add()
@@ -54,6 +54,8 @@ class ShopProduct extends AdminBaseController
 			}    
             $rules = [
                 'product_title'         => 'required', 
+                'brand_id'         => 'required', 
+                'shop_category_id'         => 'required', 
                 'product_image'         => 'required', 
                 'product_price'         => [
                     'label'=>'Price',
@@ -87,6 +89,8 @@ class ShopProduct extends AdminBaseController
             
             $form_data = [
                 'product_title'    => $this->request->getPost('product_title'),
+                'product_category'    => $this->request->getPost('shop_category_id'),
+                'product_brand'    => $this->request->getPost('brand_id'),
                 'product_slug'    => $this->request->getPost('product_slug')??slugify($this->request->getPost('product_title')),
                 'product_keyword'    => $this->request->getPost('product_keyword'),
                 'product_image'       => $this->request->getPost('product_image'),
@@ -104,7 +108,9 @@ class ShopProduct extends AdminBaseController
             
             
         } else {           
-            $data['title'] =  "Thêm mới BRAND"; 
+            $data['title'] =  "Thêm mới BRAND";
+            $data['all_published_category'] = $this->_Model->get_all_published_category();
+            $data['all_published_brand']    = $this->_Model->get_all_published_brand(); 
             return view("{$this->theme}/add",$data);
         }
 		
@@ -115,6 +121,8 @@ class ShopProduct extends AdminBaseController
 	{
         $data = $this->data;
 		$_aProducts = $this->_Model->getData($id);
+        $data['all_published_category'] = $this->_Model->get_all_published_category();
+        $data['all_published_brand']    = $this->_Model->get_all_published_brand();
         if(empty($_aProducts))
         {
     	    return redirect()->to(base_url($this->index_url));
@@ -134,6 +142,8 @@ class ShopProduct extends AdminBaseController
                
                 $rules = [
                     'product_title'         => 'required', 
+                    'brand_id'         => 'required', 
+                    'shop_category_id'         => 'required',
                     'product_image'         => 'required', 
                     'product_price'         => [
                         'label'=>'Price',
@@ -167,8 +177,10 @@ class ShopProduct extends AdminBaseController
                 
                 $form_data = [
                     'product_title'    => $this->request->getPost('product_title'),
+                    'product_category'    => $this->request->getPost('shop_category_id'),
+                    'product_brand'    => $this->request->getPost('brand_id'),
                     'product_slug'    => $this->request->getPost('product_slug')??slugify($this->request->getPost('product_title')),
-                'product_keyword'    => $this->request->getPost('product_keyword'),
+                    'product_keyword'    => $this->request->getPost('product_keyword'),
                
                     'product_image'       => $this->request->getPost('product_image'),
                     'product_price' => str_replace('.', '',$this->request->getPost('product_price')),

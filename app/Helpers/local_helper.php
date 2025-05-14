@@ -2,6 +2,7 @@
 
 use Config\Services;
 
+
 if (!function_exists('set_meta_defaults')) {
     /**
      * Đặt giá trị mặc định cho các meta fields
@@ -367,9 +368,175 @@ if (!function_exists('footer_recent_portfolio')) {
 }
 
 
+if (!function_exists('word_limiter')) {
+    function word_limiter($str, $limit = 100, $end_char = '…') {
+        $words = explode(' ', strip_tags($str));
+        if (count($words) <= $limit) return $str;
+        return implode(' ', array_slice($words, 0, $limit)) . $end_char;
+    }
+}
+
 if (!function_exists('shop_is_active')) {
     function shop_is_active()
     {
         return true;
     }
 }
+/*
+** Hiển thị sản phẩm
+*/
+if (!function_exists('the_product')) {
+    function the_product($product)
+    {
+        $_sTheProductTitle = the_product_title($product);
+        $_sTheProductImage = the_product_image($product);
+        $_sTheProductSescription = the_product_description($product);
+        $_sthe_product_price = the_product_price($product);
+        $_sthe_view_product = the_view_product($product);
+        return <<<HTML
+                <div class="product-card">
+                    {$_sTheProductImage}
+                    {$_sTheProductTitle}
+                    {$_sTheProductSescription}
+                    {$_sthe_product_price}
+                    {$_sthe_view_product}
+                </div>
+                HTML;
+    }
+}
+
+if (!function_exists('the_product_title')) {
+    function the_product_title($product)
+    {
+        $_sTitle = $product["product_title"];
+        return <<<HTML
+                  <h3 class="product-title">{$_sTitle}</h3>
+                HTML;
+    }
+}
+
+if (!function_exists('the_product_image')) {
+    function the_product_image($product)
+    {
+        $_sSlug = slugify($product["product_title"]);
+        $_sHref = base_url("product_detail/{$_sSlug}-{$product["product_id"]}");
+        $_sImageSrc = base_url($product["product_image"]);
+        
+        return <<<HTML
+        <div class="product-image">
+            <a href="{$_sHref}">
+                <img src="{$_sImageSrc}" alt="{$product["product_title"]}">
+            </a>
+        </div>
+        HTML;
+    }
+}
+
+if (!function_exists('the_product_description')) {
+    function the_product_description($product)
+    {                        
+        $_sDescription = word_limiter($product["product_short_description"], 10);                      
+                                              
+        return <<<HTML
+                    <p class="product-description">{$_sDescription}</p>
+                HTML;
+    }
+}
+if (!function_exists('the_product_price')) {
+    function the_product_price($product)
+    {
+        $_sPrice = number_format($product["product_price"],0,',','.');
+        return <<<HTML
+                    <p class="product-price">{$_sPrice} vnđ</p>
+                HTML;
+    }
+}
+
+if (!function_exists('the_product_quantity')) {
+    function the_product_quantity()
+    {
+        return <<<HTML
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+Image" alt="Sản phẩm 1">
+                    </div>
+                    <h3 class="product-title">Sản phẩm 1</h3>
+                    <p class="product-description">Mô tả ngắn của sản phẩm sẽ hiển thị ở đây.</p>
+                    <p class="product-price">1,200,000 vnd</p>
+                    <button class="product-button">Details</button>
+                </div>
+                HTML;
+    }
+}
+
+if (!function_exists('the_short_cart')) {
+    function the_short_cart()
+    {
+        return <<<HTML
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+Image" alt="Sản phẩm 1">
+                    </div>
+                    <h3 class="product-title">Sản phẩm 1</h3>
+                    <p class="product-description">Mô tả ngắn của sản phẩm sẽ hiển thị ở đây.</p>
+                    <p class="product-price">1,200,000 vnd</p>
+                    <button class="product-button">Details</button>
+                </div>
+                HTML;
+    }
+}
+
+if (!function_exists('the_cart')) {
+    function the_cart()
+    {
+        return <<<HTML
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+Image" alt="Sản phẩm 1">
+                    </div>
+                    <h3 class="product-title">Sản phẩm 1</h3>
+                    <p class="product-description">Mô tả ngắn của sản phẩm sẽ hiển thị ở đây.</p>
+                    <p class="product-price">1,200,000 vnd</p>
+                    <button class="product-button">Details</button>
+                </div>
+                HTML;
+    }
+}
+
+if (!function_exists('the_add_to_cart')) {
+    function the_add_to_cart()
+    {
+        return <<<HTML
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x300.png?text=Product+Image" alt="Sản phẩm 1">
+                    </div>
+                    <h3 class="product-title">Sản phẩm 1</h3>
+                    <p class="product-description">Mô tả ngắn của sản phẩm sẽ hiển thị ở đây.</p>
+                    <p class="product-price">1,200,000 vnd</p>
+                    <button class="product-button">Details</button>
+                </div>
+                HTML;
+    }
+}
+
+if (!function_exists('the_view_product')) {
+    function the_view_product($product)
+    {
+        $slug = slugify($product["product_title"]);
+        $href = base_url("product_detail/{$slug}-{$product["product_id"]}");
+        $buyUrl = base_url("cart/add/{$product["product_id"]}");
+
+        return <<<HTML
+        <div class="product-actions">
+            <button class="product-button view-btn" onclick="window.location.href='{$href}'">
+                <i class="fas fa-eye"></i> Xem sản phẩm
+            </button>
+            <button class="product-button buy-btn" onclick="window.location.href='{$buyUrl}'">
+                <i class="fas fa-shopping-cart"></i> Mua hàng
+            </button>
+        </div>
+        HTML;
+    }
+}
+

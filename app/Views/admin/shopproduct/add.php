@@ -97,6 +97,36 @@ input:checked + .slider:before {
 							<small id="quantity-error" style="color: red;"></small>
 						</div>
 					</div>
+					<!-- Shop Category -->
+					<div class="form-group">
+						<label for="shop_category" class="col-sm-2 control-label">Danh mục <span>*</span></label>
+						<div class="col-sm-6">
+							<select name="shop_category_id" class="form-control select2" required>
+								<option value="">-- Chọn danh mục --</option>
+								<?php foreach($all_published_category as $cat): ?>
+									<option value="<?= $cat['id']; ?>" <?= old('shop_category_id') == $cat['id'] ? 'selected' : ''; ?>>
+										<?= $cat['category_name']; ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+
+					<!-- Brand -->
+					<div class="form-group">
+						<label for="brand_id" class="col-sm-2 control-label">Thương hiệu*</label>
+						<div class="col-sm-6">
+							<select name="brand_id" class="form-control select2" required>
+								<option value="">-- Chọn thương hiệu --</option>
+								<?php foreach($all_published_brand as $brand): ?>
+									<option value="<?= $brand['brand_id']; ?>" <?= old('brand_id') == $brand['brand_id'] ? 'selected' : ''; ?>>
+										<?= $brand['brand_name']; ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<!-- End Brand -->
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Product Slug <span></span></label>
 							<div class="col-sm-6">

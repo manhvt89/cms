@@ -123,13 +123,17 @@
       this.on("sending", function(file, xhr, formData) {
         // Gửi CSRF token trong formData
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        console.log("Token: "+csrfToken);
         const csrfName = "<?= csrf_token() ?>"; // ví dụ: csrf_test_name
         formData.append(csrfName, csrfToken);
       });
       this.on("success", function (file, response) {
         console.log("Upload response:", response);
         if (response.csrf_hash) {
+          console.log("Tạo mới token: "+response.csrf_hash);
           document.querySelector('meta[name="csrf-token"]').setAttribute('content', response.csrf_hash);
+          var _csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+          console.log("Đã thiết lập token: "+_csrfToken);
           localStorage.setItem("latest_csrf_token", response.csrf_hash); //lưu lại local
         }
 
@@ -166,7 +170,7 @@
           let bsTab = new bootstrap.Tab(libraryTab);
           bsTab.show();
           
-          myDropzone.removeFile(file);
+          this.removeFile(file);
           
         } else {
           // Nếu không đúng định dạng hoặc lỗi

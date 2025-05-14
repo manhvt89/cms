@@ -73,7 +73,11 @@ class ShopProductModel extends Model
     }
 
     public function show() {
-        return $this->orderBy($this->primaryKey,'ASC')
+        return $this->db->table("tbl_product p")
+                    ->select('*,p.publication_status as pstatus')
+                    ->join('tbl_shop_category c', 'c.id=p.product_category')
+                    ->join('tbl_brand b', 'b.brand_id=p.product_brand')
+                    ->orderBy('p.product_id', 'DESC')
                     ->get()
                     ->getResultArray();
         
@@ -96,7 +100,13 @@ class ShopProductModel extends Model
 
     public function getData($id)
     {
-        return $this->where($this->primaryKey, $id)->first();
+        return $this->db->table("tbl_product p")
+                    ->select('*,p.publication_status as pstatus')
+                    ->join('tbl_shop_category c', 'c.id=p.product_category')
+                    ->join('tbl_brand b', 'b.brand_id=p.product_brand')
+                    ->where('p.product_id', $id)
+                    ->get()
+                    ->getFirstRow('array');
     }
 
     public function item_check($id)
@@ -109,5 +119,21 @@ class ShopProductModel extends Model
         return $this->db->table('tbl_order_details')
                 ->where('product_id',$id)
                 ->countAllResults();
+    }
+
+    public function get_all_published_category()
+    {
+        return $this->db->table('tbl_shop_category')
+                    ->where('publication_status', 1)
+                    ->get()
+                    ->getResultArray();
+    }
+
+    public function get_all_published_brand()
+    {
+        return $this->db->table('tbl_brand')
+                    ->where('publication_status', 1)
+                    ->get()
+                    ->getResultArray();
     }
 }

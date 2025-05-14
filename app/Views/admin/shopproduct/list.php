@@ -23,8 +23,8 @@
 							<tr>
 								<th>SL</th>
 								<th>Photo</th>
-								<th>Category Name</th>
-								<th>Category Description</th>
+								<th>Product title</th>
+								<th>Product Description</th>
 								<th>Publication Status</th>
 								<th width="140">Actions</th>
 							</tr>

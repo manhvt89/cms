@@ -50,7 +50,24 @@ $routes->get('service/view/(:num)', 'Service::view/$1');
 $routes->get('team', 'Team::index');
 $routes->get('team-member/(:num)', 'TeamMember::view/$1');
 
+$routes->get('product', 'Shop::index');
+$routes->get('product_detail/(:segment)', 'Shop::view/$1');
+$routes->get('cart', 'Team::index');
+$routes->get('cart/update', 'Team::index');
+$routes->get('cart/remove', 'Team::index');
+$routes->get('shop/cat/(:num)', 'Team::index');
 
+/*
+$route['product']             = 'web/product';
+$route['single/(:num)']       = 'web/single/$1';
+
+$route['cart']                = 'web/cart';
+$route['save/cart']           = 'web/save_cart';
+$route['update/cart']         = 'web/update_cart';
+$route['remove/cart']         = 'web/remove_cart';
+$route['user_form']           = 'web/user_form';
+$route['get/category/(:num)'] = 'web/category_post/$1';
+*/
 
 $routes->group('admin', [
     'namespace' => 'App\Controllers\Admin',

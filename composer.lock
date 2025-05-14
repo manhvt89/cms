@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "205f65d6df4c81893df4ef771a893b50",
+    "content-hash": "31186587efe31079ebb68b5316330fa1",
     "packages": [
+        {
+            "name": "bertugfahriozer/ci4shoppingcart",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bertugfahriozer/ci4shoppingcart.git",
+                "reference": "1433d2b17c04cdba063985a4da6751c1540b7947"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bertugfahriozer/ci4shoppingcart/zipball/1433d2b17c04cdba063985a4da6751c1540b7947",
+                "reference": "1433d2b17c04cdba063985a4da6751c1540b7947",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4||^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ci4shoppingcart\\": "app/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bertuğ Fahri ÖZER",
+                    "email": "bertugfahriozer@gmail.com",
+                    "homepage": "https://bertugfahriozer.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Codeigniter 4 Shopping Cart",
+            "support": {
+                "forum": "https://bertugfahriozer.com/",
+                "issues": "https://github.com/bertugfahriozer/ci4shoppingcart/issues",
+                "source": "https://github.com/bertugfahriozer/ci4shoppingcart"
+            },
+            "time": "2024-07-11T03:49:07+00:00"
+        },
         {
             "name": "codeigniter4/framework",
             "version": "v4.6.0",
