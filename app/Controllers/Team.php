@@ -38,7 +38,7 @@ class Team extends BaseController
             'page_team'          => $this->common->all_page_team(),
             'comment'            => $this->common->all_comment(),
             'social'             => $this->common->all_social(),
-            'all_news'           => $this->common->all_news(),
+            'all_news'           => $this->common->all_news($langId),
             'team_members'       => $this->_Model->allTeamMember($langId),
         ]);
 

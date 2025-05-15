@@ -146,7 +146,21 @@
     <?= $this->include('admin/partials/footer') ?>
 
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 90%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mediaModalLabel">Chọn ảnh</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body p-0">
+        <iframe id="mediaIframe" src="" style="width:100%; height:80vh; border:0;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
 <script src="<?php echo base_url(); ?>public/admin/js/jquery-2.2.4.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/admin/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url(); ?>public/admin/js/jquery.dataTables.min.js"></script>
@@ -168,7 +182,8 @@
 	<!-- <script src="<?php echo base_url(); ?>public/admin/ckeditor/ckeditor.js"></script> -->
 	<script src="<?php echo base_url(); ?>public/admin/js/demo.js"></script>
 	<script src="<?php echo base_url(); ?>public/admin/tinymce/tinymce.min.js"></script>
-	
+	<!-- Bootstrap 5 JS + Popper (required) -->
+
 	<script>
 
 	(function($) {
@@ -477,7 +492,47 @@
 
 	<script type="text/javascript">
 		function openMediaPopup(name, mode = 'single') {
-			const win = window.open('<?= base_url('/admin/media/popup') ?>', 'FileManager', 'width=900,height=600');
+			const iframeUrl = `<?= base_url('/admin/media/popup') ?>?mode=${mode}&target=${name}`;
+			document.getElementById('mediaIframe').src = iframeUrl;
+
+			// Gán callback tương ứng
+			if (mode === 'single') {
+				window.setImageFromPopup = function (url) {
+					const baseUrl = '<?= base_url() ?>';
+					const relativeUrl = url.replace(baseUrl, '/');
+
+					document.getElementById(name).value = relativeUrl;
+					document.getElementById(name + '-preview').src = baseUrl + relativeUrl;
+
+					$('#mediaModal').modal('hide');
+				};
+			} else {
+				window.setImagesFromPopup = function (urls) {
+					const baseUrl = '<?= base_url() ?>';
+					const relativeUrls = urls.map(url => url.replace(baseUrl, '/'));
+
+					document.getElementById(name).value = relativeUrls.join(',');
+
+					const previewContainer = document.getElementById(name + '-preview');
+					previewContainer.innerHTML = '';
+					relativeUrls.forEach(rel => {
+						const img = document.createElement('img');
+						img.src = baseUrl + rel;
+						img.style.height = '100px';
+						img.style.marginRight = '5px';
+						previewContainer.appendChild(img);
+					});
+					$('#mediaModal').modal('hide');
+					
+				};
+			}
+
+			// Hiện modal
+			$('#mediaModal').modal('show');
+		}
+
+		function openMediaPopup1(name, mode = 'single') {
+			const win = window.open('<?= base_url("/admin/media/popup") ?>'+'?mode='+mode, 'FileManager', 'width=900,height=600');
 			if(mode == 'single')
 			{
 				window.setImageFromPopup = function (url) {

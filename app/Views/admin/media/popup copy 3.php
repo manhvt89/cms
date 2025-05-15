@@ -34,21 +34,13 @@
       <div class="row">
         <div class="col-md-8">
           <div class="image-grid">
-          <?php foreach ($files as $img): 
-            $_sSrc = str_replace(ROOTPATH . 'public', '', $img);
-          ?>
-            <div class="image-item">
-              <img src="<?= base_url($_sSrc) ?>" data-src="<?= base_url($_sSrc) ?>" onclick="selectImage(this)">
-            </div>
-          <?php endforeach; ?>
-
-          <div class="pagination mt-3">
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-              <button class="btn btn-sm <?= $i == $currentPage ? 'btn-primary' : 'btn-outline-primary' ?> me-1" onclick="loadPage(<?= $i ?>)">
-                <?= $i ?>
-              </button>
-            <?php endfor; ?>
-          </div>
+            <?php foreach ($files as $img): 
+              $_sSrc = str_replace(ROOTPATH . 'public', '', $img);
+            ?>
+              <div class="image-item">
+                <img src="<?= base_url($_sSrc) ?>" data-src="<?= base_url($_sSrc) ?>" onclick="selectImage(this)">
+              </div>
+            <?php endforeach; ?>
           </div>
         </div>
         <div class="col-md-4">
@@ -76,15 +68,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 <script>
   let selectedImageUrl = '';
-
-  function loadPage(page) {
-      fetch('<?= base_url("admin/media/ajaxLibrary") ?>?page=' + page)
-          .then(res => res.text())
-          .then(html => {
-              document.querySelector("#library .image-grid").innerHTML = html;
-          });
-  }
-
 
   function selectImage(el) {
     const allImages = document.querySelectorAll('.image-item img');

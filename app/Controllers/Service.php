@@ -60,7 +60,7 @@ class Service extends BaseController
         $data = array_merge($this->data, [
             'comment'          => $this->common->all_comment(),
             'social'           => $this->common->all_social(),
-            'all_news'         => $this->common->all_news(),
+            'all_news'         => $this->common->all_news($langId),
             'services'         => $this->service->all_service($langId),
             'service'          => $this->service->get_service_detail($id),
             'portfolio_footer' => $this->portfolio->get_portfolio_data(),

@@ -26,6 +26,7 @@ class TeamMember extends BaseController
 
     public function view($id = null)
     {
+        $langId = session('sess_lang_id');
         if (!is_numeric($id) || !$this->member->exists($id)) {
             return redirect()->to(base_url());
         }
@@ -40,7 +41,7 @@ class TeamMember extends BaseController
         $data = array_merge($data,[
             'comment'          => $this->common->all_comment(),
             'social'           => $this->common->all_social(),
-            'all_news'         => $this->common->all_news(),
+            'all_news'         => $this->common->all_news($langId),
             'team_members'     => $this->member->getAll(),
             'member'           => $this->member->getDetail($id),
             //'portfolio_footer' => $this->portfolio->get_portfolio_data(),

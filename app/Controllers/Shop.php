@@ -124,7 +124,7 @@ class Shop extends BaseController
             $data['get_single_product'] = $_aProduct;
             $data['get_all_category']   = $this->shopModel->get_all_category();
             
-            $news_detail = $modelNews->news_detail_with_category($id);
+            //$news_detail = $modelNews->news_detail_with_category($id);
             $meta_title = $_aProduct['product_title'];
             $meta_description = $_aProduct['product_short_description'];
             $meta_keywords = $_aProduct['product_keyword'];
@@ -134,18 +134,10 @@ class Shop extends BaseController
             
             //-------- Sidebar Data -------------
 
-            $data['news_detail'] = transform_the_news($news_detail);
-            $data['comment'] = $modelCommon->all_comment();
-            //$data['all_news'] = $modelCommon->all_news();
             $all_categories = $modelCommon->all_categories();
             $news = $modelNews->all_news();
             
-            $data['category'] = $modelNews->get_category_name_by_id($news_detail['category_id']);
-            $data['category_name'] = $data['category']['category_name'];
             $data['id'] = $id;
-
-            $data['categories'] = $modelNews->all_categories();
-            //$data['portfolio_footer'] = $modelPortfolio->get_portfolio_data();
 
             $sidebar_items = [
                 'search_form' => [
