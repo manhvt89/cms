@@ -15,7 +15,7 @@ class Sitemap extends BaseController
     public function index()
     {
         
-        $types = ['news', 'category', 'product'];
+        $types = ['news', 'category' /*, 'product'*/];
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 
