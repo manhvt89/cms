@@ -20,28 +20,28 @@
 
                 <?php
                 foreach($news_fetched as $row) {
-                    $_sSlug = slugify($row->news_title);
+                    $_sSlug = $row->slug;
                     
                     $_sSlugCat = slugify($row->category_name)
                     ?>
                     <div class="blog-one-item">
                         <div class="blog-one-photo">
-                            <a href="<?=base_url("news/view/{$_sSlug}-{$row->news_id}")?>"><img src="<?=base_url($row->photo); ?>" alt="Blog Photo"></a>
+                            <a href="<?=base_url("{$_sSlug}")?>"><img src="<?=base_url($row->photo); ?>" alt="Blog Photo"></a>
                         </div>
                         <div class="blog-one-text">
                             <ul>
-                                <li><i class="fa fa-edit"></i><a href="<?=base_url("category/{$_sSlugCat}-{$row->category_id}")?>"><?=$row->category_name; ?></a></li>
+                                <li><i class="fa fa-edit"></i><a href="<?=base_url("category/{$_sSlugCat}")?>"><?=$row->category_name; ?></a></li>
                                 <li><i class="fa fa-calendar-o"></i>
                                     <?=format_news_date($row->news_date)?>
                                 </li>
                             </ul>
                             
-                            <h3><a href="<?=base_url("news/view/{$_sSlug}-{$row->news_id}")?>"><?=$row->news_title?></a></h3>
+                            <h3><a href="<?=base_url("{$_sSlug}")?>"><?=$row->news_title?></a></h3>
                             <p>
                                 <?=$row->news_content_short; ?>
                             </p>
                             <div class="button-df">
-                                <a href="<?=base_url("news/view/{$_sSlug}-{$row->news_id}")?>"><?=READ_MORE?> <i class="fa fa-chevron-circle-right"></i></a>
+                                <a href="<?=base_url("$_sSlug}")?>"><?=READ_MORE?> <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
                         </div>
                     </div>

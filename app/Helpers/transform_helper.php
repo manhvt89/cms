@@ -75,7 +75,7 @@ if (!function_exists('transform_the_news')) {
         $news['cat'] = "";
         
         // Full HTML nút Delete
-        $catUrl = base_url("category/{$_sSlugCat}-{$news['category_id']}");
+        $catUrl = base_url("category/{$_sSlugCat}");
         $button = <<<HTML
                     <a href="{$catUrl}" class="btn btn-danger btn-xs">{$news["category_name"]}</a>
                     HTML;

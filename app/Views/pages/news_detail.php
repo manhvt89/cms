@@ -30,7 +30,7 @@
                 
                 <div class="comment-form headstyle mt_50">
                     <h4><?php echo SHARE_THIS_NEWS; ?></h4>
-                    <?php $url = base_url().'news/view/'.$news_detail['news_id']; ?>
+                    <?php $url = base_url($news_detail['slug']); ?>
                     <div class="share_buttons">
                         <a class="facebook" target="_blank" href="http://www.facebook.com/sharer.php?u=<?php echo $url; ?>&t=<?php echo $news_detail['news_title']; ?>"><i class="fa fa-facebook-f"></i></a>
 
@@ -48,7 +48,7 @@
                     <h4><?php echo COMMENT; ?></h4>
                     <div class="comment-inner">
                         <?php
-                        $final_url = base_url().'news/view/'.$id;
+                        $final_url = base_url($news_detail['slug']);
                         ?>
                         <div class="fb-comments" data-href="<?php echo $final_url; ?>" data-numposts="5"></div>
                     </div>

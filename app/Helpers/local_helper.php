@@ -224,8 +224,8 @@ function sidebar_item_categories(array $data)
         <h3><?= SIDEBAR_NEWS_HEADING_1; ?></h3>
         <ul>
             <?php foreach ($categories as $row): ?>
-                <?php $_sSlug = slugify($row["category_name"]); ?>
-                <li><a href="<?= base_url("category/{$_sSlug}-{$row['category_id']}"); ?>"><?= $row['category_name']; ?></a></li>
+                <?php $_sSlug = $row["category_slug"]; ?>
+                <li><a href="<?= base_url("category/{$_sSlug}"); ?>"><?= $row['category_name']; ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -250,16 +250,16 @@ if (!function_exists('sidebar_item_recent_posts')) {
                 if ($i > $count) {
                     break;
                 }
-                $_sSlugNew = slugify($row['news_title']);
+                $_sSlugNew = $row['slug'];
                 ?>
                 <div class="sidebar-recent-item">
                     <div class="recent-photo">
-                        <a href="<?= base_url("news/view/{$_sSlugNew}-{$row['news_id']}"); ?>">
-                            <img src="<?= base_url($row['photo']); ?>" alt="Blog Photo">
+                        <a href="<?= base_url("{$_sSlugNew}"); ?>">
+                            <img src="<?= base_url($row['photo']); ?>" alt="<?=$row["news_title"]?>">
                         </a>
                     </div>
                     <div class="recent-text">
-                        <a href="<?= base_url("news/view/{$_sSlugNew}-{$row['news_id']}"); ?>">
+                        <a href="<?= base_url("{$_sSlugNew}"); ?>">
                             <?= $row['news_title']; ?>
                         </a>
                         <div class="rpwwt-post-date">

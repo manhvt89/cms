@@ -67,28 +67,51 @@ class NewsModel extends Model
 
     public function news_check($id)
     {
-        return $this->db->table('tbl_news')
+         if (is_numeric($id)) {
+            return $this->db->table('tbl_news')
             ->where('news_id', $id)
             ->countAllResults(); // Trả về số dòng
+         } else {
+            return $this->db->table('tbl_news')
+            ->where('slug', $id)
+            ->countAllResults(); // Trả về số dòng
+         }
     }
 
     public function news_detail($id)
     {
-        return $this->db->table('tbl_news')
+        if (is_numeric($id)) {
+            return $this->db->table('tbl_news')
             ->where('news_id', $id)
             ->get()
             ->getRowArray();
+        } else {
+            return $this->db->table('tbl_news')
+            ->where('slug', $id)
+            ->get()
+            ->getRowArray();
+        }
+        
     }
 
     public function news_detail_with_category($id)
     {
-        return $this->db->table('tbl_news t1')
-            ->select('t1.*, t1.meta_title as mt, t1.meta_description as md, t1.meta_keyword as mk, t2.*')
-            ->join('tbl_category t2', 't1.category_id = t2.category_id')
-            ->where('t1.news_id', $id)
-            ->orderBy('t1.news_id', 'DESC')
-            ->get()
-            ->getRowArray();
+        if (is_numeric($id)) {
+            return $this->db->table('tbl_news t1')
+                ->select('t1.*, t1.meta_title as mt, t1.meta_description as md, t1.meta_keyword as mk, t2.*')
+                ->join('tbl_category t2', 't1.category_id = t2.category_id')
+                ->where('t1.news_id', $id)
+                ->orderBy('t1.news_id', 'DESC')
+                ->get()
+                ->getRowArray();
+        } else {
+            return $this->db->table('tbl_news t1')
+                ->select('t1.*, t1.meta_title as mt, t1.meta_description as md, t1.meta_keyword as mk, t2.*')
+                ->join('tbl_category t2', 't1.category_id = t2.category_id')
+                ->where('t1.slug', $id)
+                ->get()
+                ->getRowArray();
+        }
     }
 
     public function get_category_name_by_id($cat_id)

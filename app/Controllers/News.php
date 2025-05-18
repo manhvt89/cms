@@ -42,8 +42,6 @@ class News extends BaseController
     }
     public function index($page = 1): string
     {
-        
-        
         $modelNews = $this->news;
         $data = [];
 		$data = array_merge($data,$this->data);
@@ -83,8 +81,8 @@ class News extends BaseController
 
 	public function view($slug=null)
 	{
-        if (preg_match('/-(\d+)$/', $slug, $matches)) {
-            $id = $matches[1];
+        
+            $id = $slug;
             $modelCommon = new CommonModel();
             $modelNews = new NewsModel();
             $modelPortfolio = new PortfolioModel();
@@ -135,9 +133,6 @@ class News extends BaseController
             //var_dump($data['sidebar_items']);die();
             
             return $this->render('pages/news_detail',$data);
-        }
-        
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-
+    
 	}
 }

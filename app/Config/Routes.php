@@ -28,7 +28,7 @@ $routes->get('category/(:segment)', 'Category::index/$1');
 $routes->get('news', 'News::index');
 $routes->get('news/index/(:num)', 'News::index/$1');
 $routes->get('news/view/(:num)', 'News::view/$1');
-$routes->get('news/view/(:segment)', 'News::view/$1');
+//$routes->get('news/view/(:segment)', 'News::view/$1');
 
 $routes->get('lang', 'Lang::index');
 $routes->post('lang/change', 'Lang::change');
@@ -339,6 +339,15 @@ $routes->get('admin/login', 'Admin\Login::index');
 $routes->post('admin', 'Admin\Login::index');
 $routes->get('admin/logout', 'Admin\Login::logout');
 $routes->get('admin', 'Admin\Login::index');
+
+//sitemap.xml
+$routes->get('sitemap.xml', 'Sitemap::index');
+$routes->get('sitemap/(:segment)/(:num)', 'Sitemap::generate/$1/$2'); // sitemap/news/1
+// Sử dụng với domain.com/bai_viet_xxx
+$routes->get('/(:segment)', 'News::view/$1');
+
+
+
 
 //$routes->get('admin/dashboard', 'Admin\Dashboard::index');
 

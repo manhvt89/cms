@@ -22,7 +22,7 @@ class ModelCategory extends Model
     protected bool $updateOnlyChanged = true;
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -36,18 +36,33 @@ class ModelCategory extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    
+    protected $beforeInsert     = ['generateSlug'];
+    protected $beforeUpdate     = ['generateSlug'];
     protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
+    
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
     public function __construct()
     {
         parent::__construct();
         $this->db = \Config\Database::connect();
+    }
+
+    protected function generateSlug(array $data)
+    {
+        helper(['local']); // dùng 
+
+        if (isset($data['data']['category_name'])) {
+            $slug = slugify($data['data']['category_name']);
+            $data['data']['category_slug'] = $slug;
+        }
+
+        return $data;
     }
     public function show() {
         

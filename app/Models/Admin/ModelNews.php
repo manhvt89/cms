@@ -24,7 +24,7 @@ class ModelNews extends Model
     protected bool $updateOnlyChanged = true;
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -38,18 +38,39 @@ class ModelNews extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+     protected $beforeInsert = ['createSlug'];
     protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
+     protected $beforeUpdate = ['updateSlug'];
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+    
     public function __construct()
     {
         parent::__construct();
         $this->db = \Config\Database::connect();
+    }
+
+    protected function createSlug(array $data)
+    {
+        helper(['local']); // Đảm bảo helper đã được load
+        if (isset($data['data']['news_title'])) {
+            
+            $data['data']['slug'] = slugify($data['data']['news_title']);
+        }
+        return $data;
+    }
+
+    protected function updateSlug(array $data)
+    {
+        helper(['local']); // Đảm bảo helper đã được load
+        if (isset($data['data']['news_title'])) {
+            
+            $data['data']['slug'] = slugify($data['data']['news_title']);
+        }
+        return $data;
     }
     public function show() {
         
