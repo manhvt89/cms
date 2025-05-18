@@ -9,21 +9,26 @@
     <meta name="title" content="<?=$meta_title ?? "" ?>">
     <title><?=$meta_title ?? "" ?></title>
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="<?= $meta_title ?>">
+    <meta property="og:description" content="<?= $meta_description ?>">
+    <meta property="og:type" content="<?= $type ?>">
+    <meta property="og:url" content="<?= current_url() ?>">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?= base_url($setting['favicon']) ?>">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/animate.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/magnific-popup.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/meanmenu.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/toastr.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/spacing.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/responsive.css">
+    <link rel="stylesheet" href="<?=base_url("public/css/animate.min.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/bootstrap.min.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/jquery-ui.min.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/font-awesome.min.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/owl.carousel.min.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/magnific-popup.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/meanmenu.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/toastr.min.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/style.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/spacing.css")?>">
+    <link rel="stylesheet" href="<?=base_url("public/css/responsive.css")?>">
     
     <?php if(session('sess_layout_direction') == 'Right'): ?>
     <link rel="stylesheet" href="<?= base_url('public/css/rtl.css') ?>">

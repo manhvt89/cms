@@ -138,6 +138,7 @@ abstract class BaseController extends Controller
         $data['all_news']  = $commonModel->all_news($langId);
         $data['footer_setting'] = $commonModel->all_footer_setting($langId);
         $data['social'] = $commonModel->all_social();
+        $data['type'] = 'article';
 
         $footer_items = [
             'recent_posts' => [
