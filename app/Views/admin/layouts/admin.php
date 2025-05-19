@@ -531,7 +531,7 @@
 			$('#mediaModal').modal('show');
 		}
 
-		function openMediaPopup1(name, mode = 'single') {
+		function openMediaPopup2(name, mode = 'single') {
 			const win = window.open('<?= base_url("/admin/media/popup") ?>'+'?mode='+mode, 'FileManager', 'width=900,height=600');
 			if(mode == 'single')
 			{

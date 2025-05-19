@@ -96,7 +96,7 @@ if (!function_exists('form_wp_photo')) {
                             {$imagePreview}
                             <input type="hidden" name="{$name}" id="{$id}" value="{$value}">
                             <div class="wp-btns">
-                                <button type="button" class="btn btn-primary btn-sm" onclick="openMediaPopup('{$id}')">Chọn ảnh</button>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="openMediaPopup('{$id}','single')">Chọn ảnh</button>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="removeFeaturedPhoto('{$id}')">Xóa</button>
                             </div>
                         </div>

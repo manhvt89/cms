@@ -101,9 +101,12 @@
   }
 
   function insertSelectedImage() {
-    if (window.opener && typeof window.opener.setImageFromPopup === 'function') {
+    console.log('insertSelectedImage');
+    console.log(window.parent);
+    if (window.parent && typeof window.parent.setImageFromPopup === 'function'){
+      console.log('insertSelectedImage');
       const selectedUrl = selectedImageUrl; // bạn lấy từ biến toàn cục khi click ảnh
-      window.opener.setImageFromPopup(selectedUrl);
+      window.parent.setImageFromPopup(selectedUrl);
       window.close();
     }
   }
