@@ -333,6 +333,9 @@ $routes->group('admin', [
 
     $routes->get('shop/delete/product/(:num)', 'ShopProduct::delete/$1');
 
+    $routes->get('clear-cache', 'Tools::clearCache');
+
+
 });
 
 $routes->get('admin/login', 'Admin\Login::index');

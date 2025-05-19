@@ -643,6 +643,14 @@
                	$('#smtpContainer').show();
             }
         });
+
+		$('#clearCacheBtn').click(function () {
+			if (!confirm('Bạn có chắc chắn muốn xóa cache không?')) return;
+
+			$.get('/admin/clear-cache', function (response) {
+				alert(response.message);
+			});
+		});
         
     </script>
 

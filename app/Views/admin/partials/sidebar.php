@@ -145,6 +145,9 @@
             <li>
                 <a href="<?= base_url('admin/logout') ?>"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
             </li>
+             <li>
+                <button id="clearCacheBtn" class="btn btn-warning">Xóa Cache</button>
+            </li>
         </ul>
     </section>
 </aside>
