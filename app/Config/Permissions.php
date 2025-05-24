@@ -15,6 +15,10 @@ class Permissions extends BaseConfig
         'function1',
         'fun2'
     ];
+
+    public $skipControllers = [
+        'media', // controller
+    ];
     /**
      * 
      *  Item_menu = {
@@ -30,7 +34,92 @@ class Permissions extends BaseConfig
             'order'=>1,
             'icon_class' => 'fa fa-dashboard',
             'value'=>'',
-            'items'=>[],
+            'items'=>[
+                'shopdashboard.index'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/dashboard',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Shop Dashboard',
+                ],
+                'shopcategory.add'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/add/category',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Shop Category',
+                ],
+                'shopcategory.index'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/manage/category',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Shop Category Manage',
+                ],
+                'shopbrand.add'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/add/brand',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Shop Brand Add',
+                ],
+                'shopbrand.index'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/manage/brand',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Shop Brand',
+                ],
+                'shopproduct.add'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/add/product',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Product Add',
+                ],
+                'shopproduct.index'=>[
+                    'order'=>1,
+                    'icon_class' => 'fa fa-circle-o',
+                    'value'=>'shop/manage/product',
+                    'items'=>[],
+                    'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
+                    'target'     => '_self',                       // Mở tab mới nếu là _blank
+                    'tooltip'    => '',                            // Tooltip gợi ý khi hover
+                    'badge'      => '',
+                    'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+                    'label'=>'Product List',
+                ],
+            ],
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
             'tooltip'    => '',                            // Tooltip gợi ý khi hover
@@ -474,6 +563,22 @@ class Permissions extends BaseConfig
     public array $rolePermissions = [
         'Admin' => [
             'shop.index',
+            'shopdashboard.index',
+            'shopcategory.add',
+            'shopcategory.index',
+            'shopcategory.edit',
+            'shopcategory.delete',
+
+            'shopbrand.add',
+            'shopbrand.index',
+            'shopbrand.edit',
+            'shopbrand.delete',
+
+            'shopproduct.add',
+            'shopproduct.edit',
+            'shopproduct.index',
+            'shopproduct.delete',
+
             'page_section.index',
             'pagehome.index',
             'pagefaq.index',
@@ -490,7 +595,11 @@ class Permissions extends BaseConfig
             'pagepricing.index',
             'pageterm.index',
             'pageprivacy.index',
+
             'category.index',
+            'category.add',
+            'category.edit',
+            'category.delete',
 
             'news.index',
             'news.add',
@@ -498,19 +607,67 @@ class Permissions extends BaseConfig
             'news.delete',
 
             'event.index',
+            'event.add',
+            'event.edit',
+            'event.delete',
+
             'photo.index',
+
             'portfolio.index',
+            'portfolio.add',
+            'portfolio.edit',
+            'portfolio.delete',
+
             'footersetting.index',
+            'footersetting.edit',
+            'footersetting.update',
+
             'menugroup.index',
+            'menugroup.add',
+            'menugroup.edit',
+            'menugroup.delete',
+
+            'menu.index',
+            'menu.create',
+            'menu.edit',
+            'menu.delete',
+
             'lang.index',
+            'lang.add',
+            'lang.edit',
+            'lang.delete',
+             'lang.detail',
+
             'slider.index',
+            'slider.add',
+            'slider.edit',
+            'slider.delete',
+
             'team.index',
+            'team.add',
+            'team.edit',
+            'team.delete',
+
             'testimonial.index',
+            'testimonial.add',
+            'testimonial.edit',
+            'testimonial.delete',
+
             'client.index',
+            'client.add',
+            'client.edit',
+            'client.delete',
+
             'pricing.index',
+            'pricing.add',
+            'pricing.edit',
+            'pricing.delete',
             /*'subscriber.index',*/
-            'search.index',
+            /*'search.index',*/
+
             'setting.index',
+            'setting.update',
+            
 
             'whychoose.index',
             'whychoose.add',
@@ -531,14 +688,142 @@ class Permissions extends BaseConfig
         ],
         'Manager' => [
             'dashboard.index',
+            'page_section.index',
+            'pagehome.index',
+            'pagefaq.index',
+            'pageabout.index',
+            'pageservice.index',
+            'pagetestimonial.index',
+            'pagenews.index',
+            'pageevent.index',
+            'pagecontact.index',
+            'pagesearch.index',
+            'pageteam.index',
+            'pageportfolio.index',
+            'pagephoto-gallery.index',
+            'pagepricing.index',
+            'pageterm.index',
+            'pageprivacy.index',
+
+            'category.index',
+            'category.add',
+            'category.edit',
+            'category.delete',
+
+            'news.index',
+            'news.add',
+            'news.edit',
+            'news.delete',
+
+            'event.index',
+            'event.add',
+            'event.edit',
+            'event.delete',
+
+            'photo.index',
+
+            'portfolio.index',
+            'portfolio.add',
+            'portfolio.edit',
+            'portfolio.delete',
+
+            'footersetting.index',
+            'footersetting.edit',
+            'footersetting.update',
+
+            'menugroup.index',
+            'menugroup.add',
+            'menugroup.edit',
+            'menugroup.delete',
+
+            'menu.index',
+            'menu.create',
+            'menu.edit',
+            'menu.delete',
+
+            'lang.index',
+            'lang.add',
+            'lang.edit',
+            'lang.delete',
+             'lang.detail',
+
+            'slider.index',
+            'slider.add',
+            'slider.edit',
+            'slider.delete',
+
+            'team.index',
+            'team.add',
+            'team.edit',
+            'team.delete',
+
+            'testimonial.index',
+            'testimonial.add',
+            'testimonial.edit',
+            'testimonial.delete',
+
+            'client.index',
+            'client.add',
+            'client.edit',
+            'client.delete',
+
+            'pricing.index',
+            'pricing.add',
+            'pricing.edit',
+            'pricing.delete',
+            /*'subscriber.index',*/
+            /*'search.index',*/
+
+            'setting.index',
+            'setting.update',
+            
+
+            'whychoose.index',
+            'whychoose.add',
+            'whychoose.edit',
+            'whychoose.delete',
+
+            'dashboard.index',
+
+            'user.index',
+            'user.add',
             'user.edit',
+            'user.delete',
+
             'post.create',
             'post.edit',
+            'post.delete',
+            'settings.manage',
         ],
         'Editor' => [
             'dashboard.index',
-            'post.create',
-            'post.edit',
+            'category.index',
+            'category.add',
+            'category.edit',
+            'category.delete',
+
+            'news.index',
+            'news.add',
+            'news.edit',
+            'news.delete',
+
+            'event.index',
+            'event.add',
+            'event.edit',
+            'event.delete',
+
+            'photo.index',
+
+            'portfolio.index',
+            'portfolio.add',
+            'portfolio.edit',
+            'portfolio.delete',
+
+            'slider.index',
+            'slider.add',
+            'slider.edit',
+            'slider.delete',
+
         ]
     ];
 }
