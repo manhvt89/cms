@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\Admin\AdminBaseController;
-use App\Models\Admin\ModelCommon;
+use App\Models\Admin\CommonModel;
 use App\Models\Admin\ModelProfile;
 
 class Profile extends AdminBaseController
@@ -14,7 +14,7 @@ class Profile extends AdminBaseController
 
     public function __construct()
     {
-        $this->modelCommon = new ModelCommon();
+        $this->modelCommon = new CommonModel();
         $this->modelProfile = new ModelProfile();
         $this->session = session();
         helper(['form', 'url']);
@@ -24,7 +24,6 @@ class Profile extends AdminBaseController
     {
         $data = $this->data;
         $data['setting'] = $this->modelCommon->get_setting_data();
-
         return view('admin/profile',$data);
     }
 

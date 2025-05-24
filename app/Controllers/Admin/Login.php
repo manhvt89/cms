@@ -53,7 +53,6 @@ class Login extends BaseController
             $session->set([
                 'id'        => $user['id'],
                 'email'     => $user['email'],
-                'password'  => $user['password'],
                 'photo'     => $user['photo'],
                 'role'      => $user['role'],
                 'status'    => $user['status'],

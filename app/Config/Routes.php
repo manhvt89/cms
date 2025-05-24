@@ -73,11 +73,11 @@ $routes->group('admin', [
     'namespace' => 'App\Controllers\Admin',
     'filter' => 'auth'
 ], function ($routes) {
-    $routes->get('dashboard', 'Dashboard::index');
-    $routes->get('profile', 'Profile::index');
-    $routes->post('profile/update', 'Profile::update');
-    $routes->get('category', 'Category::index');
-    $routes->get('category/add', 'Category::add');
+    $routes->get('dashboard', 'Dashboard::index',['as' => 'admin.dashboard']);
+    $routes->get('profile', 'Profile::index', ['as' => 'admin.profile.index']);
+    $routes->post('profile/update', 'Profile::update',['as' => 'admin.profile.update']);
+    $routes->get('category', 'Category::index',['as' => 'admin.category.index']);
+    $routes->get('category/add', 'Category::add',['as' => 'admin.category.add']);
     $routes->post('category/add', 'Category::add');
     $routes->get('category/edit/(:num)', 'Category::edit/$1');
     $routes->post('category/edit/(:num)', 'Category::edit/$1');
@@ -334,6 +334,15 @@ $routes->group('admin', [
     $routes->get('shop/delete/product/(:num)', 'ShopProduct::delete/$1');
 
     $routes->get('clear-cache', 'Tools::clearCache');
+
+    //user
+    $routes->get('user', 'User::index');
+    $routes->get('user/edit/(:num)', 'User::edit/$1');
+    $routes->post('user/edit/(:num)', 'User::edit/$1');
+
+    $routes->get('user/add', 'User::add');
+    $routes->post('user/add', 'User::add');
+    $routes->get('user/delete/(:num)', 'User::delete/$1');
 
 
 });

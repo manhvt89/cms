@@ -2,6 +2,7 @@
 
 use \App\Models\Admin\MenuModel;
 use \App\Models\Admin\MenuGroupModel;
+use Config\Permissions;
 
 if (!function_exists('get_menu_html')) {
     function get_menu_html($group_slug, $options = [])
