@@ -70,8 +70,8 @@
 									</td>
 									<td><?php echo $row['lang_name']; ?></td>
 									<td>
-									<?php $_sUrl = slugify($row['news_title']);?>										
-									<a href="<?=base_url("news/view/{$_sUrl}-{$row['news_id']}") ?>" class="btn btn-success btn-xs" target="_blank">View</a>
+									<?php $_sUrl = $row['slug'];?>										
+									<a href="<?=base_url("{$_sUrl}") ?>" class="btn btn-success btn-xs" target="_blank">View</a>
 										<a href="<?php echo base_url("admin/news/edit/{$row['news_id']}"); ?>" class="btn btn-primary btn-xs">Edit</a>
 										<a href="<?php echo base_url(); ?>admin/news/delete/<?php echo $row['news_id']; ?>" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure?');">Delete</a>  
 									</td>

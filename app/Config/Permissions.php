@@ -7,6 +7,15 @@ use CodeIgniter\Config\BaseConfig;
 class Permissions extends BaseConfig
 {
     /**
+     * Liệt kê danh sách các hàm bỏ qua phân quyền.
+     * Ví dụ hàm gọi ajax để lấy dữ liệu điền vào table, khi có quyền view table là có quyền load.ajax
+     * @var array
+     */
+    public array $skipMethods = [
+        'function1',
+        'fun2'
+    ];
+    /**
      * 
      *  Item_menu = {
      * order: thứ tự item
@@ -481,9 +490,13 @@ class Permissions extends BaseConfig
             'pagepricing.index',
             'pageterm.index',
             'pageprivacy.index',
-                    
             'category.index',
+
             'news.index',
+            'news.add',
+            'news.edit',
+            'news.delete',
+
             'event.index',
             'photo.index',
             'portfolio.index',
@@ -498,12 +511,19 @@ class Permissions extends BaseConfig
             /*'subscriber.index',*/
             'search.index',
             'setting.index',
+
             'whychoose.index',
+            'whychoose.add',
+            'whychoose.edit',
+            'whychoose.delete',
+
             'dashboard.index',
+
             'user.index',
-            'user.create',
+            'user.add',
             'user.edit',
             'user.delete',
+
             'post.create',
             'post.edit',
             'post.delete',

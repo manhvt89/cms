@@ -85,7 +85,7 @@ class User extends AdminBaseController
 			}
 			$user_id = $this->request->getPost('user_id');
             $this->_Model->_update($user_id, $form_data);
-            $this->session->set($form_data);
+            //$this->session->set($form_data);
             return redirect()->to(base_url($this->index_url))->with('success', 'Password is updated successfully!');
         } else {
 			$data['item'] = $this->_Model->getData($id);

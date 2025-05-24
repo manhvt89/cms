@@ -20,6 +20,12 @@ class AuthFilter implements FilterInterface
         $controller = service('router')->controllerName(); // Controller hiện tại
         $method = service('router')->methodName(); // Method hiện tại (action)
 
+        $skipMethods = config(Permissions::class)->skipMethods; // Thêm các method cần bỏ qua
+
+        // Nếu method đang gọi nằm trong danh sách bỏ qua, thì bỏ qua phân quyền
+        if (in_array($method, $skipMethods)) {
+            return;
+        }
         // Tạo permission string ví dụ: "users.delete"
         $controllerName = strtolower(class_basename($controller)); // Lấy tên controller không có namespace
         $permission = "{$controllerName}.{$method}"; 

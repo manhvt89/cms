@@ -77,6 +77,7 @@ class ModelNews extends Model
         return $this->db->table('tbl_news t1')
             ->select('
                 t1.news_id,
+                t1.slug,
                 t1.news_title,
                 t1.news_content,
                 t1.photo,
