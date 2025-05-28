@@ -34,9 +34,25 @@ class CategoryModel extends Model
     }
 
     public function category_check($id) {
-        return $this->db->table($this->table)
+        if(is_numeric($id))
+        {
+            return $this->db->table($this->table)
                         ->where('category_id', $id)
                         ->countAllResults() > 0;
+        } else {
+            return $this->db->table($this->table)
+                        ->where('category_slug', $id)
+                        ->countAllResults() > 0;
+        }
     }
+
+    public function category_by_slug($slug)
+    {
+        return $this->db->table($this->table)
+                        ->where('category_slug', $slug)
+                        ->get()
+                        ->getRowArray();
+    }
+
 
 }

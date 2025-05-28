@@ -126,77 +126,32 @@ class Category extends AdminBaseController
             $validation = \Config\Services::validation();
             if($this->request->getPost('form1')) 
             {
+                $this->check_project_mode();
 
-                if(PROJECT_MODE == 0) {
-                    $this->session->setFlashdata('error',PROJECT_NOTIFICATION);
-                    return redirect()->to($_SERVER['HTTP_REFERER']);
-                }
-
-                $valid = 1;
                 // Validate input
                 $rules = [
                     'category_name' => 'required|trim'
                 ];
 
                 if (!$this->validate($rules)) {
-                    $valid = false;
-                    $error .= $validation->listErrors();
+                    return redirect()->to(base_url("/admin/category/edit/{$id}"))
+                        ->withInput()->with('error', $this->validator->listErrors());
                 }
 
-                
+                $form_data = [
+                    'category_name'    => $this->request->getPost('category_name'),
+                    'meta_title'       => $this->request->getPost('meta_title'),
+                    'meta_keyword'     => $this->request->getPost('meta_keyword'),
+                    'meta_description' => $this->request->getPost('meta_description'),
+                    'lang_id'          => $this->request->getPost('lang_id'),
+                    'category_banner' => $this->request->getPost('category_banner'),
+                ];
 
-                $path = $_FILES['banner']['name'];
-                $path_tmp = $_FILES['banner']['tmp_name'];
-
-                if($path!='') {
-                    $file = $this->request->getFile('banner');
-
-                    if (!$file->isValid()) {
-                        $valid = false;
-                        $error .= 'You must have to select a photo for banner<br>';
-                    } else {
-                        $ext = $file->getExtension();
-                        
-                        if (!$this->modelCommon->extension_check_photo($ext)) {
-                            $valid = false;
-                            $error .= 'You must have to upload jpg, jpeg, gif or png file for banner<br>';
-                        }
-                    }
-                }
-
-                if($valid == 1) 
-                {
-                    
-                    $form_data = [
-                        'category_name'    => $this->request->getPost('category_name'),
-                        'meta_title'       => $this->request->getPost('meta_title'),
-                        'meta_keyword'     => $this->request->getPost('meta_keyword'),
-                        'meta_description' => $this->request->getPost('meta_description'),
-                        'lang_id'          => $this->request->getPost('lang_id')
-                    ];
-
-                    if($path != '') {
-
-                        $data['category'] = $_aCategory;
-                        @unlink(ROOTPATH.'public/uploads/'.$data['category']['category_banner']);
-
-                        $final_name = 'category-banner-'.uniqid().'.'.$ext;
-                        //move_uploaded_file( $path_tmp, ROOTPATH.'public/uploads/'.$final_name );
-                        $file->move(ROOTPATH.'public/uploads/'.$final_name);
-                        $form_data = array_merge($form_data, [
-                                                                'category_banner'  => $final_name,
-                                                           ]);
-                    }
-                    $this->modelCategory->_update($id,$form_data);
-                    $success = 'Category is updated successfully';
-                    $this->session->setflashdata('success',$success);
-                    return redirect()->to(base_url().'admin/category');
-                }
-                else
-                {
-                    $this->session->setflashdata('error',$error);
-                    return redirect()->to(base_url().'admin/category/edit'.$id);
-                }
+                $this->modelCategory->_update($id,$form_data);
+                $success = 'Category is updated successfully';
+                $this->session->setflashdata('success',$success);
+                return redirect()->to(base_url().'admin/category');
+            
             
             } else {
                 $data['category'] = $_aCategory;

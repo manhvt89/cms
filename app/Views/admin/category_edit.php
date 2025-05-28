@@ -13,42 +13,21 @@
 
   	<div class="row">
 	    <div class="col-md-12">
+		<?=flash_message()?>
 
-        <?php if (session()->getFlashdata('error')): ?>
-            <div class="callout callout-danger">
-                <p><?= session()->getFlashdata('error') ?></p>
-            </div>
-        <?php endif; ?>
-        
-        <?php if (session()->getFlashdata('success')): ?>
-            <div class="callout callout-success">
-                <p><?= session()->getFlashdata('success') ?></p>
-            </div>
-        <?php endif; 
-        ?>
-
-	        <?= form_open_multipart(base_url().'admin/category/edit/'.$category['category_id'],array('class' => 'form-horizontal')); ?>
+	    <?= form_open_multipart(base_url().'admin/category/edit/'.$category['category_id'],array('class' => 'form-horizontal')); ?>
 
 	        <div class="box box-info">
 
 	            <div class="box-body">
 	                <div class="form-group">
-	                    <label for="" class="col-sm-2 control-label">Category Name <span>*</span></label>
+	                    <label for="" class="col-sm-2 control-label"><?=lang('Admin.category.name')?> <span>*</span></label>
 	                    <div class="col-sm-4">
 	                        <input type="text" class="form-control" name="category_name" value="<?php echo $category['category_name']; ?>">
 	                    </div>
 	                </div>
 	                <div class="form-group">
-						<label for="" class="col-sm-2 control-label">Existing Banner</label>
-						<div class="col-sm-9" style="padding-top:5px">
-							<img src="<?php echo base_url(); ?>public/uploads/<?php echo $category['category_banner']; ?>" alt="Slider Photo" style="width:180px;">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-2 control-label">Banner </label>
-						<div class="col-sm-6" style="padding-top:5px">
-							<input type="file" name="banner">(Only jpg, jpeg, gif and png are allowed)
-						</div>
+						<?=form_wp_photo('category_banner',old('category_banner')??$category['category_banner'],'category_banner','Banner',true,'col-sm-4')?>
 					</div>
 	                <div class="form-group">
 						<label for="" class="col-sm-2 control-label">Meta Title </label>

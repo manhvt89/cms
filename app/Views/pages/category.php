@@ -2,11 +2,11 @@
 
 <?= $this->section('content') ?>
 <!--Banner Start-->
-<div class="banner-slider" style="background-image: url(<?php echo base_url(); ?>public/uploads/<?php echo $category['category_banner']; ?>)">
+<div class="banner-slider" style="background-image: url(<?=base_url($category['category_banner']); ?>)">
     <div class="bg"></div>
     <div class="bannder-table">
         <div class="banner-text">
-            <h1><?php echo 'CATEGORY'; ?>: <?php echo $category['category_name']; ?></h1>
+            <h1><?=lang('Common.category')?><?=$category['category_name']?></h1>
         </div>
     </div>
 </div>
