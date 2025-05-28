@@ -637,6 +637,7 @@ class Permissions extends BaseConfig
             'pagephoto-gallery.index',
             'pagepricing.index',
             'pageterm.index',
+            'pageterm.edit',
             'pageprivacy.index',
 
             'category.index',

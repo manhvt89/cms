@@ -38,9 +38,6 @@ class Event extends BaseController
 		
         $page_event  = $common->all_page_event();
        
-
-       
-    
         $perPage = 10;
 
         $data = array_merge($this->data,[  

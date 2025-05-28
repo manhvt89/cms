@@ -95,8 +95,8 @@
                     <div class="footer-menu">
                         <ul>
                             <li><a href="<?php echo base_url(); ?>"><?php echo HOME; ?></a></li>
-                            <li><a href="<?php echo base_url(); ?>terms-and-conditions"><?php echo TERMS_AND_CONDITIONS; ?></a></li>
-                            <li><a href="<?php echo base_url(); ?>privacy-policy"><?php echo PRIVACY_POLICY; ?></a></li>
+                            <li><a href="<?= base_url("term")?>"><?php echo TERMS_AND_CONDITIONS; ?></a></li>
+                            <li><a href="<?= base_url("privacy")?>"><?php echo PRIVACY_POLICY; ?></a></li>
                         </ul>
                     </div>
                     <div class="copy-text">

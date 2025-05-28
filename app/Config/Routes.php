@@ -16,6 +16,9 @@ $routes->get('test', 'Test::index');
 $routes->get('about', 'About::index');
 $routes->get('contact', 'Contact::index');
 $routes->get('faq', 'Faq::index');
+$routes->get('term', 'Term::index');
+$routes->get('privacy', 'Privacy::index');
+
 
 $routes->get('event', 'Event::index');
 $routes->get('event/index/(:num)', 'Event::index/$1');
@@ -355,6 +358,7 @@ $routes->get('admin', 'Admin\Login::index');
 //sitemap.xml
 $routes->get('sitemap.xml', 'Sitemap::index');
 $routes->get('sitemap/(:segment)/(:num)', 'Sitemap::generate/$1/$2'); // sitemap/news/1
+
 // Sử dụng với domain.com/bai_viet_xxx
 $routes->get('/(:segment)', 'News::view/$1');
 
