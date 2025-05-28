@@ -101,7 +101,7 @@
   }
 
   function insertSelectedImage() {
-    console.log('insertSelectedImage');
+    console.log('Start insertSelectedImage');
     console.log(window.parent);
     if (window.parent && typeof window.parent.setImageFromPopup === 'function'){
       console.log('insertSelectedImage');
@@ -109,6 +109,7 @@
       window.parent.setImageFromPopup(selectedUrl);
       window.close();
     }
+    console.log('FAILSE insertSelectedImage');
   }
 
 /*

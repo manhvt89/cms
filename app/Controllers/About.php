@@ -27,8 +27,6 @@ class About extends BaseController
             // Thêm các biến khác cần thiết
         ];
         
-        
-        
         $data['page_about'] = $this->modelCommon->all_page_about();
         $data['comment'] = $this->modelCommon->all_comment();
         $data['social'] = $this->modelCommon->all_social();

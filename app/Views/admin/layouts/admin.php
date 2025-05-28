@@ -355,7 +355,12 @@
 			],
 			onAction: function (api, details) {
 			if (details.name === 'choose') {
-				const win = window.open('<?= base_url('/admin/media/popup') ?>', 'FileManager', 'width=900,height=600');
+				console.log('choose');
+				let activeElement = document.activeElement;
+				let zIndex = window.getComputedStyle(activeElement).zIndex || 1000;
+				console.log('zIndex: '+zIndex);
+				//const win = window.open('<?= base_url('/admin/media/popup') ?>', 'FileManager', 'width=900,height=600');
+				openMediaPopup('NN');
 				window.setImageFromPopup = function (url) {
 				imageUrl = url;
 				api.setData({ src: url });
@@ -373,7 +378,7 @@
 						csrfInput.value = newToken;
 					}
 				}
-				win.close();
+				$('#mediaModal').modal('hide');
 				};
 			}
 			},
@@ -494,7 +499,7 @@
 		function openMediaPopup(name, mode = 'single') {
 			const iframeUrl = `<?= base_url('/admin/media/popup') ?>?mode=${mode}&target=${name}`;
 			document.getElementById('mediaIframe').src = iframeUrl;
-
+			document.getElementById('mediaModal').style.zIndex = 99999;
 			// Gán callback tương ứng
 			if (mode === 'single') {
 				window.setImageFromPopup = function (url) {

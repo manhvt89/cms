@@ -66,18 +66,17 @@ class PagePrivacy extends AdminBaseController
 			$mt = $this->request->getPost('mt');
 			$mk = $this->request->getPost('mk');
 			$md = $this->request->getPost('md');
-			$map = $this->request->getPost('map');
-			$address = $this->request->getPost('address');
-			$email = $this->request->getPost('email');
-			$phone = $this->request->getPost('phone');
+			$content = $this->request->getPost('content');
+			
 			//$md = $this->request->getPost('md');
 
 			$rules = [
-                'heading'         => 'required',				
+                'heading'       =>'required',
+				'content'		=>'required'				
             ];
 
             if (!$this->validate($rules)) {
-                return redirect()->back()->withInput()->with('error', $this->validator->getErrors());
+                return redirect()->to(base_url('admin/pageprivacy/edit/1'))->withInput()->with('error', $this->validator->getErrors());
             }
 
 			$form_data = [
@@ -85,10 +84,7 @@ class PagePrivacy extends AdminBaseController
 				'mt'      => $mt,
 				'mk'      => $mk,
 				'md'      => $md,
-				'map'=>$map,
-				'address'=>$address,
-				'email'=>$email,
-				'phone'=>$phone
+				'content'=>$content
 			];
 			//var_dump();die();
 			$this->_Model->_update($id,$form_data);
