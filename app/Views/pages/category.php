@@ -20,19 +20,19 @@
 
                 <?php
                 foreach($news_by_category as $row) {
-                    $_sSlugNews = slugify($row['news_title']);
-                    $_sSlugCat = slugify($category['category_name'])
+                    $_sSlugNews = $row['slug'];
+                    $_sSlugCat = $category['category_slug'];
                     ?>
                     <div class="blog-one-item">
                         <div class="blog-one-photo">
-                            <a href="<?=base_url("news/view/{$_sSlugNews}-{$row['news_id']}")?>">
+                            <a href="<?=base_url($_sSlugNews)?>">
                                 <img src="<?=base_url($row['photo'])?>" alt="<?=$row['news_title']?>"/>
                             </a>
                         </div>
                         <div class="blog-one-text">
                             <ul>
                                 <li><i class="fa fa-edit"></i>
-                                    <a href="<?=base_url("category/{$_sSlugCat}-{$row['category_id']}")?>">
+                                    <a href="<?=base_url("category/{$_sSlugCat}")?>">
                                         <?=$category['category_name']?>
                                     </a>
                                 </li>
@@ -41,7 +41,7 @@
                                 </li>
                             </ul>
                             <h3>
-                                <a href="<?=base_url("news/view/{$_sSlugNews}-{$row['news_id']}")?>">
+                                <a href="<?=base_url($_sSlugNews)?>">
                                     <?=$row['news_title']; ?>
                                 </a>
                             </h3>
@@ -49,8 +49,8 @@
                                 <?php echo $row['news_content_short']; ?>
                             </p>
                             <div class="button-df">
-                                <a href="<?=base_url("news/view/{$_sSlugNews}-{$row['news_id']}")?>">
-                                    <?=READ_MORE?> <i class="fa fa-chevron-circle-right"></i>
+                                <a href="<?=base_url($_sSlugNews)?>">
+                                    <?=lang('Common.read.more')?> <i class="fa fa-chevron-circle-right"></i>
                                 </a>
                             </div>
                         </div>
