@@ -312,10 +312,10 @@ if (!function_exists('footer_recent_posts')) {
                     if ($i > $limit) {
                         break;
                     }
-                    $_sSlugNews = slugify($news['news_title']);
+                    $_sSlugNews = $news['slug'];
                     ?>
                     <li>
-                        <a href="<?= base_url("news/view/{$_sSlugNews}-{$news['news_id']}") ?>">
+                        <a href="<?= base_url($_sSlugNews) ?>">
                             <?= esc($news['news_title']) ?>
                         </a>
                     </li>

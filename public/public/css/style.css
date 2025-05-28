@@ -5464,6 +5464,11 @@ span.input-group-btn {
     width: calc(100% / 3 - 20px) !important; /* Chia 1/3, trừ margin */
 }
 
+.sidebar-mini .sidebar-menu>li:hover>a, .sidebar-mini .sidebar-menu>li.active>a {
+	background-color: #4c4c4c;
+	border-left-color: #000000;
+}
+
 @media (max-width: 991px) {
     .blog-carousel .owl-item {
         width: calc(100% / 2 - 20px) !important; /* Cho màn hình 768px */

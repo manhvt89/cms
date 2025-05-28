@@ -34,11 +34,13 @@ class Permissions extends BaseConfig
             'order'=>1,
             'icon_class' => 'fa fa-dashboard',
             'value'=>'',
+            'parent'=>'',
             'items'=>[
                 'shopdashboard.index'=>[
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/dashboard',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -51,6 +53,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/add/category',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -63,6 +66,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/manage/category',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -75,6 +79,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/add/brand',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -87,6 +92,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/manage/brand',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -99,6 +105,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/add/product',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -111,6 +118,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'shop/manage/product',
+                    'parent'=>'shop.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -131,6 +139,7 @@ class Permissions extends BaseConfig
             'order'=>6,
             'icon_class' => 'fa fa-newspaper-o',
             'value'=>'',
+            'parent'=>'',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
             'tooltip'    => '',                            // Tooltip gợi ý khi hover
@@ -142,6 +151,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagehome',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -154,6 +164,7 @@ class Permissions extends BaseConfig
                     'order'=>2,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageabout',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -166,6 +177,7 @@ class Permissions extends BaseConfig
                     'order'=>3,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagefaq',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -178,6 +190,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageservice',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -190,6 +203,7 @@ class Permissions extends BaseConfig
                     'order'=>5,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagetestimonial',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -202,6 +216,7 @@ class Permissions extends BaseConfig
                     'order'=>1,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagenews',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -214,6 +229,7 @@ class Permissions extends BaseConfig
                     'order'=>5,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageevent',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -226,6 +242,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagecontact',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -238,6 +255,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagesearch',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -250,6 +268,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageteam',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -262,6 +281,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageportfolio',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -274,6 +294,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagephoto-gallery',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -286,6 +307,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pagepricing',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -298,6 +320,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageterm',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -310,6 +333,7 @@ class Permissions extends BaseConfig
                     'order'=>4,
                     'icon_class' => 'fa fa-circle-o',
                     'value'=>'pageprivacy',
+                    'parent'=>'page_section.index',
                     'items'=>[],
                     'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
                     'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -324,6 +348,7 @@ class Permissions extends BaseConfig
             'order'=>3,
             'icon_class' => 'fa fa-folder-open',
             'value'=>'admin/category',
+            'parent'=>'',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
             'tooltip'    => '',                            // Tooltip gợi ý khi hover
@@ -336,6 +361,7 @@ class Permissions extends BaseConfig
             'order'=>2,
             'icon_class' => 'fa fa-newspaper-o',
             'value'=>'admin/news',
+            'parent'=>'',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
             'tooltip'    => '',                            // Tooltip gợi ý khi hover
@@ -348,6 +374,7 @@ class Permissions extends BaseConfig
             'order'=>5,
             'icon_class' => 'fa fa-calendar',
             'value'=>'admin/event',
+            'parent'=>'',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
             'tooltip'    => '',                            // Tooltip gợi ý khi hover
@@ -360,6 +387,7 @@ class Permissions extends BaseConfig
             'order'=>6,
             'icon_class' => 'fa fa-image',
             'value'=>'admin/photo_gallery',
+            'parent'=>'',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
             'tooltip'    => '',                            // Tooltip gợi ý khi hover
@@ -372,6 +400,7 @@ class Permissions extends BaseConfig
             'order'=>7,
             
             'value'=>'admin/portfolio',
+            'parent'=>'',
             'icon_class' => 'fa fa-briefcase',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -384,6 +413,7 @@ class Permissions extends BaseConfig
         'footersetting.index' =>[
             'order'=>8,
             'value'=>'admin/footersetting',
+            'parent'=>'',
             'icon_class' => 'fa fa-cog',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -396,6 +426,7 @@ class Permissions extends BaseConfig
         'menugroup.index' =>[
             'order'=>9,
             'value'=>'admin/menugroup',
+            'parent'=>'',
             'icon_class' => 'fa fa-file-text',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -408,6 +439,7 @@ class Permissions extends BaseConfig
         'lang.index' =>[
             'order'=>10,
             'value'=>'admin/lang',
+            'parent'=>'',
             'icon_class' => 'fa fa-language',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -420,6 +452,7 @@ class Permissions extends BaseConfig
         'slider.index' =>[
             'order'=>11,
             'value'=>'admin/slider',
+            'parent'=>'',
             'icon_class' => 'fa fa-picture-o',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -432,6 +465,7 @@ class Permissions extends BaseConfig
         'service.index' =>[
             'order'=>11,
             'value'=>'admin/service',
+            'parent'=>'',
             'icon_class' => 'fa fa-cogs',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -444,6 +478,7 @@ class Permissions extends BaseConfig
         'team.index' =>[
             'order'=>12,
             'value'=>'admin/team',
+            'parent'=>'',
             'icon_class' => 'fa fa-users',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -456,6 +491,7 @@ class Permissions extends BaseConfig
         'testimonial.index' =>[
             'order'=>13,
             'value'=>'admin/testimonial',
+            'parent'=>'',
             'icon_class' => 'fa fa-comments',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -468,6 +504,7 @@ class Permissions extends BaseConfig
         'client.index' =>[
             'order'=>14,
             'value'=>'admin/client',
+            'parent'=>'',
             'icon_class' => 'fa fa-handshake-o',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -480,6 +517,7 @@ class Permissions extends BaseConfig
         'pricing.index' =>[
             'order'=>15,
             'value'=>'admin/pricing',
+            'parent'=>'',
             'icon_class' => 'fa fa-money',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -492,6 +530,7 @@ class Permissions extends BaseConfig
         'subscriber.index' =>[
             'order'=>16,
             'value'=>'admin/subscriber',
+            'parent'=>'',
             'icon_class' => 'fa fa-envelope',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -511,6 +550,7 @@ class Permissions extends BaseConfig
         'setting.index' =>[
             'order'=>17,
             'value'=>'admin/setting',
+            'parent'=>'',
             'icon_class' => 'fa fa-cogs',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -523,6 +563,7 @@ class Permissions extends BaseConfig
         'whychoose.index' =>[
             'order'=>18,
             'value'=>'admin/whychoose',
+            'parent'=>'',
             'icon_class' => 'fa fa-cogs',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -535,6 +576,7 @@ class Permissions extends BaseConfig
         'user.index' =>[
             'order'=>18,
             'value'=>'admin/user',
+            'parent'=>'',
             'icon_class' => 'fa fa-users',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank
@@ -547,6 +589,7 @@ class Permissions extends BaseConfig
         'dashboard.index' =>[
             'order'=>0,
             'value'=>'admin/dashboard',
+            'parent'=>'',
             'icon_class' => 'fa fa-dashboard',
             'permission' => 'shop.index',                  // Key permission (nếu khác key chính)
             'target'     => '_self',                       // Mở tab mới nếu là _blank

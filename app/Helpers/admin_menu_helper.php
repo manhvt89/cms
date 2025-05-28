@@ -28,6 +28,10 @@ if (!function_exists('render_admin_menu')) {
         $config = config(Permissions::class);
         $menu = $config->menu;
 
+        $controller = service('router')->controllerName(); // Controller hiện tại
+        $controllerName = strtolower(class_basename($controller)); // Lấy tên controller không có namespace
+        $method = service('router')->methodName(); // Method hiện tại (action)
+        $curent_item = "{$controllerName}.{$method}";
         // Sắp xếp cấp cha
         uasort($menu, fn($a, $b) => ($a['order'] ?? 0) <=> ($b['order'] ?? 0));
 
@@ -48,17 +52,20 @@ if (!function_exists('render_admin_menu')) {
                 $iconHtml = '<i class="' . esc($item['icon_class']) . '"></i>';
             }
 
-
             $hasChildren = !empty($item['items']);
             
             $url = get_menu_url($item);
             
-            
             $tooltip = trim($item['tooltip'] ?? '');
-           
-            $activeClass = $hasChildren ? 'treeview' : '';
-
-            $html .= '<li class="' . $activeClass . '">';
+            $activeClass = '';
+            if($item['parent'] == '')
+            {
+                $activeClass = $curent_item == $key  ? 'active' : '';
+            } else {
+                $activeClass = $key == $item['parent']  ? 'active' : '';
+            }
+            $hasChildrenClass = $hasChildren ? 'treeview' : 'treeview';
+            $html .= '<li class="' . $hasChildrenClass . ' '.$activeClass.'">';
             $html .= '<a href="' . $url . '" title="' . $tooltip . '">';
             $html .=  $iconHtml ;
             

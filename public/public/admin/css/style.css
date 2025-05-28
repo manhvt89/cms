@@ -551,3 +551,8 @@ h3.sec_title {
     float: left;
     width: 100px;
 }
+
+.sidebar-mini .sidebar-menu>li:hover>a, .sidebar-mini .sidebar-menu>li.active>a {
+	background-color: #4c4c4c;
+	border-left-color: #000000;
+}
