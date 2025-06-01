@@ -649,6 +649,22 @@
             }
         });
 
+		$(document).on('click', '.menu-ajax-item', function (e) {
+			e.preventDefault();
+
+			const url = $(this).data('url');
+			const confirmMsg = $(this).data('confirm');
+
+			if (confirmMsg && !confirm(confirmMsg)) return;
+
+			$.get(url, function (response) {
+				alert(response.message || 'Thành công!');
+			}).fail(function () {
+				alert('Xảy ra lỗi khi gọi AJAX.');
+			});
+		});
+
+
 		$('#clearCacheBtn').click(function () {
 			if (!confirm('Bạn có chắc chắn muốn xóa cache không?')) return;
 

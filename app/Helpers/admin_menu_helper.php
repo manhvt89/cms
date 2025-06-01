@@ -42,6 +42,8 @@ if (!function_exists('render_admin_menu')) {
                 continue;
             }
 
+            $ajax = $item['ajax']??'';
+            $data_confirm = $item['data_confirm']??'';
             $iconHtml = '';
             //$label = $item['label'] ? trim($item['label']) : ucwords(str_replace(['_', '.index'], [' ', ''], $key));
             $label = trim($item['label'] ?? '') ?: ucwords(str_replace(['_', '.index'], [' ', ''], $key));
@@ -66,7 +68,12 @@ if (!function_exists('render_admin_menu')) {
             }
             $hasChildrenClass = $hasChildren ? 'treeview' : 'treeview';
             $html .= '<li class="' . $hasChildrenClass . ' '.$activeClass.'">';
-            $html .= '<a href="' . $url . '" title="' . $tooltip . '">';
+            if($ajax != '')
+            { 
+                $html .= '<a href="javascript:void(0);" data-confirm="'.$data_confirm.'" class="menu-ajax-item" data-url="'.$url.'">';
+            } else {
+                $html .= '<a href="' . $url . '" title="' . $tooltip . '">';
+            }
             $html .=  $iconHtml ;
             
             $html .= '<span>' . $label .'</span>';

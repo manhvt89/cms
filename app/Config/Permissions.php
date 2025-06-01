@@ -612,6 +612,24 @@ class Permissions extends BaseConfig
              'label'=>'',
             'items'=>[]
         ],
+
+        'tools.index' =>[
+            'order'=>99,
+            'value'=>'clear-cache',
+            'parent'=>'',
+            'icon_class' => 'fa fa-dashboard',
+            'permission' => 'tools.index',                  // Key permission (nếu khác key chính)
+            'target'     => '_self',                       // Mở tab mới nếu là _blank
+            'tooltip'    => '',                            // Tooltip gợi ý khi hover
+            'badge'      => '',
+            'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+            'label'=>'Clear Cache',
+            'ajax' => true, // thêm dòng này để biết nó cần gọi AJAX
+            'data_confirm'=>'Bạn có muốn xóa cache không?',
+            'items'=>[]
+        ],
+
+        
     ];
     /**
      * Danh sách quyền được gán cho từng vai trò.
@@ -619,6 +637,8 @@ class Permissions extends BaseConfig
     public array $rolePermissions = [
         'Admin' => [
             'shop.index',
+            'tools.index',
+            'tools.clearCache',
             'shopdashboard.index',
             'shopcategory.add',
             'shopcategory.index',

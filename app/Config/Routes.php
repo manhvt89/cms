@@ -368,7 +368,7 @@ $routes->get('admin', 'Admin\Login::index');
 $routes->get('sitemap.xml', 'Sitemap::index');
 $routes->get('sitemap/(:segment)/(:num)', 'Sitemap::generate/$1/$2'); // sitemap/news/1
 
-// Sử dụng với domain.com/bai_viet_xxx
+// Sử dụng với domain.com/bai_viet_xxx để cuối cùng
 $routes->get('/(:segment)', 'News::view/$1');
 
 
