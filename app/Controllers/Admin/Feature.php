@@ -132,7 +132,7 @@ class Feature extends AdminBaseController
 
 			$rules = [
                 'name'         => 'required',
-				'photo'         => 'required',
+				'content'         => 'required',
 				
             ];
 
@@ -143,8 +143,9 @@ class Feature extends AdminBaseController
 		    
 			$form_data = [
 				'name'             => $this->request->getPost('name'),
-				'url'      => $this->request->getPost('url'),
-				'photo'            => $this->request->getPost('photo'),
+				'content'      => $this->request->getPost('content'),
+				'icon'            => $this->request->getPost('icon'),
+				'lang_id'=> $this->request->getPost('lang_id'),
 				
 			];
 			$this->_Model->add($form_data);

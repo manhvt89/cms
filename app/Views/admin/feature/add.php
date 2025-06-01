@@ -3,7 +3,7 @@
 
 <section class="content-header">
 	<div class="content-header-left">
-    <h1><?= isset($item) ? 'Chỉnh sửa Menu' : 'Thêm Menu' ?></h1>
+    <h1><?= isset($item) ? 'Chỉnh sửa' : 'Thêm mới' ?></h1>
 	</div>
 	<div class="content-header-right">
           </div>
@@ -16,50 +16,29 @@
        <?=flash_message()?>
       
 	   
-       <?php echo form_open_multipart(base_url().'admin/service/add',array('class' => 'form-horizontal')); ?>
+       <?php echo form_open_multipart(base_url().'admin/feature/add',array('class' => 'form-horizontal')); ?>
 				<div class="box box-info">
 					<div class="box-body">
 						
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Name *</label>
 							<div class="col-sm-6">
-								<input type="text" autocomplete="off" class="form-control" name="name" value="">
+								<input type="text" autocomplete="off" class="form-control" name="name" value="<?=old('name')?>">
 							</div>
 						</div>
+						
 						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Short Description *</label>
+							<label for="" class="col-sm-2 control-label">Content *</label>
 							<div class="col-sm-8">
-								<textarea class="form-control" name="short_description" style="height:140px;"></textarea>
+								<textarea class="form-control editor" name="content"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Description *</label>
-							<div class="col-sm-8">
-								<textarea class="form-control editor" name="description"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<?=form_wp_photo('photo','','photo','Photo',true,'col-sm-4')?>
-						</div>
-						<h3 class="seo-info">SEO Information</h3>
-						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Meta Title</label>
+							<label for="" class="col-sm-2 control-label">Icon *</label>
 							<div class="col-sm-6">
-								<input type="text" autocomplete="off" class="form-control" name="meta_title" value="">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Meta Keyword</label>
-							<div class="col-sm-8">
-								<textarea class="form-control" name="meta_keyword" style="height:80px;"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Meta Description</label>
-							<div class="col-sm-8">
-								<textarea class="form-control" name="meta_description" style="height:80px;"></textarea>
-							</div>
-						</div>
+								<input type="text" autocomplete="off" class="form-control" name="icon" value="<?=old('icon')?>">
+							</div>	
+						</div>						
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Language </label>
 							<div class="col-sm-2">
