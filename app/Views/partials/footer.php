@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-item" id="newsletter">
-                        <h3><?=FOOTER_1_HEADING; ?></h3>
+                        <h3><?=FOOTER_1_HEADING ?></h3>
                         <p>
                             <?=nl2br($footer_setting['newsletter_text']); ?>
                         </p>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-item">
-                        <h3><?php echo FOOTER_4_HEADING; ?></h3>
+                        <h3><?=FOOTER_4_HEADING?></h3>
                         <div class="footer-address-item">
                             <div class="icon"><i class="fa fa-map-marker"></i></div>
                             <div class="text">
