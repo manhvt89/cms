@@ -347,6 +347,15 @@ $routes->group('admin', [
     $routes->post('user/add', 'User::add');
     $routes->get('user/delete/(:num)', 'User::delete/$1');
 
+    //Feature
+    $routes->get('feature', 'Feature::index');
+    $routes->get('feature/edit/(:num)', 'Feature::edit/$1');
+    $routes->post('feature/edit/(:num)', 'Feature::edit/$1');
+
+    $routes->get('feature/add', 'Feature::add');
+    $routes->post('feature/add', 'Feature::add');
+    $routes->get('feature/delete/(:num)', 'Feature::delete/$1');
+
 
 });
 

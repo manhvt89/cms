@@ -436,6 +436,19 @@ class Permissions extends BaseConfig
              'label'=>'',
             'items'=>[]
         ],
+        'feature.index' =>[
+            'order'=>5,
+            'icon_class' => 'fa fa-fire',
+            'value'=>'admin/feature',
+            'parent'=>'',
+            'permission' => 'feature.index',                // Key permission (nếu khác key chính)
+            'target'     => '_self',                       // Mở tab mới nếu là _blank
+            'tooltip'    => '',                            // Tooltip gợi ý khi hover
+            'badge'      => '',
+            'icon_image' => '', // ✅ đường dẫn ảnh nếu dùng hình /assets/icons/dashboard.png
+             'label'=>'',
+            'items'=>[]
+        ],
         'lang.index' =>[
             'order'=>10,
             'value'=>'admin/lang',
@@ -627,9 +640,11 @@ class Permissions extends BaseConfig
             'pagehome.edit',
             'pagehome.update',
             'pagefaq.index',
+            'pagefaq.edit',
             'pageabout.index',
             'pageabout.edit',
             'pageservice.index',
+            'pageservice.edit',
             'pagetestimonial.index',
             'pagenews.index',
             'pagenews.edit',
@@ -729,10 +744,23 @@ class Permissions extends BaseConfig
             'user.edit',
             'user.delete',
 
+            'service.index',
+            'service.add',
+            'service.edit',
+            'service.delete',
+
+            
+
             'post.create',
             'post.edit',
             'post.delete',
             'settings.manage',
+            'profile.index',
+            'profile.update',
+            'feature.index',
+            'feature.add',
+            'feature.edit',
+            'feature.delete',
         ],
         'Manager' => [
             'dashboard.index',
@@ -842,6 +870,8 @@ class Permissions extends BaseConfig
             'post.edit',
             'post.delete',
             'settings.manage',
+            'profile.index',
+            'profile.update',
         ],
         'Editor' => [
             'dashboard.index',
@@ -871,6 +901,8 @@ class Permissions extends BaseConfig
             'slider.add',
             'slider.edit',
             'slider.delete',
+            'profile.index',
+            'profile.update'
 
         ]
     ];
