@@ -63,7 +63,7 @@ abstract class BaseController extends Controller
     {
         helper($this->helpers);
         helper('menu');
-
+        
     }
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -86,6 +86,8 @@ abstract class BaseController extends Controller
 
             $query = $this->db->table('tbl_lang')->where('lang_id', $langId)->get();
             $result = $query->getRowArray();
+
+            
 
             if ($result && isset($result['name'])) {
                 $langName = $result['name'];
@@ -122,6 +124,12 @@ abstract class BaseController extends Controller
         $all_menu = $modelMenu->show();
         $data['arr_menu'] =  $all_menu;
 
+        $detail_arr = [];
+        
+        $detail_arr = $modelLang->get_detail_by_language_id($langId);
+        foreach ($detail_arr as $row) {
+            define($row['lang_string'], $row['lang_string_value']);
+        }
 
         //var_dump( $data['menus']); die();
         $data['all_setting'] = $commonModel->all_setting();
