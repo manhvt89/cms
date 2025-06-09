@@ -60,6 +60,11 @@ $routes->get('cart/update', 'Team::index');
 $routes->get('cart/remove', 'Team::index');
 $routes->get('shop/cat/(:num)', 'Team::index');
 
+$routes->post('newsletter/subscribe', 'Newsletter::subscribe');
+$routes->get('get-csrf-token', 'CsrfToken::getCsrf');
+$routes->get('newsletter/verify/(:segment)', 'Newsletter::verify/$1');
+
+
 /*
 $route['product']             = 'web/product';
 $route['single/(:num)']       = 'web/single/$1';

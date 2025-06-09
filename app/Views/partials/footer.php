@@ -27,9 +27,9 @@
                         <p>
                             <?=nl2br($footer_setting['newsletter_text']); ?>
                         </p>
-                        <?=form_open(base_url('newsletter/send'), ['class' => '']) ?>
+                        <?=form_open(base_url('newsletter/subscribe'), ['class' => '','id' => 'newsletterForm']) ?>
                             <div class="input-group">
-                                <input type="email" class="form-control" name="email_subscribe" placeholder="<?= esc(EMAIL_ADDRESS) ?>">
+                                <input type="email" class="form-control" id="email_subscribe" name="email_subscribe" placeholder="<?= esc(EMAIL_ADDRESS) ?>">
                                 <span class="input-group-btn">
                                     <button class="btn" type="submit" name="form_subscribe">
                                         <i class="fa fa-location-arrow"></i>
@@ -37,6 +37,7 @@
                                 </span>
                             </div>
                         <?=form_close() ?>
+                        <div id="newsletterMessage" style="margin-top:10px;"></div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">

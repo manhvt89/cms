@@ -31,18 +31,16 @@ class ModelNewsletter extends Model
     }
 
     // Kiểm tra URL xác thực
-    public function check_url($email, $hash)
+    public function check_url( $hash)
     {
-        return $this->where('subs_email', $email)
-                    ->where('subs_hash', $hash)
+        return $this->where('subs_hash', $hash)
                     ->countAllResults();
     }
 
     // Cập nhật subscriber sau khi xác thực
-    public function update_by_email_hash($email, $hash, $data)
+    public function update_by_hash($hash, $data)
     {
-        return $this->where('subs_email', $email)
-                    ->where('subs_hash', $hash)
+        return $this->where('subs_hash', $hash)
                     ->set($data)
                     ->update();
     }

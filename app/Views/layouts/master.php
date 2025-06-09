@@ -170,6 +170,33 @@
                     setTimeout(setEqualHeight, 300);
                 }
             });
+    
+    $('#newsletterForm').on('submit', function(e) {
+        e.preventDefault();
+        let email = $('#email_subscribe').val();
+        let $form = $(this);
+
+        $.get('<?=base_url("get-csrf-token")?>', function (tokenData) {
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'POST',
+                data: {
+                    email: email,
+                    [tokenData.csrfName]: tokenData.csrfHash
+                },
+                success: function (response) {
+                    $('#newsletterMessage').html('<span style="color:green;">' + response.message + '</span>');
+                    $('#email').val('');
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseJSON);
+                    $('#newsletterMessage').html('<span style="color:red;">' + xhr.responseJSON.messages.message + '</span>');
+                }
+            });
+        });
+    });
+
+
 </script>
 </body>
 </html>

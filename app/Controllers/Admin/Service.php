@@ -57,15 +57,11 @@ class Service extends AdminBaseController
 		$success = '';
 		if($this->request->getPost('form1')) 
 		{
-			if(PROJECT_MODE == 0) {
-				session()->setFlashdata('error',PROJECT_NOTIFICATION);
-				return redirect()->to($_SERVER['HTTP_REFERER']);
-			}
-
+			$this->check_project_mode();
+			
 			$rules = [
                 'name'         => 'required',
 				'photo'         => 'required',
-				
             ];
 
             if (!$this->validate($rules)) {
@@ -76,7 +72,11 @@ class Service extends AdminBaseController
 			$form_data = [
 				'name'             => $this->request->getPost('name'),
 				'photo'            => $this->request->getPost('photo'),
-				'url'           => $this->request->getPost('url'),
+				'short_description' => $this->request->getPost('short_description'),
+				'description' => $this->request->getPost('description'),
+				'meta_title' => $this->request->getPost('meta_title'),
+				'meta_keyword' => $this->request->getPost('meta_keyword'),
+				'meta_description' => $this->request->getPost('meta_description'),
 				'id'			=> $id
 			];
 			//$this->_Model->_update($id,$form_data);
@@ -143,9 +143,13 @@ class Service extends AdminBaseController
 		    
 			$form_data = [
 				'name'             => $this->request->getPost('name'),
-				'url'      => $this->request->getPost('url'),
 				'photo'            => $this->request->getPost('photo'),
-				
+				'short_description' => $this->request->getPost('short_description'),
+				'description' => $this->request->getPost('description'),
+				'meta_title' => $this->request->getPost('meta_title'),
+				'meta_keyword' => $this->request->getPost('meta_keyword'),
+				'meta_description' => $this->request->getPost('meta_description'),
+				'lang_id'=>$this->request->getPost('lang_id')
 			];
 			$this->_Model->add($form_data);
 
