@@ -6,8 +6,10 @@ use App\Controllers\BaseController;
 use App\Models\CommonModel;
 use App\Models\PortfolioModel;
 use App\Models\ContactModel;
+use CodeIgniter\API\ResponseTrait;
 class Contact extends BaseController
 {
+    use ResponseTrait;
     protected $common;
     protected $portfolio;
     protected $_model;
@@ -66,6 +68,93 @@ class Contact extends BaseController
 
 	public function send_email() 
 	{
-		
+        $data['setting'] = $this->common->all_setting();
+        $email = $this->request->getPost('email');
+        $name = $this->request->getPost('name');
+        $phone = $this->request->getPost('phone');
+        $subject = $this->request->getPost('subject');
+        $message = $this->request->getPost('message');
+        
+        $validation = \Config\Services::validation();
+
+        $validation->setRules([
+                'email' => [
+                    'label'  => 'Email',
+                    'rules'  => 'required|valid_email',
+                    'errors' => [
+                        'required'     => 'Chưa nhập {field}.',
+                        'valid_email'  => '{field} không đúng định dạng.',
+                    ],
+                ],
+                'subject' => [
+                    'label'  => 'Tieu de',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required'     => 'Chưa nhập {field}.',
+                    ],
+                ],
+                'message' => [
+                    'label'  => 'Noi dung',
+                    'rules'  => 'required',
+                    'errors' => [
+                        'required'     => 'Chưa nhập {field}.',
+                    ],
+                ],
+            ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            $errors = $validation->getErrors();
+            $message = '';
+            foreach($errors as $error)
+            {
+                $message = $message.'<br>'.$error;
+            }
+            return $this->respond(['message' => $message]);
+        }
+
+        // Thêm dữ liệu
+        
+
+        // Gửi email xác nhận
+       
+        $msg = $message;
+
+        $emailService = \Config\Services::email();
+
+        /*
+        if ($data['setting']['smtp_active'] === 'Yes') {
+            $config = [
+                'protocol'    => 'smtp',
+                'SMTPHost'    => $data['setting']['smtp_host'],
+                'SMTPPort'    => $data['setting']['smtp_port'],
+                'SMTPUser'    => $data['setting']['smtp_username'],
+                'SMTPPass'    => $data['setting']['smtp_password'],
+                'SMTPTimeout' => 5,
+                'mailType'    => 'html',
+                'charset'     => 'utf-8',
+            ];
+            if ($data['setting']['smtp_ssl'] === 'Yes') {
+                $config['SMTPCrypto'] = 'ssl';
+            }
+
+            $emailService->initialize($config);
+        }
+        */
+
+        $emailService->setFrom($data['setting']['send_email_from'], 'Contact');
+        $emailService->setTo($email);
+        $emailService->setSubject($subject);
+        $emailService->setMessage($msg);
+        $message = '';
+        if($emailService->send())
+        {
+            $message = 'Cảm ơn bạn đã gui email cho chung toi';
+        } else {
+            $message = 'Cảm ơn bạn đã đăng ký!';
+        }
+
+        // Lưu vào cơ sở dữ liệu hoặc gửi email, v.v.
+        // Ví dụ: $this->newsletterModel->save(['email' => $email]);
+		return $this->respond(['message' => $message]);
 	}
 }

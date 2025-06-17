@@ -196,7 +196,44 @@
         });
     });
 
+    $('#contact_form').on('submit', function(e) {
+        e.preventDefault();
+        let email = $('#txtemail').val();
+        let name = $('#txtname').val();
+        let phone = $('#txtphone').val();
+        let subject = $('#txtsubject').val();
+        let message = $('#trmessage').val();
+        
+        let $form = $(this);
 
+        $.get('<?=base_url("get-csrf-token")?>', function (tokenData) {
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'POST',
+                data: {
+                    email: email,
+                    name:name,
+                    phone:phone,
+                    subject:subject,
+                    message:message,
+                    [tokenData.csrfName]: tokenData.csrfHash
+                },
+                success: function (response) {
+                    console.log('HL');
+                    $('#newsletterMessage').html('<span style="color:green;">' + response.message + '</span>');
+                    $('#email').val('');
+                    $('#txtname').val('');
+                    $('#txtphone').val('');
+                    $('#txtsubject').val('');
+                    $('#trmessage').val('');
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseJSON);
+                    $('#newsletterMessage').html('<span style="color:red;">' + xhr.responseJSON.messages.message + '</span>');
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

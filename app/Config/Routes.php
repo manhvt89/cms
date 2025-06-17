@@ -63,7 +63,7 @@ $routes->get('shop/cat/(:num)', 'Team::index');
 $routes->post('newsletter/subscribe', 'Newsletter::subscribe');
 $routes->get('get-csrf-token', 'CsrfToken::getCsrf');
 $routes->get('newsletter/verify/(:segment)', 'Newsletter::verify/$1');
-
+$routes->post('contact/send_email','Contact::send_email');
 
 /*
 $route['product']             = 'web/product';
