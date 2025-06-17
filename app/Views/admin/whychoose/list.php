@@ -6,7 +6,7 @@
     <h1><?=$title?></h1>
 	</div>
 	<div class="content-header-right">
-        <a href="<?= base_url('admin/whychoose/add') ?>" class="btn btn-primary mb-3">Thêm Menu</a>
+        <a href="<?= base_url('admin/whychoose/add') ?>" class="btn btn-primary mb-3">Thêm mới</a>
         
     </div>
 </section>

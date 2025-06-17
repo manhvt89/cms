@@ -125,15 +125,11 @@ class Service extends AdminBaseController
 
 		if($this->request->getPost('form1')) {
 
-			if(PROJECT_MODE == 0) {
-				session()->setFlashdata('error',PROJECT_NOTIFICATION);
-				return redirect()->to($_SERVER['HTTP_REFERER']);
-			}
+			$this->check_project_mode();
 
 			$rules = [
                 'name'         => 'required',
 				'photo'         => 'required',
-				
             ];
 
             if (!$this->validate($rules)) {
