@@ -39,7 +39,7 @@ class WhyChoose extends AdminBaseController
 	{
 		$data = $this->data;
         $data['why_choose'] = $this->_Model->show();
-		//var_dump($data['client']);die();
+		//var_dump($data['client']);die()
 		$data['title'] = "View Why Choose";								 
         return view($this->list_url, $data);
 	}
@@ -152,7 +152,7 @@ class WhyChoose extends AdminBaseController
 			return redirect()->to(base_url($this->index_url));
   
         } else { 
-			$data['title'] = "Add New Pricing Table";
+			$data['title'] = "Add New Whychoose";
 			return view($this->add_url,$data); //admin/photo/add
         }
 	}

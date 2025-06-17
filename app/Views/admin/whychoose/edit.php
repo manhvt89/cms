@@ -3,7 +3,7 @@
 
 <section class="content-header">
 	<div class="content-header-left">
-    <h1><?= isset($item) ? 'Chỉnh sửa Menu' : 'Thêm Menu' ?></h1>
+    <h1><?= isset($item) ? 'Chỉnh sửa' : 'Thêm mới' ?></h1>
 	</div>
 	<div class="content-header-right">
           </div>
