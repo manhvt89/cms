@@ -125,7 +125,7 @@
 
 
                     <h3 class="sec_title">Feature Section</h3>
-                    <?=form_open_multipart(base_url().'admin/page-home/update',array('class' => 'form-horizontal')); ?>
+                    <?=form_open_multipart(base_url().'admin/pagehome/update',array('class' => 'form-horizontal')); ?>
                         <div class="form-group">
                             <label for="" class="col-sm-2 control-label">Show on Home? </label>
                             <div class="col-sm-2">
