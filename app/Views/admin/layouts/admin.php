@@ -293,7 +293,7 @@
   selector: 'textarea.editor',
   height: 400,
   plugins: 'image link',
-  toolbar: 'insertCustomImage | undo redo | bold italic | alignleft aligncenter alignright | link',
+  toolbar: 'insertCustomImage | undo redo | bold italic | alignleft aligncenter alignright | link | h1 h2 h3 h4 h5 h6',
   contextmenu: 'link editCustomImage', // 👈 menu chuột phải
   setup: function (editor) {
     // 📌 Mở popup chọn ảnh từ thư viện
@@ -471,7 +471,44 @@
         }
       }
     });
-  }
+  
+	editor.ui.registry.addButton('h1', {
+      text: 'H1',
+      onAction: function () {
+        editor.execCommand('FormatBlock', false, 'h1');
+      }
+    });
+    editor.ui.registry.addButton('h2', {
+      text: 'H2',
+      onAction: function () {
+        editor.execCommand('FormatBlock', false, 'h2');
+      }
+    });
+    editor.ui.registry.addButton('h3', {
+      text: 'H3',
+      onAction: function () {
+        editor.execCommand('FormatBlock', false, 'h3');
+      }
+    });
+	editor.ui.registry.addButton('h4', {
+      text: 'H4',
+      onAction: function () {
+        editor.execCommand('FormatBlock', false, 'h4');
+      }
+    });
+	editor.ui.registry.addButton('h5', {
+      text: 'H5',
+      onAction: function () {
+        editor.execCommand('FormatBlock', false, 'h5');
+      }
+    });
+	editor.ui.registry.addButton('h6', {
+      text: 'H6',
+      onAction: function () {
+        editor.execCommand('FormatBlock', false, 'h6');
+      }
+    });
+}
 });
 
 
