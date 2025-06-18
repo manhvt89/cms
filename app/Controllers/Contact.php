@@ -87,14 +87,14 @@ class Contact extends BaseController
                     ],
                 ],
                 'subject' => [
-                    'label'  => 'Tieu de',
+                    'label'  => 'Tiêu đề',
                     'rules'  => 'required',
                     'errors' => [
                         'required'     => 'Chưa nhập {field}.',
                     ],
                 ],
                 'message' => [
-                    'label'  => 'Noi dung',
+                    'label'  => 'Nội dung',
                     'rules'  => 'required',
                     'errors' => [
                         'required'     => 'Chưa nhập {field}.',

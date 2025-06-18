@@ -22,7 +22,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="services-item effect-item">
                         <a href="<?php echo base_url(); ?>service/view/<?php echo $row['id']; ?>" class="image-effect">
-                            <div class="services-photo" style="background-image: url(<?php echo base_url(); ?>public/uploads/<?php echo $row['photo']; ?>)"></div>
+                            <div class="services-photo" style="background-image: url(<?=base_url($row['photo']); ?>)"></div>
                         </a>
                         <div class="services-text">
                             <h3><a href="<?php echo base_url(); ?>service/view/<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a></h3>
