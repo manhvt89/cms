@@ -36,12 +36,12 @@
                                 </li>
                             </ul>
                             
-                            <h3><a href="<?=base_url("{$_sSlug}")?>"><?=$row->news_title?></a></h3>
+                            <h3><a href="<?=base_url($_sSlug)?>"><?=$row->news_title?></a></h3>
                             <p>
                                 <?=$row->news_content_short; ?>
                             </p>
                             <div class="button-df">
-                                <a href="<?=base_url("$_sSlug}")?>"><?=READ_MORE?> <i class="fa fa-chevron-circle-right"></i></a>
+                                <a href="<?=base_url("$_sSlug")?>"><?=READ_MORE?> <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
