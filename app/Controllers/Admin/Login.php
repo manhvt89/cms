@@ -16,6 +16,7 @@ class Login extends BaseController
     {
         $this->model = new ModelLogin();
         $this->commonModel = new ModelCommon();
+        helper(['form', 'cookie']);
     }
 
     public function index()
@@ -33,7 +34,7 @@ class Login extends BaseController
             return redirect()->to(base_url('admin/dashboard'));
         }
 
-        if ($this->request->getPost('form1')) {
+        if ($this->request->is('post')) {
             $email    = $this->request->getPost('email', FILTER_SANITIZE_EMAIL);
             $password = $this->request->getPost('password', FILTER_SANITIZE_STRING);
 

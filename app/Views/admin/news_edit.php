@@ -159,7 +159,7 @@
 <div id="seo_modal" style="display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #ccc; padding: 20px; z-index: 9999; width: 60%; box-shadow: 0 0 20px rgba(0,0,0,0.2); border-radius: 10px;">
   <h3>🧠 Đánh giá SEO & Readability</h3>
   <div id="modal_content"></div>
-  <button onclick="closePreview()">Đóng</button>
+  <button type="button" onclick="closePreview()">Đóng</button>
 </div>
 
 <!-- Lớp phủ nền -->

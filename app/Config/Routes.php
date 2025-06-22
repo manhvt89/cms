@@ -65,6 +65,7 @@ $routes->get('get-csrf-token', 'CsrfToken::getCsrf');
 $routes->get('newsletter/verify/(:segment)', 'Newsletter::verify/$1');
 $routes->post('contact/send_email','Contact::send_email');
 
+
 /*
 $route['product']             = 'web/product';
 $route['single/(:num)']       = 'web/single/$1';
@@ -92,6 +93,7 @@ $routes->group('admin', [
     $routes->get('category/delete/(:num)', 'Category::delete/$1');
 
     $routes->get('news', 'News::index');
+    $routes->post('news/check-slug', 'News::checkSlug'); // AJAX check slug
     $routes->get('news/add', 'News::add');
     $routes->post('news/add', 'News::add');
 
@@ -368,6 +370,13 @@ $routes->get('admin/login', 'Admin\Login::index');
 $routes->post('admin', 'Admin\Login::index');
 $routes->get('admin/logout', 'Admin\Login::logout');
 $routes->get('admin', 'Admin\Login::index');
+
+$routes->get('admin/forget-password','Admin\Forget_password::index');
+$routes->post('admin/forget-password','Admin\Forget_password::index');
+
+$routes->get('admin/reset-password/(:segment)','Admin\Reset_password::index/$1');
+$routes->post('admin/reset-password/(:segment)','Admin\Reset_password::index/$1');
+$routes->get('admin/reset_password/success','Admin\Reset_password::success');
 
 //sitemap.xml
 $routes->get('sitemap.xml', 'Sitemap::index');

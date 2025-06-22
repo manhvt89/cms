@@ -161,63 +161,34 @@
   </div>
 </div>
 <!-- Modal -->
-<script src="<?php echo base_url(); ?>public/admin/js/jquery-2.2.4.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.dataTables.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/dataTables.bootstrap.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/select2.full.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jscolor.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.inputmask.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.inputmask.date.extensions.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.inputmask.extensions.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/moment.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/bootstrap-datepicker.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/icheck.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/fastclick.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.sparkline.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.slimscroll.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.fancybox.pack.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/app.min.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/js/jquery.magnific-popup.min.js"></script>
+	<script src="<?=base_url('public/admin/js/jquery-2.2.4.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/bootstrap.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.dataTables.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/dataTables.bootstrap.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/select2.full.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jscolor.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.inputmask.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.inputmask.date.extensions.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.inputmask.extensions.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/moment.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/bootstrap-datepicker.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/icheck.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/fastclick.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.sparkline.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.slimscroll.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.fancybox.pack.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/app.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/jquery.magnific-popup.min.js')?>"></script>
 	<!-- <script src="<?php echo base_url(); ?>public/admin/ckeditor/ckeditor.js"></script> -->
-	<script src="<?php echo base_url(); ?>public/admin/js/demo.js"></script>
-	<script src="<?php echo base_url(); ?>public/admin/tinymce/tinymce.min.js"></script>
+	<script src="<?=base_url('public/admin/js/demo.js')?>"></script>
+	<script src="<?=base_url('public/admin/tinymce/tinymce.min.js')?>"></script>
+	<script src="<?=base_url('public/admin/js/slugify.js')?>"></script>
 	<!-- Bootstrap 5 JS + Popper (required) -->
 
 	<script>
 
 	(function($) {
 		
-		$(document).ready(function() {
-			
-	        // $('#editor1').summernote({
-	        // 	height: 300
-	        // });
-	        // $('#editor2').summernote({
-	        // 	height: 300
-	        // });
-	        // $('#editor3').summernote({
-	        // 	height: 300
-	        // });
-	        // $('#editor4').summernote({
-	        // 	height: 300
-	        // });
-	        // $('#editor5').summernote({
-	        // 	height: 300
-	        // });
-	        // $('#editor6').summernote({
-	        // 	height: 300
-	        // });
-	        // $('.editor').summernote({
-	        // 	height: 300
-	        // });
-	        // $('.editor_short').summernote({
-	        // 	height: 150
-	        // });
-
-
-	    });
-
 	    //Initialize Select2 Elements
 	    $(".select2").select2();
 
@@ -290,226 +261,226 @@
 		/////////////////////////////#4172a5
 		
 		tinymce.init({
-  selector: 'textarea.editor',
-  height: 400,
-  plugins: 'image link',
-  toolbar: 'insertCustomImage | undo redo | bold italic | alignleft aligncenter alignright | link | h1 h2 h3 h4 h5 h6',
-  contextmenu: 'link editCustomImage', // 👈 menu chuột phải
-  setup: function (editor) {
-    // 📌 Mở popup chọn ảnh từ thư viện
-    function openImageDialog(initialData = {}, callback) {
-		let imageUrl = initialData.src || '';
-		console.log(initialData);
-		/// Manager OPEN
-		
-		const dialog = editor.windowManager.open({
-			title: 'Chèn / Chỉnh sửa ảnh',
-			initialData: {
-				src: initialData.src || '',
-				alt: initialData.alt || '',
-				align: initialData.align || '',
-				class: initialData.class || '',
-				width: initialData.width || '',
-				height: initialData.height || ''
-			},
-			body: {
-			type: 'panel',
-			items: [
-				{ type: 'input', name: 'src', label: 'URL ảnh' },
-				{
-				type: 'button',
-				name: 'choose',
-				text: 'Chọn từ thư viện',
-				buttonType: 'secondary'
-				},
-				{ type: 'input', name: 'alt', label: 'Văn bản thay thế (alt)' },
-				{ type: 'input', name: 'width', label: 'Chiều rộng (px)' },
-				{ type: 'input', name: 'height', label: 'Chiều cao (px)' },
-				{
-				type: 'selectbox',
-				name: 'align',
-				label: 'Căn ảnh',
-				items: [
-					{ text: 'Trái', value: 'left' },
-					{ text: 'Phải', value: 'right' },
-					{ text: 'Giữa', value: 'center' },
-					{ text: 'Inline', value: 'inline' }
-				]
-				},
-				{
-				type: 'selectbox',
-				name: 'class',
-				label: 'Kiểu ảnh',
-				items: [
-					{ text: 'Mặc định', value: '' },
-					{ text: 'Bo tròn', value: 'rounded' },
-					{ text: 'Đổ bóng', value: 'shadow' },
-					{ text: 'Viền ảnh', value: 'border' }
-				]
-				}
-			]
-			},
-			buttons: [
-			{ type: 'cancel', text: 'Hủy' },
-			{ type: 'submit', text: 'Chèn', primary: true }
-			],
-			onAction: function (api, details) {
-			if (details.name === 'choose') {
-				console.log('choose');
-				let activeElement = document.activeElement;
-				let zIndex = window.getComputedStyle(activeElement).zIndex || 1000;
-				console.log('zIndex: '+zIndex);
-				//const win = window.open('<?= base_url('/admin/media/popup') ?>', 'FileManager', 'width=900,height=600');
-				openMediaPopup('NN');
-				window.setImageFromPopup = function (url) {
-				imageUrl = url;
-				api.setData({ src: url });
+		selector: 'textarea.editor',
+		height: 400,
+		plugins: 'image link',
+		toolbar: 'insertCustomImage | undo redo | bold italic | alignleft aligncenter alignright | link | h1 h2 h3 h4 h5 h6',
+		contextmenu: 'link editCustomImage', // 👈 menu chuột phải
+		setup: function (editor) {
+			// 📌 Mở popup chọn ảnh từ thư viện
+			function openImageDialog(initialData = {}, callback) {
+				let imageUrl = initialData.src || '';
+				console.log(initialData);
+				/// Manager OPEN
+				
+				const dialog = editor.windowManager.open({
+					title: 'Chèn / Chỉnh sửa ảnh',
+					initialData: {
+						src: initialData.src || '',
+						alt: initialData.alt || '',
+						align: initialData.align || '',
+						class: initialData.class || '',
+						width: initialData.width || '',
+						height: initialData.height || ''
+					},
+					body: {
+					type: 'panel',
+					items: [
+						{ type: 'input', name: 'src', label: 'URL ảnh' },
+						{
+						type: 'button',
+						name: 'choose',
+						text: 'Chọn từ thư viện',
+						buttonType: 'secondary'
+						},
+						{ type: 'input', name: 'alt', label: 'Văn bản thay thế (alt)' },
+						{ type: 'input', name: 'width', label: 'Chiều rộng (px)' },
+						{ type: 'input', name: 'height', label: 'Chiều cao (px)' },
+						{
+						type: 'selectbox',
+						name: 'align',
+						label: 'Căn ảnh',
+						items: [
+							{ text: 'Trái', value: 'left' },
+							{ text: 'Phải', value: 'right' },
+							{ text: 'Giữa', value: 'center' },
+							{ text: 'Inline', value: 'inline' }
+						]
+						},
+						{
+						type: 'selectbox',
+						name: 'class',
+						label: 'Kiểu ảnh',
+						items: [
+							{ text: 'Mặc định', value: '' },
+							{ text: 'Bo tròn', value: 'rounded' },
+							{ text: 'Đổ bóng', value: 'shadow' },
+							{ text: 'Viền ảnh', value: 'border' }
+						]
+						}
+					]
+					},
+					buttons: [
+					{ type: 'cancel', text: 'Hủy' },
+					{ type: 'submit', text: 'Chèn', primary: true }
+					],
+					onAction: function (api, details) {
+					if (details.name === 'choose') {
+						console.log('choose');
+						let activeElement = document.activeElement;
+						let zIndex = window.getComputedStyle(activeElement).zIndex || 1000;
+						console.log('zIndex: '+zIndex);
+						//const win = window.open('<?= base_url('/admin/media/popup') ?>', 'FileManager', 'width=900,height=600');
+						openMediaPopup('NN');
+						window.setImageFromPopup = function (url) {
+						imageUrl = url;
+						api.setData({ src: url });
 
-				// 🔁 Cập nhật lại CSRF token
-				let newToken = localStorage.getItem("latest_csrf_token");
-				console.log(newToken);
-				console.log('WL');
-				localStorage.removeItem("latest_csrf_token");
-				if (newToken) {
-					console.log('ifInto');
-					let csrfInput = document.querySelector('input[name="csrf_test_name"]');
-					if (csrfInput) {
-						console.log('login');
-						csrfInput.value = newToken;
+						// 🔁 Cập nhật lại CSRF token
+						let newToken = localStorage.getItem("latest_csrf_token");
+						console.log(newToken);
+						console.log('WL');
+						localStorage.removeItem("latest_csrf_token");
+						if (newToken) {
+							console.log('ifInto');
+							let csrfInput = document.querySelector('input[name="csrf_test_name"]');
+							if (csrfInput) {
+								console.log('login');
+								csrfInput.value = newToken;
+							}
+						}
+						$('#mediaModal').modal('hide');
+						};
 					}
-				}
-				$('#mediaModal').modal('hide');
+					},
+					onSubmit: function (api) {
+					const data = api.getData();
+					const src = imageUrl || data.src;
+					console.log(data);
+					let alignStyle = '';
+					if (data.align === 'left') alignStyle = 'float: left; margin: 5px 10px 5px 0;';
+					else if (data.align === 'right') alignStyle = 'float: right; margin: 5px 0 5px 10px;';
+					else if (data.align === 'center') alignStyle = 'display: block; margin: 0 auto;';
+					else if (data.align === 'inline') alignStyle = 'display: inline-block;';
+
+					// Lấy giá trị width và height nếu người dùng nhập
+					const width = parseInt(data.width);
+					const height = parseInt(data.height);
+
+					// Validate và thêm vào style nếu hợp lệ
+					if (data.width && (!isNaN(width) && width > 0)) {
+						alignStyle += ` width: ${width}px;`;
+					}
+
+					if (data.height && (!isNaN(height) && height > 0)) {
+						alignStyle += ` height: ${height}px;`;
+					}
+
+					const imgHTML = `<img src="${src}" alt="${data.alt}" class="${data.class}" style="${alignStyle}">`;
+					
+					//const imgHTML = `<img src="${src}" alt="${data.alt}" class="${data.class}" style="${alignStyle}">`;
+					callback(imgHTML);
+					api.close();
+					}
+				});
+				
+				/// ENDDDDDDDDDDDDĐ	
+			}
+
+			// 🧩 Nút toolbar
+			editor.ui.registry.addButton('insertCustomImage', {
+			icon: 'image',
+			tooltip: 'Chèn ảnh từ thư viện',
+			onAction: function () {
+				openImageDialog({}, function (imgHTML) {
+				editor.insertContent(imgHTML);
+				});
+			}
+			});
+
+			// 🧩 Context menu - chèn ảnh
+			editor.ui.registry.addMenuItem('insertCustomImage', {
+			icon: 'image',
+			text: 'Chèn ảnh từ thư viện',
+			onAction: function () {
+				openImageDialog({}, function (imgHTML) {
+				editor.insertContent(imgHTML);
+				});
+			}
+			});
+
+			// 🧩 Context menu - chỉnh sửa ảnh
+			editor.ui.registry.addMenuItem('editCustomImage', {
+			icon: 'edit-block',
+			text: 'Chỉnh sửa ảnh',
+			onAction: function () {
+				const imgNode = editor.selection.getNode();
+				console.log(imgNode);
+				if (imgNode.nodeName === 'IMG') {
+					const style = imgNode.getAttribute('style') || '';
+					// Regex để lấy width và height trong style
+					const widthMatch = style.match(/width:\s*(\d+)px/);
+					const heightMatch = style.match(/height:\s*(\d+)px/);
+				const data = {
+					src: imgNode.getAttribute('src'),
+					alt: imgNode.getAttribute('alt') || '',
+					class: imgNode.getAttribute('class') || '',
+					width: widthMatch ? widthMatch[1] : '',
+					height: heightMatch ? heightMatch[1] : '',
+					align: (() => {
+					const style = imgNode.getAttribute('style') || '';
+					if (style.includes('float: left')) return 'left';
+					if (style.includes('float: right')) return 'right';
+					if (style.includes('display: block')) return 'center';
+					if (style.includes('inline-block')) return 'inline';
+					return '';
+					})()
 				};
+				openImageDialog(data, function (imgHTML) {
+					editor.selection.setContent(imgHTML);
+				});
+				}
 			}
-			},
-			onSubmit: function (api) {
-			const data = api.getData();
-			const src = imageUrl || data.src;
-			console.log(data);
-			let alignStyle = '';
-			if (data.align === 'left') alignStyle = 'float: left; margin: 5px 10px 5px 0;';
-			else if (data.align === 'right') alignStyle = 'float: right; margin: 5px 0 5px 10px;';
-			else if (data.align === 'center') alignStyle = 'display: block; margin: 0 auto;';
-			else if (data.align === 'inline') alignStyle = 'display: inline-block;';
-
-			// Lấy giá trị width và height nếu người dùng nhập
-			const width = parseInt(data.width);
-			const height = parseInt(data.height);
-
-			// Validate và thêm vào style nếu hợp lệ
-			if (data.width && (!isNaN(width) && width > 0)) {
-				alignStyle += ` width: ${width}px;`;
-			}
-
-			if (data.height && (!isNaN(height) && height > 0)) {
-				alignStyle += ` height: ${height}px;`;
-			}
-
-			const imgHTML = `<img src="${src}" alt="${data.alt}" class="${data.class}" style="${alignStyle}">`;
-			
-			//const imgHTML = `<img src="${src}" alt="${data.alt}" class="${data.class}" style="${alignStyle}">`;
-			callback(imgHTML);
-			api.close();
-			}
-		});
+			});
 		
-		/// ENDDDDDDDDDDDDĐ	
-    }
-
-    // 🧩 Nút toolbar
-    editor.ui.registry.addButton('insertCustomImage', {
-      icon: 'image',
-      tooltip: 'Chèn ảnh từ thư viện',
-      onAction: function () {
-        openImageDialog({}, function (imgHTML) {
-          editor.insertContent(imgHTML);
-        });
-      }
-    });
-
-    // 🧩 Context menu - chèn ảnh
-    editor.ui.registry.addMenuItem('insertCustomImage', {
-      icon: 'image',
-      text: 'Chèn ảnh từ thư viện',
-      onAction: function () {
-        openImageDialog({}, function (imgHTML) {
-          editor.insertContent(imgHTML);
-        });
-      }
-    });
-
-    // 🧩 Context menu - chỉnh sửa ảnh
-    editor.ui.registry.addMenuItem('editCustomImage', {
-      icon: 'edit-block',
-      text: 'Chỉnh sửa ảnh',
-      onAction: function () {
-        const imgNode = editor.selection.getNode();
-		console.log(imgNode);
-        if (imgNode.nodeName === 'IMG') {
-			const style = imgNode.getAttribute('style') || '';
-			// Regex để lấy width và height trong style
-			const widthMatch = style.match(/width:\s*(\d+)px/);
-      		const heightMatch = style.match(/height:\s*(\d+)px/);
-          const data = {
-            src: imgNode.getAttribute('src'),
-            alt: imgNode.getAttribute('alt') || '',
-            class: imgNode.getAttribute('class') || '',
-			width: widthMatch ? widthMatch[1] : '',
-        	height: heightMatch ? heightMatch[1] : '',
-            align: (() => {
-              const style = imgNode.getAttribute('style') || '';
-              if (style.includes('float: left')) return 'left';
-              if (style.includes('float: right')) return 'right';
-              if (style.includes('display: block')) return 'center';
-              if (style.includes('inline-block')) return 'inline';
-              return '';
-            })()
-          };
-          openImageDialog(data, function (imgHTML) {
-            editor.selection.setContent(imgHTML);
-          });
-        }
-      }
-    });
-  
-	editor.ui.registry.addButton('h1', {
-      text: 'H1',
-      onAction: function () {
-        editor.execCommand('FormatBlock', false, 'h1');
-      }
-    });
-    editor.ui.registry.addButton('h2', {
-      text: 'H2',
-      onAction: function () {
-        editor.execCommand('FormatBlock', false, 'h2');
-      }
-    });
-    editor.ui.registry.addButton('h3', {
-      text: 'H3',
-      onAction: function () {
-        editor.execCommand('FormatBlock', false, 'h3');
-      }
-    });
-	editor.ui.registry.addButton('h4', {
-      text: 'H4',
-      onAction: function () {
-        editor.execCommand('FormatBlock', false, 'h4');
-      }
-    });
-	editor.ui.registry.addButton('h5', {
-      text: 'H5',
-      onAction: function () {
-        editor.execCommand('FormatBlock', false, 'h5');
-      }
-    });
-	editor.ui.registry.addButton('h6', {
-      text: 'H6',
-      onAction: function () {
-        editor.execCommand('FormatBlock', false, 'h6');
-      }
-    });
-}
-});
+			editor.ui.registry.addButton('h1', {
+			text: 'H1',
+			onAction: function () {
+				editor.execCommand('FormatBlock', false, 'h1');
+			}
+			});
+			editor.ui.registry.addButton('h2', {
+			text: 'H2',
+			onAction: function () {
+				editor.execCommand('FormatBlock', false, 'h2');
+			}
+			});
+			editor.ui.registry.addButton('h3', {
+			text: 'H3',
+			onAction: function () {
+				editor.execCommand('FormatBlock', false, 'h3');
+			}
+			});
+			editor.ui.registry.addButton('h4', {
+			text: 'H4',
+			onAction: function () {
+				editor.execCommand('FormatBlock', false, 'h4');
+			}
+			});
+			editor.ui.registry.addButton('h5', {
+			text: 'H5',
+			onAction: function () {
+				editor.execCommand('FormatBlock', false, 'h5');
+			}
+			});
+			editor.ui.registry.addButton('h6', {
+			text: 'H6',
+			onAction: function () {
+				editor.execCommand('FormatBlock', false, 'h6');
+			}
+			});
+		}
+	});
 
 
 

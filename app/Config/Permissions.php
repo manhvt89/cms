@@ -688,6 +688,7 @@ class Permissions extends BaseConfig
             'news.add',
             'news.edit',
             'news.delete',
+            'news.checkSlug',
 
             'event.index',
             'event.add',

@@ -10,30 +10,13 @@
 	</div>
 </section>
 
-
 <section class="content">
 
 	<div class="row">
 		<div class="col-md-12">
 
-        <?php
-			if(session()->getFlashdata('error')) {
-				?>
-				<div class="callout callout-danger">
-					<p><?= session()->getFlashdata('error'); ?></p>
-				</div>
-				<?php
-			}
-			if(session()->getFlashdata('success')) {
-				?>
-				<div class="callout callout-success">
-					<p><?= session()->getFlashdata('success'); ?></p>
-				</div>
-				<?php
-			}
-			?>
-
-			<?= form_open_multipart(base_url().'admin/news/add',['class' => 'form-horizontal']); ?>
+        	<?= flash_message()?>
+			<?= form_open_multipart(base_url('admin/news/add'),['class' => 'form-horizontal','id'=>'post_form']); ?>
 				<div class="box box-info">
 					<div class="box-body">
 						<div class="form-group">
@@ -47,6 +30,15 @@
                                     'placeholder' => 'Enter title here'
                                 ]) ?>
 								
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label">Slug</label>
+							<div class="col-sm-6">
+								<span id="slug_display"></span>
+								<button type="button" id="edit_slug_btn">Chỉnh sửa</button><br>
+								<input class="form-control" type="text" name="slug" id="slug" style="display:none;" value="<?=old('slug')?>">	
+								<span id="slug_status" style="font-size: 0.9em; margin-left: 10px;"></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -64,7 +56,7 @@
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">News Content <span>*</span></label>
 							<div class="col-sm-9">
-								<textarea class="form-control editor" name="news_content"><?= old('news_content', '') ?></textarea>
+								<textarea class="form-control editor" id="news_content" name="news_content"><?= old('news_content', '') ?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -119,13 +111,13 @@
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Meta Keywords </label>
 							<div class="col-sm-9">
-								<textarea class="form-control" name="meta_keyword" style="height:100px;"><?=old('meta_keyword')?></textarea>
+								<textarea class="form-control" id="focus_keyword" name="meta_keyword" style="height:100px;"><?=old('meta_keyword')?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Meta Description </label>
 							<div class="col-sm-9">
-								<textarea class="form-control" name="meta_description" style="height:100px;"><?=old('meta_description')?></textarea>
+								<textarea class="form-control" id="description" name="meta_description" style="height:100px;"><?=old('meta_description')?></textarea>
 							</div>
 						</div>
 						<div class="form-group"></div>
@@ -207,9 +199,9 @@
     }
 
     function updateScore() {
-        const content = document.getElementById('content').value;
+        const content = document.getElementById('news_content').value;
         const keyword = document.getElementById('focus_keyword').value;
-        const title = document.getElementById('title').value;
+        const title = document.getElementById('news_title').value;
         const description = document.getElementById('description').value;
 
         const seo = analyzeSEO(content, keyword, title, description);
@@ -225,11 +217,118 @@
         suggestionBox.innerHTML = suggestions.map(s => `<p>${s}</p>`).join("");
     }
 
-    ['content', 'title', 'description', 'focus_keyword'].forEach(id => {
+    ['news_content', 'news_title', 'description', 'focus_keyword'].forEach(id => {
         document.getElementById(id).addEventListener('input', updateScore);
     });
 
     window.addEventListener('DOMContentLoaded', updateScore);
+
+	let slugEdited = false;
+	let slugValid = true;
+
+	// ✅ HÀM kiểm tra slug
+	function checkSlug() {
+		const slugInput = document.getElementById('slug');
+		const slug = slugify(slugInput.value);
+		slugInput.value = slug;
+
+		$.get('<?=base_url('get-csrf-token')?>', function (tokenData) {
+
+			$.ajax({
+                url: '<?=base_url('admin/news/check-slug')?>',
+                type: 'POST',
+                data: {
+                    'slug': slug,
+                    [tokenData.csrfName]: tokenData.csrfHash
+                },
+				success: function (response)
+				{
+					const status = document.getElementById('slug_status');
+					if (response.exists || slug.length < 1) {
+						slugValid = false;
+						status.innerText = '❌ ' + (slug.length < 1 ? 'Slug không được để trống.' : response.message);
+						status.style.color = 'red';
+					} else {
+						slugValid = true;
+						status.innerText = '✅ ' + response.message;
+						status.style.color = 'green';
+					}
+				},
+				error: function (xhr) {
+                    console.log(xhr.responseJSON);
+                    $('#slug_status').html('<span style="color:red;">' + xhr.responseJSON.message + '</span>');
+                }
+			
+			});
+		});
+	}
+
+
+    document.getElementById('news_title').addEventListener('input', function () {
+        if (!slugEdited) {
+            const autoSlug = slugify(this.value);
+            document.getElementById('slug_display').textContent = autoSlug;
+            document.getElementById('slug').value = ''; // gửi rỗng để server tạo lại
+        }
+    });
+
+    document.getElementById('edit_slug_btn').addEventListener('click', function () {
+        const slugInput = document.getElementById('slug');
+        const slugSpan = document.getElementById('slug_display');
+		const title = document.getElementById('news_title');
+
+        if (slugInput.style.display === 'none') {
+            slugInput.style.display = 'inline';
+            slugSpan.style.display = 'none';
+            slugInput.value = slugSpan.textContent;
+            slugEdited = true;
+            this.textContent = 'Xong';
+        } else {
+            const edited = slugify(slugInput.value);
+            slugInput.value = edited;
+            slugSpan.textContent = edited;
+            slugInput.style.display = 'none';
+            slugSpan.style.display = 'inline';
+			checkSlug(); // kiểm tra trùng slug
+			if(slugInput.value == "")
+			{
+				slugSpan.textContent = slugify(title.value);
+			}
+            this.textContent = 'Chỉnh sửa';
+        }
+    });
+
+	document.getElementById('slug').addEventListener('blur', function () {
+		checkSlug();
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+	// Chặn submit nếu slug không hợp lệ
+		document.getElementById('post_form').addEventListener('submit', function (e) {
+			e.preventDefault(); // chặn mặc định
+			//console.log('123'); 
+			const form = this; // ✅ lưu lại tham chiếu đến form
+			const slugInput = document.getElementById('slug');
+			const title = document.getElementById('news_title').value.trim();
+			const slug = slugInput.value.trim() || slugify(title);
+			
+			$.get('<?=base_url('get-csrf-token')?>', function (tokenData) {	
+				if (slug.length === 0 || !slugValid) {
+					e.preventDefault();
+					alert('Slug không hợp lệ hoặc đã tồn tại. Vui lòng chỉnh sửa!');
+					return false;
+				}	
+				
+				const tokenInput = document.querySelector(`input[name="${tokenData.csrfName}"]`);
+				console.log(tokenData);
+				if (tokenInput) tokenInput.value = tokenData.csrfHash;
+				console.log(tokenInput);
+				const t = document.querySelector(`input[name="${tokenData.csrfName}"]`);
+				console.log(t);
+				form.submit();
+			});
+		});
+	});
 </script>
 
 

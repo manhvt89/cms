@@ -11,9 +11,11 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Admin\ModelCommon;
 use App\Models\Admin\ModelCategory;
 use App\Models\Admin\ModelNews;
+use CodeIgniter\API\ResponseTrait;
 
 class News extends AdminBaseController
 {
+    use ResponseTrait;
     protected $newsModel;
     protected $categoryModel;
     protected $commonModel;
@@ -41,9 +43,9 @@ class News extends AdminBaseController
         $data['setting'] = $this->commonModel->get_setting_data();
         $data['all_lang'] = $this->commonModel->all_lang();
         $data['all_category'] = $this->newsModel->get_category();
-
-        if ($this->request->getPost('form1')) {
-
+        
+        if ($this->request->is('post')) {
+            
             $rules = [
                 'news_title' => 'required',
                 'news_content_short' => 'required',
@@ -81,6 +83,7 @@ class News extends AdminBaseController
                 'lang_id' => $this->request->getPost('lang_id'),
                 'seo_score'   => $this->request->getPost('seo_score'),
                 'readability_score' => $this->request->getPost('readability_score'),
+                'slug' => $this->request->getPost('slug'),
             ]);
             if($rs > 0)
             {
@@ -184,4 +187,22 @@ class News extends AdminBaseController
         return redirect()->to(base_url('admin/news'))
             ->with('success', 'News is deleted successfully');
     }
+
+    public function checkSlug()
+    {
+        $slug = $this->request->getPost('slug');
+        
+        $model = new ModelNews();
+        $existing = $model->where('slug', $slug);
+
+        $exists = $existing->first() ? true : false;
+        
+        return $this->response->setJSON([
+            'exists' => $exists,
+            'message' => $exists ? 'Slug đã tồn tại!' : 'Slug có thể sử dụng.',
+            'csrf_token' => csrf_token(),
+	        'csrf_hash'  => csrf_hash()
+        ]);
+    }
+    
 }

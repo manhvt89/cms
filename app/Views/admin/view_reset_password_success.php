@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Login</title>
+	<title>Reset Password Success</title>
 
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -32,43 +32,20 @@
 
 <div class="login-box">
 	<div class="login-logo">
-		<b><?= esc($setting_data['website_name'] ?? 'CMS') ?> - Admin Panel</b>
+		<b>
+			<?php echo $setting_data['website_name']; ?> - Admin Panel
+		</b>
 	</div>
-	<div class="login-box-body">
-		<p class="login-box-msg">Log in to start your session</p>
-		<?php 
-			
-			helper('cookie');
-			$rememberEmail = get_cookie('remember_email') ?? '';
-			$rememberPass  = get_cookie('remember_pass') ?? '';
-			
-		?>
-		<?=flash_message()?>
-
-		<?= form_open(base_url('admin')) ?>
-			<div class="form-group has-feedback">
-				<input type="email" name="email" class="form-control" placeholder="Email address" autocomplete="off" autofocus>
-			</div>
-			<div class="form-group has-feedback">
-				<input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
-			</div>
-			<div style="margin: 10px 0;">
-				<label>
-					<input type="checkbox" name="remember" value="1" <?= $rememberEmail ? 'checked' : '' ?>> Remember me
-				</label>
-			</div>
-			<div class="row">
-				<div class="col-xs-8" style="padding-top:7px;">
-					<a href="<?= base_url('admin/forget-password') ?>" style="color:red;">Forget Password?</a>
-				</div>
-				<div class="col-xs-4">
-					<input type="submit" class="btn btn-primary btn-block btn-flat login-button" name="form1" value="Login">
-				</div>
-			</div>
-		<?= form_close() ?>
+  	<div class="login-box-body style="text-align:center;">
+    	<h4 class="login-box-msg">Reset Password</h4>    
+	    <?php
+        if(session()->getFlashdata('success')) {
+            echo '<div class="success">'.session()->getFlashdata('success').'</div>';
+        }
+        ?>
+        <a href="<?php echo base_url(); ?>admin/login" style="color:red;">back to login page</a>
 	</div>
 </div>
-
 
 
 <script src="<?php echo base_url(); ?>public/admin/js/jquery-2.2.3.min.js"></script>

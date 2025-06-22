@@ -13,7 +13,7 @@ class ModelNews extends Model
         'news_title', 'news_content', 'news_date',
         'news_content_short', 'photo', 'banner',
         'news_id','category_id','meta_title',
-        'meta_keyword','meta_description','lang_id'
+        'meta_keyword','meta_description','lang_id','slug'
     ];
 
     protected $useAutoIncrement = true;
@@ -57,8 +57,12 @@ class ModelNews extends Model
     {
         helper(['local']); // Đảm bảo helper đã được load
         if (isset($data['data']['news_title'])) {
-            
-            $data['data']['slug'] = slugify($data['data']['news_title']);
+            if($data['data']['slug'] == "")
+            {
+                $data['data']['slug'] = $this->createUniqueSlug(slugify($data['data']['news_title']));
+            } else {
+                $data['data']['slug'] = $this->createUniqueSlug($data['data']['slug']);
+            }
         }
         return $data;
     }
@@ -67,8 +71,12 @@ class ModelNews extends Model
     {
         helper(['local']); // Đảm bảo helper đã được load
         if (isset($data['data']['news_title'])) {
-            
-            $data['data']['slug'] = slugify($data['data']['news_title']);
+            if($data['data']['slug'] == "")
+            {
+                $data['data']['slug'] = $this->createUniqueSlug(slugify($data['data']['news_title']));
+            } else {
+                $data['data']['slug'] = $this->createUniqueSlug($data['data']['slug']);
+            }
         }
         return $data;
     }
@@ -158,5 +166,18 @@ class ModelNews extends Model
                 ->where('category_id',$id)
                 ->countAllResults();
         
+    }
+
+    public function createUniqueSlug($baseSlug, $excludeId = null)
+    {
+        $slug = $baseSlug;
+        $i = 1;
+
+        while ($this->where('slug', $slug)->where('id !=', $excludeId)->first()) {
+            $slug = $baseSlug . '-' . $i;
+            $i++;
+        }
+
+        return $slug;
     }
 }

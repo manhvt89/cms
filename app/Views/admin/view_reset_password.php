@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Login</title>
+	<title>Reset Password</title>
 
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -32,43 +32,31 @@
 
 <div class="login-box">
 	<div class="login-logo">
-		<b><?= esc($setting_data['website_name'] ?? 'CMS') ?> - Admin Panel</b>
+		<b>
+			<?php echo $setting_data['website_name']; ?> - Admin Panel
+		</b>
 	</div>
-	<div class="login-box-body">
-		<p class="login-box-msg">Log in to start your session</p>
-		<?php 
-			
-			helper('cookie');
-			$rememberEmail = get_cookie('remember_email') ?? '';
-			$rememberPass  = get_cookie('remember_pass') ?? '';
-			
-		?>
-		<?=flash_message()?>
+  	<div class="login-box-body">
+    	<h4 class="login-box-msg">Reset Password</h4>
+    
+	    <?= flash_message()?>
 
-		<?= form_open(base_url('admin')) ?>
+		<?php echo form_open(base_url("admin/reset-password/{$var2}"));?>
 			<div class="form-group has-feedback">
-				<input type="email" name="email" class="form-control" placeholder="Email address" autocomplete="off" autofocus>
+				<input class="form-control" placeholder="New Password" name="new_password" type="password" autocomplete="off" autofocus>
 			</div>
 			<div class="form-group has-feedback">
-				<input type="password" name="password" class="form-control" placeholder="Password" autocomplete="off">
-			</div>
-			<div style="margin: 10px 0;">
-				<label>
-					<input type="checkbox" name="remember" value="1" <?= $rememberEmail ? 'checked' : '' ?>> Remember me
-				</label>
+				<input class="form-control" placeholder="Retype Password" name="re_password" type="password" autocomplete="off" autofocus>
 			</div>
 			<div class="row">
-				<div class="col-xs-8" style="padding-top:7px;">
-					<a href="<?= base_url('admin/forget-password') ?>" style="color:red;">Forget Password?</a>
-				</div>
+				<div class="col-xs-8" style="padding-top:7px;"></div>
 				<div class="col-xs-4">
-					<input type="submit" class="btn btn-primary btn-block btn-flat login-button" name="form1" value="Login">
+					<input type="submit" class="btn btn-primary btn-block btn-flat login-button" name="form1" value="Submit">
 				</div>
 			</div>
-		<?= form_close() ?>
+		<?php echo form_close(); ?>
 	</div>
 </div>
-
 
 
 <script src="<?php echo base_url(); ?>public/admin/js/jquery-2.2.3.min.js"></script>
