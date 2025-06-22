@@ -166,6 +166,7 @@ class News extends AdminBaseController
                 'banner' => $this->request->getPost('banner-photo'),
                 'seo_score'   => $this->request->getPost('seo_score'),
                 'readability_score' => $this->request->getPost('readability_score'),
+                'slug' => $this->request->getPost('slug')
             ];
 
             $this->newsModel->_update($id, $form_data);

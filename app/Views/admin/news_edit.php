@@ -30,13 +30,22 @@
 				<?php
 			}
 			?>
-			<?= form_open_multipart(base_url().'admin/news/edit/'.$news['news_id'],['class' => 'form-horizontal']); ?>
+			<?= form_open_multipart(base_url().'admin/news/edit/'.$news['news_id'],['class' => 'form-horizontal','id'=>'post_form']); ?>
 				<div class="box box-info">
 					<div class="box-body">
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">News Title <span>*</span></label>
 							<div class="col-sm-6">
-								<input type="text" class="form-control" name="news_title" value="<?php echo $news['news_title']; ?>">
+								<input type="text" class="form-control" id="news_title" name="news_title" value="<?php echo $news['news_title']; ?>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label">Slug</label>
+							<div class="col-sm-6">
+								<span id="slug_display"><?=$news['slug']?></span>
+								<button type="button" id="edit_slug_btn">Chỉnh sửa</button><br>
+								<input class="form-control" type="text" name="slug" id="slug" style="display:none;" value="<?=$news['slug']?>">	
+								<span id="slug_status" style="font-size: 0.9em; margin-left: 10px;"></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -202,15 +211,75 @@ function analyzeSEO(content, keyword, title, description) {
         const keywordDensity = (keywordCount / content.split(" ").length) * 100;
 
         let score = 0;
-        if (title.toLowerCase().includes(keyword.toLowerCase())) score += 10;
-        if (description.toLowerCase().includes(keyword.toLowerCase())) score += 10;
+		let _oTitle = {};
+		let	_oDescription = {};
+		let	_oContent = {};
+		let suggestions = [];
+        if (title.toLowerCase().includes(keyword.toLowerCase())){
+			let msg = "";
+			if (title.length < 30 || title.length > 60)
+			{
+				msg = "⚠️ Tiêu đề nên nằm trong khoảng 30-60 ký tự.";
+				_oTitle.score = 5;
+			} else {
+				msg = "Tốt.";
+				_oTitle.score = 10;
+			}
+			_oTitle.message = msg;
+			suggestions.push(_oTitle.message);
+		}  else {
+			_oTitle.score = 0;
+			_oTitle.message = "⚠️ Không có từ khóa trong tiêu đề.";
+			suggestions.push(_oTitle.message);
+		}
+        score += _oTitle.score;
+		if (description.toLowerCase().includes(keyword.toLowerCase()))
+		{
+			if (description.length < 70 || description.length > 160)
+			{
+				_oDescription.score = 5;
+				_oDescription.message = "⚠️ Mô tả nên nằm trong khoảng 70-160 ký tự.";
+			} else {
+				_oDescription.score = 10;
+				_oDescription.message = "Tốt.";
+			}
+			suggestions.push(_oDescription.message);
+			
+		} else {
+			_oDescription.score = 0;
+			_oDescription.message = "⚠️ Chưa có từ khóa trong mô tả.";
+			suggestions.push(_oDescription.message);
+		}
+		
+		score += _oDescription.score;
+
         if (keywordDensity >= 1 && keywordDensity <= 3) score += 10;
         if (keywordCount >= 2) score += 10;
 
+		const first100Words = content.toLowerCase().split(/\s+/).slice(0, 100).join(" ");
+		if (!first100Words.includes(keyword.toLowerCase())) {
+			_oContent.message = "⚠️ Từ khóa nên xuất hiện trong 100 từ đầu tiên của nội dung.";
+			_oContent.score = 5;
+			suggestions.push(_oContent.message);
+		} else {
+			_oContent.score = 10;
+			_oContent.message = "Tốt";
+			suggestions.push(_oContent.message);
+		}
+
+		const headings = content.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gi) || [];
+		const keywordInHeadings = headings.some(h => h.toLowerCase().includes(keyword.toLowerCase()));
+		if (!keywordInHeadings) {
+			suggestions.push("⚠️ Nên chèn từ khóa vào các tiêu đề phụ (heading).");
+		}
         return {
             score,
             keywordCount,
-            keywordDensity: keywordDensity.toFixed(2)
+            keywordDensity: keywordDensity.toFixed(2),
+			_oTitle,
+			_oDescription,
+			_oContent,
+			suggestions
         };
     }
 
@@ -232,7 +301,7 @@ function analyzeSEO(content, keyword, title, description) {
     }
 
     function suggestImprovements(seo, readability) {
-        const suggestions = [];
+        let suggestions = seo.suggestions;
         if (seo.score < 30) suggestions.push("⚠️ SEO chưa tối ưu. Cần thêm từ khóa vào tiêu đề, mô tả, nội dung.");
         if (readability.flesch < 60) suggestions.push("⚠️ Văn bản khó đọc. Cần viết ngắn gọn và rõ ràng hơn.");
         if (seo.keywordDensity > 4) suggestions.push("⚠️ Mật độ từ khóa quá cao.");
@@ -297,5 +366,113 @@ function analyzeSEO(content, keyword, title, description) {
 		document.getElementById('seo_modal').style.display = 'none';
 		document.getElementById('seo_modal_overlay').style.display = 'none';
 	}
+
+	let slugEdited = false;
+	let slugValid = true;
+
+	// ✅ HÀM kiểm tra slug
+	function checkSlug() {
+		const slugInput = document.getElementById('slug');
+		const slug = slugify(slugInput.value);
+		slugInput.value = slug;
+		
+		$.get('<?=base_url('get-csrf-token')?>', function (tokenData) {
+
+			$.ajax({
+                url: '<?=base_url('admin/news/check-slug')?>',
+                type: 'POST',
+                data: {
+                    'slug': slug,
+					'id': id,
+                    [tokenData.csrfName]: tokenData.csrfHash
+                },
+				success: function (response)
+				{
+					const status = document.getElementById('slug_status');
+					if (response.exists || slug.length < 1) {
+						slugValid = false;
+						status.innerText = '❌ ' + (slug.length < 1 ? 'Slug không được để trống.' : response.message);
+						status.style.color = 'red';
+					} else {
+						slugValid = true;
+						status.innerText = '✅ ' + response.message;
+						status.style.color = 'green';
+					}
+				},
+				error: function (xhr) {
+                    console.log(xhr.responseJSON);
+                    $('#slug_status').html('<span style="color:red;">' + xhr.responseJSON.message + '</span>');
+                }
+			
+			});
+		});
+	}
+	document.addEventListener("DOMContentLoaded", () => {
+		document.getElementById('news_title').addEventListener('input', function () {
+			if (!slugEdited) {
+				const autoSlug = slugify(this.value);
+				document.getElementById('slug_display').textContent = autoSlug;
+				document.getElementById('slug').value = ''; // gửi rỗng để server tạo lại
+			}
+		});
+
+		document.getElementById('edit_slug_btn').addEventListener('click', function () {
+			const slugInput = document.getElementById('slug');
+			const slugSpan = document.getElementById('slug_display');
+			const title = document.getElementById('news_title');
+
+			if (slugInput.style.display === 'none') {
+				slugInput.style.display = 'inline';
+				slugSpan.style.display = 'none';
+				slugInput.value = slugSpan.textContent;
+				slugEdited = true;
+				this.textContent = 'Xong';
+			} else {
+				const edited = slugify(slugInput.value);
+				slugInput.value = edited;
+				slugSpan.textContent = edited;
+				slugInput.style.display = 'none';
+				slugSpan.style.display = 'inline';
+				checkSlug(); // kiểm tra trùng slug
+				if(slugInput.value == "")
+				{
+					slugSpan.textContent = slugify(title.value);
+				}
+				this.textContent = 'Chỉnh sửa';
+			}
+		});
+
+		document.getElementById('slug').addEventListener('blur', function () {
+			checkSlug();
+		});
+	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+	// Chặn submit nếu slug không hợp lệ
+		document.getElementById('post_form').addEventListener('submit', function (e) {
+			e.preventDefault(); // chặn mặc định
+			//console.log('123'); 
+			const form = this; // ✅ lưu lại tham chiếu đến form
+			const slugInput = document.getElementById('slug');
+			const title = document.getElementById('news_title').value.trim();
+			const slug = slugInput.value.trim() || slugify(title);
+			
+			$.get('<?=base_url('get-csrf-token')?>', function (tokenData) {	
+				if (slug.length === 0 || !slugValid) {
+					e.preventDefault();
+					alert('Slug không hợp lệ hoặc đã tồn tại. Vui lòng chỉnh sửa!');
+					return false;
+				}	
+				
+				const tokenInput = document.querySelector(`input[name="${tokenData.csrfName}"]`);
+				console.log(tokenData);
+				if (tokenInput) tokenInput.value = tokenData.csrfHash;
+				console.log(tokenInput);
+				const t = document.querySelector(`input[name="${tokenData.csrfName}"]`);
+				console.log(t);
+				form.submit();
+			});
+		});
+	});
 	</script>
 <?= $this->endSection() ?>
