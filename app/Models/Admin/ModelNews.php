@@ -173,7 +173,7 @@ class ModelNews extends Model
         $slug = $baseSlug;
         $i = 1;
 
-        while ($this->where('slug', $slug)->where('id !=', $excludeId)->first()) {
+        while ($this->where('slug', $slug)->where('news_id !=', $excludeId)->first()) {
             $slug = $baseSlug . '-' . $i;
             $i++;
         }
