@@ -98,9 +98,10 @@ class ServiceModel extends Model
 
     protected function generateSlug(array $data)
     {
+        helper(['text','local']); // dùng url_title
         if (!isset($data['data']['name'])) return $data;
 
-        $baseSlug = url_title($data['data']['name'], '-', true);
+        $baseSlug = slugify($data['data']['name']);
         $slug = $baseSlug;
         $i = 1;
 

@@ -1,0 +1,6 @@
+Bổ dung thêm slug
+php spark make:migration add_slug_to_tbl_service
+php spark migrate
+
+php spark make:command InitServiceSlug --command init:service-slug
+php spark init:service-slug
