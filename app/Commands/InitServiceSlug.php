@@ -21,7 +21,7 @@ class InitServiceSlug extends BaseCommand
         $count = 0;
 
         foreach ($all as $item) {
-            if (!empty($item['slug'])) continue;
+            if (empty($item['slug'])) continue;
 
         
             $baseSlug = slugify($item['name']);
