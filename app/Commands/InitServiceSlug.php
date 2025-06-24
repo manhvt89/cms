@@ -14,7 +14,7 @@ class InitServiceSlug extends BaseCommand
 
     public function run(array $params)
     {
-        helper('text'); // dùng url_title
+        helper('text','local'); // dùng url_title
 
         $model = new ServiceModel();
         $all   = $model->findAll();
