@@ -23,7 +23,8 @@ class InitServiceSlug extends BaseCommand
         foreach ($all as $item) {
             if (!empty($item['slug'])) continue;
 
-            $baseSlug = url_title($item['name'], '-', true);
+        
+            $baseSlug = slugify($item['name']);
             $slug     = $baseSlug;
             $i        = 1;
 
