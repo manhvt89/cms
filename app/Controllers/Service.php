@@ -45,7 +45,7 @@ class Service extends BaseController
 
     public function view($id = null)
     {
-        if (!is_numeric($id) || !$this->service->service_exists($id)) {
+        if (!$this->service->service_exists($id)) {
             return redirect()->to(base_url());
         }
 

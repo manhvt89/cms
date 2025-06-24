@@ -10,7 +10,7 @@ class ServiceModel extends Model
     protected $table = 'tbl_service';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'name','photo','description',
+        'name','photo','description','slug',
         'short_description','lang_id',
         'meta_title','meta_keyword','meta_description'
     ];
@@ -37,14 +37,16 @@ class ServiceModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    
     protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
+    
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+    protected $beforeInsert = ['generateSlug'];
+    protected $beforeUpdate = ['generateSlug'];
     public function __construct()
     {
         parent::__construct();
@@ -92,5 +94,35 @@ class ServiceModel extends Model
     public function item_check($id)
     {
         return $this->getData($id);
+    }
+
+    protected function generateSlug(array $data)
+    {
+        if (!isset($data['data']['name'])) return $data;
+
+        $baseSlug = url_title($data['data']['name'], '-', true);
+        $slug = $baseSlug;
+        $i = 1;
+
+        // Tránh slug trùng nếu insert hoặc update
+        while ($this->isSlugExists($slug, $data)) {
+            $slug = $baseSlug . '-' . $i++;
+        }
+
+        $data['data']['slug'] = $slug;
+        return $data;
+    }
+
+    protected function isSlugExists(string $slug, array $data): bool
+    {
+        $builder = $this->builder();
+        $builder->where('slug', $slug);
+
+        // Nếu là update thì loại trừ chính bản ghi đó
+        if (!empty($data['id'])) {
+            $builder->where($this->primaryKey . ' !=', $data['id']);
+        }
+
+        return $builder->countAllResults() > 0;
     }
 }

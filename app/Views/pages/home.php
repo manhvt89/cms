@@ -228,12 +228,12 @@
                             <div class="services-photo" style="background-image: url(<?=base_url($row['photo']) ?>)"></div>
                         </a>
                         <div class="services-text">
-                            <h3><a href="<?php echo base_url(); ?>service/view/<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a></h3>
+                            <h3><a href="<?php echo base_url(); ?>service/<?php echo $row['slug']; ?>"><?php echo $row['name']; ?></a></h3>
                             <p>
                                 <?php echo nl2br($row['short_description']); ?>
                             </p>
                             <div class="button-bn">
-                                <a href="<?php echo base_url(); ?>service/view/<?php echo $row['id']; ?>"><?=READ_MORE ?> <i class="fa fa-chevron-circle-right"></i></a>
+                                <a href="<?php echo base_url(); ?>service/<?php echo $row['slug']; ?>"><?=READ_MORE ?> <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
                         </div>
                     </div>

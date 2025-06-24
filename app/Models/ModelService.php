@@ -17,14 +17,24 @@ class ModelService extends Model
                     ->findAll();
     }
 
-    public function service_exists(int $id): bool
+    public function service_exists(int | string $id): bool
     {
-        return $this->where('id', $id)->countAllResults() > 0;
+        if(is_numeric($id))
+        {
+            return $this->where('id', $id)->countAllResults() > 0;
+        } else {
+           return $this->where('slug', $id)->countAllResults() > 0;
+        }
     }
 
-    public function get_service_detail(int $id): ?array
+    public function get_service_detail(int|string $id): ?array
     {
-        return $this->find($id);
+        if(is_numeric($id))
+        {
+            return $this->find($id);
+        } else {
+             return $this->where('slug', $id)->first();
+        }
     }
 
     public function check_captcha(): ?array
